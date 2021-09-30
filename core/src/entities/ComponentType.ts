@@ -3,10 +3,7 @@ import { v4 as uuid } from 'uuid';
 
 export default class ComponentType {
 
-    constructor(
-        private _systemProperties: SystemProperty[],
-        private readonly _id = uuid()) {
-
+    constructor(private _systemProperties: SystemProperty[], private readonly _id = uuid()) {
     }
 
     addSystemProperty(systemProperty: SystemProperty) {

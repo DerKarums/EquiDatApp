@@ -1,4 +1,4 @@
-import Component from "./Componentt";
+import Component from "./Component";
 import SubSystem from "./SubSystem";
 import SystemProperty from "./SystemProperty";
 import SystemPropertyType from "./SystemPropertyType";
