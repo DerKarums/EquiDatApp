@@ -6,3 +6,4 @@ enum SystemPropertyType {
 }
 
 export default SystemPropertyType;
+
