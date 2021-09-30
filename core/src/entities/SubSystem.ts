@@ -1,13 +1,10 @@
-import { SystemProperty } from "./system-property";
-import { v4 as uuid } from 'uuid';
+import SystemProperty from "./SystemProperty";
 
-export abstract class SubSystem {
+export default abstract class SubSystem {
 
-    private readonly _id: string = uuid();
     private systemPropertyValues = new Map<string, string>();
 
-    constructor() {
-
+    constructor(private readonly _id: string) {
     }
 
     abstract getSchema(): SystemProperty[];

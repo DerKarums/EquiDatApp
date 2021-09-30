@@ -1,7 +1,7 @@
-import { Component } from "./component";
-import { SubSystem } from "./sub-system";
-import { SystemProperty } from "./system-property";
-import { SystemPropertyType } from "./system-property-type";
+import Component from "./Componentt";
+import SubSystem from "./SubSystem";
+import SystemProperty from "./SystemProperty";
+import SystemPropertyType from "./SystemPropertyType";
 
 const SCHEMA = [
     new SystemProperty('Name', SystemPropertyType.StringType),
@@ -10,7 +10,7 @@ const SCHEMA = [
     // ...
 ]
 
-export class TestSystem extends SubSystem {
+export default class TestSystem extends SubSystem {
 
     private components: Component[] = [];
 

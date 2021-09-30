@@ -1,10 +1,13 @@
-import { SystemProperty } from "./system-property";
+import SystemProperty from "./SystemProperty";
 import { v4 as uuid } from 'uuid';
 
 export default class ComponentType {
 
-    private readonly _id = uuid();
-    private _systemProperties: SystemProperty[] = [];
+    constructor(
+        private _systemProperties: SystemProperty[],
+        private readonly _id = uuid()) {
+
+    }
 
     addSystemProperty(systemProperty: SystemProperty) {
         this._systemProperties.push(systemProperty);

@@ -1,11 +1,9 @@
-import { SystemPropertyType } from "./system-property-type";
+import SystemPropertyType from "./SystemPropertyType";
 import { v4 as uuid } from 'uuid';
 
-export class SystemProperty {
+export default class SystemProperty {
 
-    private readonly _id = uuid();
-
-    constructor(private _label: string, private _type: SystemPropertyType) {
+    constructor(private _label: string, private _type: SystemPropertyType, private readonly _id = uuid()) {
     }
 
     get id() {
