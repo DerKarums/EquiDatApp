@@ -1,23 +1,20 @@
 import Component from "./Component";
 import SubSystem from "./SubSystem";
 import SystemProperty from "./SystemProperty";
-import SystemPropertyType from "./SystemPropertyType";
 import TestSystem from "./TestSystem";
-
-const SCHEMA = [
-    new SystemProperty('Land', SystemPropertyType.StringType),
-    new SystemProperty('Standort', SystemPropertyType.StringType),
-    new SystemProperty('Gebäude / Werk', SystemPropertyType.StringType),
-    // ...
-]
+import { v4 as uuid } from 'uuid';
 
 export default class ManifacturingUnit extends SubSystem {
 
     private testSystems: TestSystem[] = [];
     private components: Component[] = [];
 
+    constructor(private readonly schema: SystemProperty[], id: string = uuid()) {
+        super(id)
+    }
+
     getSchema(): SystemProperty[] {
-        return SCHEMA;
+        return this.schema;
     }
 
     public addTestSystem(testSystem: TestSystem) {
