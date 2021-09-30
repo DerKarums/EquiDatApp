@@ -1,5 +1,9 @@
-
-export enum SystemPropertyType {
+enum SystemPropertyType {
     StringType,
-    NumberType
+    NumberType,
+    YearType,
+    DateType,
 }
+
+export default SystemPropertyType;
+

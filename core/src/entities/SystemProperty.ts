@@ -1,35 +1,28 @@
-import { SystemPropertyType } from "./SystemPropertyType";
+import SystemPropertyType from "./SystemPropertyType";
+import { v4 as uuid } from 'uuid';
 
+export default class SystemProperty {
 
-export class SystemProperty {
-    private _id: string;
-    private _name: string;
-    private _type: SystemPropertyType;
-
-    constructor(id: string, name: string, type: SystemPropertyType) {
-        this._id = id;
-        this._name = name;
-        this._type = type;
+    constructor(private _label: string, private _type: SystemPropertyType, private readonly _id = uuid()) {
     }
 
-    public get type(): SystemPropertyType {
-        return this._type;
-    }
-
-    public set type(value: SystemPropertyType) {
-        this._type = value;
-    }
-
-    public get name(): string {
-        return this._name;
-    }
-
-    public set name(value: string) {
-        this._name = value;
-    }
-
-    public get id(): string {
+    get id() {
         return this._id;
     }
 
+    get label() {
+        return this._label;
+    }
+
+    set label(label: string) {
+        this._label = label;
+    }
+
+    get type() {
+        return this._type;
+    }
+
+    set type(type: SystemPropertyType) {
+        this._type = type;
+    }
 }
