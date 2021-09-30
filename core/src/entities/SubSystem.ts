@@ -2,9 +2,10 @@ import SystemProperty from "./SystemProperty";
 
 export default abstract class SubSystem {
 
-    private systemPropertyValues = new Map<string, string>();
-
-    constructor(private readonly _id: string) {
+    constructor(
+        private readonly _id: string,
+        private systemPropertyValues = new Map<string, string>()
+    ) {
     }
 
     abstract getSchema(): SystemProperty[];
