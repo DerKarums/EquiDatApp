@@ -9,7 +9,7 @@ export default class ManifacturingUnit extends SubSystem {
     private components: Component[] = [];
 
     constructor(private readonly schema: SystemProperty[],
-        systemPropertyValues: Map<string, string>,
+        systemPropertyValues?: Map<string, string>,
         id?: string
     ) {
         super(id, systemPropertyValues);
