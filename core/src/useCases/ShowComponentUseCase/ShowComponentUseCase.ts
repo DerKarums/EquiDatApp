@@ -12,6 +12,6 @@ export default class ShowComponentUseCase {
 
     public getComponent(id: string, callbacks: ShowComponentCallbacks) : void{
         const component = this.repository.getComponent(id);
-        callbacks.onComponentFetched(component);
+        callbacks.setComponent(component);
     }
 }

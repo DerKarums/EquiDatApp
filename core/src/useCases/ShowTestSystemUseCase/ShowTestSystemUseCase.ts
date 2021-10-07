@@ -12,6 +12,6 @@ export default class ShowTestSystemUseCase {
 
     public getTestSystem(id: string, callbacks: ShowTestSystemCallbacks) : void {
         const testSystem = this.repository.getTestSystem(id);
-        callbacks.onTestSystemFetched(testSystem);
+        callbacks.setTestSystem(testSystem);
     }
 }
