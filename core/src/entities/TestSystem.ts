@@ -1,4 +1,3 @@
-import { v4 as uuid } from 'uuid';
 import Component from "./Component";
 import SubSystem from "./SubSystem";
 import SystemProperty from "./SystemProperty";
@@ -7,8 +6,11 @@ export default class TestSystem extends SubSystem {
 
     private components: Component[] = [];
 
-    constructor(private readonly schema: SystemProperty[], id: string = uuid()) {
-        super(id)
+    constructor(private readonly schema: SystemProperty[],
+        systemPropertyValues: Map<string, string>,
+
+    ) {
+        super(systemPropertyValues);
     }
 
     getSchema(): SystemProperty[] {

@@ -1,10 +1,11 @@
 import SystemProperty from "./SystemProperty";
+import { v4 as uuid } from 'uuid';
 
 export default abstract class SubSystem {
 
     constructor(
-        private readonly _id: string,
-        private systemPropertyValues = new Map<string, string>()
+        private systemPropertyValues = new Map<string, string>(),
+        private readonly _id = uuid(),
     ) {
     }
 
