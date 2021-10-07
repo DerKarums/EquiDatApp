@@ -4,8 +4,9 @@ import SystemProperty from "./SystemProperty";
 
 export default class Component extends SubSystem {
 
-    constructor(private readonly componentType: ComponentType) {
-        super();
+    constructor(private readonly componentType: ComponentType,
+        id?: string) {
+        super(id);
     }
 
     getSchema(): SystemProperty[] {

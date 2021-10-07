@@ -8,9 +8,10 @@ export default class TestSystem extends SubSystem {
 
     constructor(private readonly schema: SystemProperty[],
         systemPropertyValues: Map<string, string>,
+        id?: string,
 
     ) {
-        super(systemPropertyValues);
+        super(id, systemPropertyValues);
     }
 
     getSchema(): SystemProperty[] {
