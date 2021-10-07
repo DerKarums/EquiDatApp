@@ -4,7 +4,7 @@ import { CreateTestSystemRepository } from "./CreateTestSystemRepository";
 import TestSystemModel from "./TestSystemModel";
 
 
-export default class CreateTestSystemUseCaseImpl {
+export default class CreateTestSystemUseCase {
 
     constructor(
         private readonly repository: CreateTestSystemRepository,

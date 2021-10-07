@@ -4,7 +4,7 @@ import ComponentModel from "./ComponentModel";
 import { CreateComponentRepository } from "./CreateComponentRepository";
 
 
-export default class CreateComponentUseCaseImpl {
+export default class CreateComponentUseCase {
 
     constructor(
         private readonly repository: CreateComponentRepository,

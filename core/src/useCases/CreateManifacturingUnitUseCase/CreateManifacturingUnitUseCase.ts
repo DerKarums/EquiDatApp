@@ -4,7 +4,7 @@ import { CreateManifacturingUnitRepository } from "./CreateManifacturingUnitRepo
 import ManifactoringUnitModel from "./ManifacturingUnitModel";
 
 
-export default class CreateManifacturingUnitUseCaseImpl {
+export default class CreateManifacturingUnitUseCase {
 
     constructor(
         private readonly repository: CreateManifacturingUnitRepository,
