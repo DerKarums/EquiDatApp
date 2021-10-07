@@ -8,8 +8,8 @@ export default class ManifacturingUnit extends SubSystem {
 
     constructor(private readonly schema: SystemProperty[],
         systemPropertyValues?: Map<string, string>,
-        private testSystems: TestSystem[] = [],
-        private components: Component[] = [],
+        private _testSystems: TestSystem[] = [],
+        private _components: Component[] = [],
         id?: string
     ) {
         super(id, systemPropertyValues);
@@ -20,18 +20,27 @@ export default class ManifacturingUnit extends SubSystem {
     }
 
     public addTestSystem(testSystem: TestSystem) {
-        this.testSystems.push(testSystem);
+        this._testSystems.push(testSystem);
     }
 
     public deleteTestSystem(id: string) {
-        this.testSystems = this.testSystems.filter(testSystem => testSystem.id != id)
+        this._testSystems = this._testSystems.filter(testSystem => testSystem.id != id)
     }
 
     public addComponent(component: Component) {
-        this.components.push(component);
+        this._components.push(component);
     }
 
     public deleteComponent(id: string) {
-        this.components = this.components.filter(component => component.id != id)
+        this._components = this._components.filter(component => component.id != id)
     }
+
+    public get testSystems(): TestSystem[] {
+        return this._testSystems;
+    }
+
+    public get components(): Component[] {
+        return this._components;
+    }
+
 }
