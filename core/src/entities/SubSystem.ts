@@ -15,6 +15,18 @@ export default abstract class SubSystem {
         this.systemPropertyValues.set(id, value);
     }
 
+    getRelevantSystemProperties(): Map<SystemProperty, string | null> {
+        return new Map(
+            this.getSchema()
+                .map((systemProperty) => [systemProperty, this.getSystemPropertyValue(systemProperty.id)])
+        );
+    }
+
+    getSystemPropertyValue(id: string): string | null {
+        const value = this.systemPropertyValues.get(id);
+        return value === undefined ? null : value;
+    }
+
     get id() {
         return this._id;
     }
