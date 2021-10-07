@@ -5,11 +5,11 @@ import TestSystem from "./TestSystem";
 
 export default class ManifacturingUnit extends SubSystem {
 
-    private testSystems: TestSystem[] = [];
-    private components: Component[] = [];
 
     constructor(private readonly schema: SystemProperty[],
         systemPropertyValues?: Map<string, string>,
+        private testSystems: TestSystem[] = [],
+        private components: Component[] = [],
         id?: string
     ) {
         super(id, systemPropertyValues);

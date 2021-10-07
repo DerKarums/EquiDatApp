@@ -4,10 +4,10 @@ import SystemProperty from "./SystemProperty";
 
 export default class TestSystem extends SubSystem {
 
-    private components: Component[] = [];
 
     constructor(private readonly schema: SystemProperty[],
         systemPropertyValues?: Map<string, string>,
+        private components: Component[] = [],
         id?: string,
 
     ) {
