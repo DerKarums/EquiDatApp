@@ -1,6 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { ComponentType } from "core/src/entities";
+import AllComponentsUseCase from "core/src/useCases/AllComponentsUseCase/AllComponentsUseCase";
 
 function App() {
   return (
