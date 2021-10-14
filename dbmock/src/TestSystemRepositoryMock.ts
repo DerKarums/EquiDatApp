@@ -2,7 +2,25 @@ import { CreateTestSystemRepository, ShowTestSystemRepository, SystemPropertyTyp
 
 export class TestSystemRepositoryMock implements CreateTestSystemRepository, ShowTestSystemRepository , AllTestSystemsRepository{
    
-    testSystems: Map<string, TestSystem> = new Map([["ts1", new TestSystem(this.getSchema())]]);
+    private initialTestSystems = [
+        new TestSystem(
+            this.getSchema(), 
+            new Map([
+                ["name", "Testsystem Nr. 1"], 
+                ["createdAt", "2021-10-14"],
+                ["count", "5"]
+            ])
+        ),
+        new TestSystem(
+            this.getSchema(), 
+            new Map([
+                ["name", "Testsystem Nr. 2"], 
+                ["createdAt", "2021-10-12"],
+            ])
+        ),
+    ];
+    
+    private testSystems: Map<string, TestSystem> = new Map(this.initialTestSystems.map(testSystem => [testSystem.id, testSystem]));
     
     getTestSystems(): TestSystem[] {
         return [... this.testSystems.values()];
@@ -20,9 +38,9 @@ export class TestSystemRepositoryMock implements CreateTestSystemRepository, Sho
 
     getSchema(): SystemProperty[] {
         return [
-            new SystemProperty("Name", SystemPropertyType.StringType, true),
-            new SystemProperty("Aufgestellt am", SystemPropertyType.DateType, false),
-            new SystemProperty("Anzahl", SystemPropertyType.NumberType, false),
+            new SystemProperty("Name", SystemPropertyType.StringType, true, "name"),
+            new SystemProperty("Aufgestellt am", SystemPropertyType.DateType, false, "createdAt"),
+            new SystemProperty("Anzahl", SystemPropertyType.NumberType, false, "count"),
         ];
     }
 }

@@ -2,7 +2,25 @@ import { ManufacturingUnit, SystemProperty, SystemPropertyType, CreateManufactur
 
 export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitRepository, ShowManufacturingUnitRepository, AllManufacturingUnitsRepository {
 
-    manufacturingUnits: Map<string, ManufacturingUnit> = new Map([["mu1", new ManufacturingUnit(this.getSchema())]]);
+    private initialManufacturingUnits = [
+        new ManufacturingUnit(
+            this.getSchema(),
+            new Map([
+                ["name", "Fertigungseinheit Nr. 1"],
+                ["createdAt", "2021-10-14"],
+                ["count", "5"]
+            ])
+        ),
+        new ManufacturingUnit(
+            this.getSchema(),
+            new Map([
+                ["name", "Montagezelle Nr. 4711"],
+                ["createdAt", "2021-10-12"],
+            ])
+        ),
+    ];
+
+    private manufacturingUnits: Map<string, ManufacturingUnit> = new Map(this.initialManufacturingUnits.map(manufacturingUnit => [manufacturingUnit.id, manufacturingUnit]));
 
     getManufacturingUnits(): ManufacturingUnit[] {
         return [... this.manufacturingUnits.values()];
@@ -19,9 +37,9 @@ export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitR
 
     getSchema(): SystemProperty[] {
         return [
-            new SystemProperty("Name", SystemPropertyType.StringType, true),
-            new SystemProperty("Aufgestellt am", SystemPropertyType.DateType, false),
-            new SystemProperty("Anzahl", SystemPropertyType.NumberType, false),
+            new SystemProperty("Name", SystemPropertyType.StringType, true, "name"),
+            new SystemProperty("Aufgestellt am", SystemPropertyType.DateType, false, "createdAt"),
+            new SystemProperty("Anzahl", SystemPropertyType.NumberType, false, "count"),
         ];
     }
 }

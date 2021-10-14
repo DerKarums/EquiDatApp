@@ -1,8 +1,6 @@
 import { CreateComponentRepository, ShowComponentRepository, SystemProperty, SystemPropertyType, Component, ComponentType, AllComponentsRepository } from "core"
 
 export class ComponentRepositoryMock implements CreateComponentRepository, ShowComponentRepository, AllComponentsRepository {
-    
-
 
     componentTypes = [
         new ComponentType([
@@ -11,7 +9,7 @@ export class ComponentRepositoryMock implements CreateComponentRepository, ShowC
             new SystemProperty("Anzahl", SystemPropertyType.NumberType, false),
         ])];
 
-    components: Map<string, Component> = new Map([["c1", new Component(this.componentTypes[0])]]);
+    private components: Map<string, Component> = new Map([["c1", new Component(this.componentTypes[0])]]);
 
     getComponents(): Component[] {
         return [...this.components.values()];
