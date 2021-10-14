@@ -1,6 +1,6 @@
 import TestSystem from "../../entities/TestSystem";
 
 
-export interface AllTestSystemsRepository {
+export default interface AllTestSystemsRepository {
   getTestSystems(): TestSystem[];
 }
