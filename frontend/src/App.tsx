@@ -2,10 +2,12 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { SystemProperty, SystemPropertyType } from 'core';
+import { ManufacturingUnitRepositoryMock } from 'dbmock';
 
 function App() {
 
   const test = new SystemProperty("test", SystemPropertyType.StringType, true);
+  const test2 = new ManufacturingUnitRepositoryMock();
 
   return (
     <div className="App">
@@ -15,6 +17,7 @@ function App() {
           Edit <code>src/App.tsx</code> and save to reload.
           {test.label}
         </p>
+        {test2.getSchema().map((systemProperty: SystemProperty) => <p>{systemProperty.label}</p>)}
         <a
           className="App-link"
           href="https://reactjs.org"

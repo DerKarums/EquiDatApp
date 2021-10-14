@@ -1,12 +1,8 @@
-import ManufacturingUnit from "../../core/src/entities/ManufacturingUnit";
-import SystemProperty from "../../core/src/entities/SystemProperty";
-import SystemPropertyType from "../../core/src/entities/SystemPropertyType";
-import CreateManufacturingUnitRepository from "../../core/src/useCases/CreateManufacturingUnitUseCase/CreateManufacturingUnitRepository"
-import ShowManufacturingUnitRepository from "../../core/src/useCases/ShowManufacturingUnitUseCase/ShowManufacturingUnitRepository"
+import { ManufacturingUnit, SystemProperty, SystemPropertyType, CreateManufacturingUnitRepository, ShowManufacturingUnitRepository } from "core";
 
-export default class ManifactoringUnitRepositoryMock implements CreateManufacturingUnitRepository, ShowManufacturingUnitRepository{
+export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitRepository, ShowManufacturingUnitRepository {
 
-    manufacturingUnits: Map<string, ManufacturingUnit>;
+    manufacturingUnits: Map<string, ManufacturingUnit> = new Map([["mu1", new ManufacturingUnit(this.getSchema())]]);
 
     createManufacturingUnit(manufacturingUnit: ManufacturingUnit): void {
         console.log("createManufacturingUnit");
@@ -14,14 +10,14 @@ export default class ManifactoringUnitRepositoryMock implements CreateManufactur
     }
 
     getManufacturingUnit(id: string): ManufacturingUnit {
-        return this.manufacturingUnits.get(id);
+        return this.manufacturingUnits.get(id) as ManufacturingUnit;
     }
 
     getSchema(): SystemProperty[] {
         return [
-            new SystemProperty("Name", SystemPropertyType.StringType),
-            new SystemProperty("Aufgestellt am", SystemPropertyType.DateType),
-            new SystemProperty("Anzahl", SystemPropertyType.NumberType),
+            new SystemProperty("Name", SystemPropertyType.StringType, true),
+            new SystemProperty("Aufgestellt am", SystemPropertyType.DateType, false),
+            new SystemProperty("Anzahl", SystemPropertyType.NumberType, false),
         ];
     }
 }

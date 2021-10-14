@@ -1,12 +1,8 @@
-import TestSystem from "../../core/src/entities/TestSystem";
-import SystemProperty from "../../core/src/entities/SystemProperty";
-import SystemPropertyType from "../../core/src/entities/SystemPropertyType";
-import CreateTestSystemRepository from "../../core/src/useCases/CreateTestSystemUseCase/CreateTestSystemRepository"
-import ShowTestSystemRepository from "../../core/src/useCases/ShowTestSystemUseCase/ShowTestSystemRepository"
+import { CreateTestSystemRepository, ShowTestSystemRepository, SystemPropertyType, SystemProperty, TestSystem } from "core"
 
-export default class TestSystemRepositoryMock implements CreateTestSystemRepository, ShowTestSystemRepository {
+export class TestSystemRepositoryMock implements CreateTestSystemRepository, ShowTestSystemRepository {
 
-    testSystems: Map<string, TestSystem>;
+    testSystems: Map<string, TestSystem> = new Map([["ts1", new TestSystem(this.getSchema())]]);
 
     createTestSystem(testSystem: TestSystem): void {
         console.log("createTestSystem");
@@ -14,15 +10,15 @@ export default class TestSystemRepositoryMock implements CreateTestSystemReposit
     }
 
     getTestSystem(id: string): TestSystem {
-        return this.testSystems.get(id);
+        return this.testSystems.get(id) as TestSystem;
     }
 
 
     getSchema(): SystemProperty[] {
         return [
-            new SystemProperty("Name", SystemPropertyType.StringType),
-            new SystemProperty("Aufgestellt am", SystemPropertyType.DateType),
-            new SystemProperty("Anzahl", SystemPropertyType.NumberType),
+            new SystemProperty("Name", SystemPropertyType.StringType, true),
+            new SystemProperty("Aufgestellt am", SystemPropertyType.DateType, false),
+            new SystemProperty("Anzahl", SystemPropertyType.NumberType, false),
         ];
     }
 }

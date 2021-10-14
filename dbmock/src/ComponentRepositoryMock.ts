@@ -1,13 +1,15 @@
-import Component from "../../core/src/entities/Component";
-import SystemProperty from "../../core/src/entities/SystemProperty";
-import SystemPropertyType from "../../core/src/entities/SystemPropertyType";
-import CreateComponentRepository from "../../core/src/useCases/CreateComponentUseCase/CreateComponentRepository"
-import ShowComponentRepository from "../../core/src/useCases/ShowComponentUseCase/ShowComponentRepository"
+import { CreateComponentRepository, ShowComponentRepository, SystemProperty, SystemPropertyType, Component, ComponentType } from "core"
 
+export class ComponentRepositoryMock implements CreateComponentRepository, ShowComponentRepository {
 
-export default class ComponentRepositoryMock implements CreateComponentRepository, ShowComponentRepository {
+    componentTypes = [
+        new ComponentType([
+            new SystemProperty("Name", SystemPropertyType.StringType, true),
+            new SystemProperty("Aufgestellt am", SystemPropertyType.DateType, false),
+            new SystemProperty("Anzahl", SystemPropertyType.NumberType, false),
+        ])];
 
-    components: Map<string, Component>;
+    components: Map<string, Component> = new Map([["c1", new Component(this.componentTypes[0])]]);
 
     createComponent(component: Component): void {
         console.log("createComponent");
@@ -15,14 +17,6 @@ export default class ComponentRepositoryMock implements CreateComponentRepositor
     }
 
     getComponent(id: string): Component {
-        return this.components.get(id);
-    }
-
-    getSchema(): SystemProperty[] {
-        return [
-            new SystemProperty("Name", SystemPropertyType.StringType),
-            new SystemProperty("Aufgestellt am", SystemPropertyType.DateType),
-            new SystemProperty("Anzahl", SystemPropertyType.NumberType),
-        ];
+        return this.components.get(id) as Component;
     }
 }
