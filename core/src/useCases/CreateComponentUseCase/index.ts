@@ -1,4 +1,6 @@
-export * from './CreateComponentUseCase';
-export * from './CreateComponentRepository';
-export * from './CreateComponentCallbacks';
-export * from './ComponentModel';
+import CreateComponentUseCase from "./CreateComponentUseCase";
+import { CreateComponentRepository } from "./CreateComponentRepository";
+import { CreateComponentCallbacks } from "./CreateComponentCallbacks";
+import ComponentModel from "./ComponentModel";
+
+export { CreateComponentUseCase, CreateComponentRepository, CreateComponentCallbacks, ComponentModel as CreateComponentUseCaseComponentModel };
