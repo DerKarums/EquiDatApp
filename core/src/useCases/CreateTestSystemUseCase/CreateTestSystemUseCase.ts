@@ -1,10 +1,10 @@
-import TestSystem from "../../entities/TestSystem";
+import { TestSystem } from "../../entities/TestSystem";
 import { CreateTestSystemCallbacks } from "./CreateTestSystemCallbacks";
 import { CreateTestSystemRepository } from "./CreateTestSystemRepository";
-import TestSystemModel from "./TestSystemModel";
+import { TestSystemModel } from "./TestSystemModel";
 
 
-export default class CreateTestSystemUseCase {
+export class CreateTestSystemUseCase {
 
     constructor(
         private readonly repository: CreateTestSystemRepository,

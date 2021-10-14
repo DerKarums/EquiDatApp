@@ -1,4 +1,4 @@
-import Component from "../../entities/Component";
+import { Component } from "../../entities/Component";
 
 
 export interface AllComponentsRepository {

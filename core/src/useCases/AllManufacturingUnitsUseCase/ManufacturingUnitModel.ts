@@ -1,10 +1,10 @@
-import SystemProperty from "../../entities/SystemProperty";
+import { SystemProperty } from "../../entities/SystemProperty";
 import { ComponentModel } from "../AllComponentsUseCase/ComponentModel";
-import TestSystemModel from "../AllTestSystemsUseCase/TestSystemModel";
+import { TestSystemModel } from "../AllTestSystemsUseCase/TestSystemModel";
 
 
 
-export default class ManifacturingUnitModel {
+export class ManufacturingUnitModel {
   constructor(
     public readonly relevantSystemProperties: Map<SystemProperty, string | null>,
     public readonly testSystemModels: TestSystemModel[],

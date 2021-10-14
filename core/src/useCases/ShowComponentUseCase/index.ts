@@ -1,5 +1,3 @@
-import ShowComponentUseCase from "./ShowComponentUseCase";
-import ShowComponentCallbacks from "./ShowComponentCallbacks";
-import ShowComponentRepository from "./ShowComponentRepository";
-
-export { ShowComponentCallbacks, ShowComponentUseCase, ShowComponentRepository };
+export * from "./ShowComponentUseCase";
+export * from "./ShowComponentCallbacks";
+export * from "./ShowComponentRepository";

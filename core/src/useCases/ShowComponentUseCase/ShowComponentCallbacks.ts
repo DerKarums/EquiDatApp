@@ -1,5 +1,5 @@
-import Component from "../../entities/Component";
+import { Component } from "../../entities/Component";
 
-export default interface ShowComponentCallbacks {
+export interface ShowComponentCallbacks {
     setComponent(component: Component): void;
 }

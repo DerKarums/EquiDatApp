@@ -1,5 +1,5 @@
-import ManufacturingUnit from '../../entities/ManufacturingUnit';
+import { ManufacturingUnit } from '../../entities/ManufacturingUnit';
 
-export default interface ShowManufacturingUnitRepository {
-    getManifacturingUnit(id: string): ManufacturingUnit;
+export interface ShowManufacturingUnitRepository {
+    getManufacturingUnit(id: string): ManufacturingUnit;
 }

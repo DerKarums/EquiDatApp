@@ -1,5 +1,5 @@
-import TestSystem from "../../entities/TestSystem";
+import { TestSystem } from "../../entities/TestSystem";
 
-export default interface ShowTestSystemCallbacks {
+export interface ShowTestSystemCallbacks {
     setTestSystem(testSystem: TestSystem): void;
 }
