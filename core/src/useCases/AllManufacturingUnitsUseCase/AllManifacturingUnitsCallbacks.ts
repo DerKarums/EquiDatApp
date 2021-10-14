@@ -1,6 +1,6 @@
-import ManifacturingUnitModel from "./ManifacturingUnitModel";
+import ManufacturingUnitModel from "./ManufacturingUnitModel";
 
 
-export interface AllManifacturingUnitsCallbacks {
-  setManifacturingUnitModels(manifacturingUnits: ManifacturingUnitModel[]): void;
+export interface AllManufacturingUnitsCallbacks {
+  setManufacturingUnitModels(manufacturingUnits: ManufacturingUnitModel[]): void;
 }

@@ -1,11 +1,11 @@
 
-export { Component, ComponentType, ManifacturingUnit, SubSystem, SystemProperty, SystemPropertyType, TestSystem } from './entities';
+export { Component, ComponentType, ManufacturingUnit, SubSystem, SystemProperty, SystemPropertyType, TestSystem } from './entities';
 export {
   AllComponentsUseCase, AllComponentsRepository, AllComponentsCallbacks, AllComponentsUseCaseComponentModel,
-  AllManifacturingUnitsUseCase, AllManifacturingUnitsCallbacks, AllManifacturingUnitsRepository, ManifacturingUnitModel,
+  AllManufacturingUnitsUseCase, AllManufacturingUnitsCallbacks, AllManufacturingUnitsRepository, ManufacturingUnitModel,
   AllTestSystemsUseCase, AllTestSystemsCallbacks, AllTestSystemsRepository, AllTestSystemsUseCaseTestSystemModel,
   CreateComponentUseCase, CreateComponentCallbacks, CreateComponentRepository, CreateComponentUseCaseComponentModel,
-  CreateManifacturingUnitUseCase, CreateManifacturingUnitCallbacks, CreateManifacturingUnitRepository, ManifactoringUnitModel,
+  CreateManufacturingUnitUseCase, CreateManufacturingUnitCallbacks, CreateManufacturingUnitRepository, ManufacturingUnitModel,
   CreateTestSystemUseCase, CreateTestSystemCallbacks, CreateTestSystemRepository, CreateTestSystemUseCaseTestSystemModel,
   ShowComponentUseCase, ShowComponentCallbacks, ShowComponentRepository,
   ShowManufacturingUnitUseCase, ShowManufacturingUnitCallbacks, ShowManufacturingUnitRepository,

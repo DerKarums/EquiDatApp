@@ -1,6 +1,6 @@
-import ManifacturingUnit from '../../entities/ManufacturingUnit';
+import ManufacturingUnit from '../../entities/ManufacturingUnit';
 
 
-export interface AllManifacturingUnitsRepository {
-  getManifacturingUnits(): ManifacturingUnit[];
+export interface AllManufacturingUnitsRepository {
+  getManufacturingUnits(): ManufacturingUnit[];
 }

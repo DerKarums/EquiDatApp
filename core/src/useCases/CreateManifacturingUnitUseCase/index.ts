@@ -1,6 +1,6 @@
-import CreateManifacturingUnitUseCase from "./CreateManifacturingUnitUseCase";
-import { CreateManifacturingUnitRepository } from "./CreateManifacturingUnitRepository";
-import { CreateManifacturingUnitCallbacks } from "./CreateManifacturingUnitCallbacks";
-import ManifactoringUnitModel from "./ManifacturingUnitModel";
+import CreateManufacturingUnitUseCase from "./CreateManufacturingUnitUseCase";
+import { CreateManufacturingUnitRepository } from "./CreateManufacturingUnitRepository";
+import { CreateManufacturingUnitCallbacks } from "./CreateManufacturingUnitCallbacks";
+import ManufacturingUnitModel from "./ManufacturingUnitModel";
 
-export { CreateManifacturingUnitCallbacks, CreateManifacturingUnitRepository, CreateManifacturingUnitUseCase, ManifactoringUnitModel };
+export { CreateManufacturingUnitCallbacks, CreateManufacturingUnitRepository, CreateManufacturingUnitUseCase, ManufacturingUnitModel };

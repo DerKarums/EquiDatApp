@@ -1,20 +1,20 @@
-import ManifacturingUnit from "../../entities/ManufacturingUnit";
-import { CreateManifacturingUnitCallbacks } from "./CreateManifacturingUnitCallbacks";
-import { CreateManifacturingUnitRepository } from "./CreateManifacturingUnitRepository";
-import ManifactoringUnitModel from "./ManifacturingUnitModel";
+import ManufacturingUnit from "../../entities/ManufacturingUnit";
+import { CreateManufacturingUnitCallbacks } from "./CreateManufacturingUnitCallbacks";
+import { CreateManufacturingUnitRepository } from "./CreateManufacturingUnitRepository";
+import ManufacturingUnitModel from "./ManufacturingUnitModel";
 
 
-export default class CreateManifacturingUnitUseCase {
+export default class CreateManufacturingUnitUseCase {
 
     constructor(
-        private readonly repository: CreateManifacturingUnitRepository,
+        private readonly repository: CreateManufacturingUnitRepository,
     ) {
 
     }
 
-    public createManifacturingUnit(manifactoringUnitModel: ManifactoringUnitModel, callbacks: CreateManifacturingUnitCallbacks) {
-        const manifacturingUnit = new ManifacturingUnit(this.repository.getSchema(), manifactoringUnitModel.systemPropertyValues);
-        this.repository.createManifacturingUnit(manifacturingUnit);
+    public createManufacturingUnit(manufacturingUnitModel: ManufacturingUnitModel, callbacks: CreateManufacturingUnitCallbacks) {
+        const manufacturingUnit = new ManufacturingUnit(this.repository.getSchema(), manufacturingUnitModel.systemPropertyValues);
+        this.repository.createManufacturingUnit(manufacturingUnit);
         callbacks.onComplete();
     }
 }

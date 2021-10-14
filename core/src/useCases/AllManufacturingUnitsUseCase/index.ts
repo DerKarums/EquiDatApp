@@ -1,6 +1,6 @@
-import AllManifacturingUnitsUseCase from './AllManifacturingUnitsUseCase';
-import { AllManifacturingUnitsCallbacks } from './AllManifacturingUnitsCallbacks';
-import { AllManifacturingUnitsRepository } from './AllManifacturingUnitsRepository';
-import ManifacturingUnitModel from './ManifacturingUnitModel';
+import AllManufacturingUnitsUseCase from './AllManufacturingUnitsUseCase';
+import { AllManufacturingUnitsCallbacks } from './AllManufacturingUnitsCallbacks';
+import { AllManufacturingUnitsRepository } from './AllManufacturingUnitsRepository';
+import ManufacturingUnitModel from './ManufacturingUnitModel';
 
-export { AllManifacturingUnitsCallbacks, AllManifacturingUnitsUseCase, AllManifacturingUnitsRepository, ManifacturingUnitModel };
+export { AllManufacturingUnitsCallbacks, AllManufacturingUnitsUseCase, AllManufacturingUnitsRepository, ManufacturingUnitModel };

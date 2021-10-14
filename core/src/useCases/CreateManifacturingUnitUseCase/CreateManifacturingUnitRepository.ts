@@ -1,7 +1,7 @@
-import ManifactoringUnit from '../../entities/ManufacturingUnit';
+import ManufacturingUnit from '../../entities/ManufacturingUnit';
 import SystemProperty from '../../entities/SystemProperty';
 
-export interface CreateManifacturingUnitRepository {
-    createManifacturingUnit(manifacturingUnit: ManifactoringUnit): void;
+export interface CreateManufacturingUnitRepository {
+    createManufacturingUnit(manufacturingUnit: ManufacturingUnit): void;
     getSchema(): SystemProperty[];
 }

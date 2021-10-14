@@ -1,28 +1,28 @@
 import Component from "../../entities/Component";
-import ManifacturingUnit from "../../entities/ManufacturingUnit";
+import ManufacturingUnit from "../../entities/ManufacturingUnit";
 import TestSystem from "../../entities/TestSystem";
 import { ComponentModel } from "../AllComponentsUseCase/ComponentModel";
 import TestSystemModel from "../AllTestSystemsUseCase/TestSystemModel";
-import { AllManifacturingUnitsCallbacks } from "./AllManifacturingUnitsCallbacks";
-import { AllManifacturingUnitsRepository } from "./AllManifacturingUnitsRepository";
-import ManifacturingUnitModel from "./ManifacturingUnitModel";
+import { AllManufacturingUnitsCallbacks } from "./AllManufacturingUnitsCallbacks";
+import { AllManufacturingUnitsRepository } from "./AllManufacturingUnitsRepository";
+import ManufacturingUnitModel from "./ManufacturingUnitModel";
 
 
 
-export default class AllManifacturingUnitsUseCase {
+export default class AllManufacturingUnitsUseCase {
   constructor(
-    private repository: AllManifacturingUnitsRepository,
+    private repository: AllManufacturingUnitsRepository,
   ) { }
 
-  public getAllManifacturingUnits(callbacks: AllManifacturingUnitsCallbacks) {
-    const manifacturingUnits = this.repository.getManifacturingUnits();
-    const manifacturingUnitModels = manifacturingUnits.map(manifacturingUnit => {
-      const componentModels = this.getComponentModels(manifacturingUnit.components);
-      const testSystemModels = this.getTestSystemModels(manifacturingUnit.testSystems);
-      return new ManifacturingUnitModel(manifacturingUnit.getRelevantSystemProperties(),
+  public getAllManufacturingUnits(callbacks: AllManufacturingUnitsCallbacks) {
+    const manufacturingUnits = this.repository.getManufacturingUnits();
+    const manufacturingUnitModels = manufacturingUnits.map(manufacturingUnit => {
+      const componentModels = this.getComponentModels(manufacturingUnit.components);
+      const testSystemModels = this.getTestSystemModels(manufacturingUnit.testSystems);
+      return new ManufacturingUnitModel(manufacturingUnit.getRelevantSystemProperties(),
         testSystemModels, componentModels);
     });
-    callbacks.setManifacturingUnitModels(manifacturingUnitModels);
+    callbacks.setManufacturingUnitModels(manufacturingUnitModels);
   }
 
   private getComponentModels(components: Component[]) {

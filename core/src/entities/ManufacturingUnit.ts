@@ -3,7 +3,7 @@ import SubSystem from "./SubSystem";
 import SystemProperty from "./SystemProperty";
 import TestSystem from "./TestSystem";
 
-export default class ManifacturingUnit extends SubSystem {
+export default class ManufacturingUnit extends SubSystem {
 
 
     constructor(private readonly schema: SystemProperty[],

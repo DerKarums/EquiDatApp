@@ -11,7 +11,7 @@ export default class ShowManufacturingUnitUseCase {
     }
 
     public getManufacturingUnit(id: string, callbacks: ShowManufacturingUnitCallbacks) : void {
-        const manufacturingUnit = this.repository.getManifacturingUnit(id);
+        const manufacturingUnit = this.repository.getManufacturingUnit(id);
         callbacks.setManufacturingUnit(manufacturingUnit);
     }
 }
