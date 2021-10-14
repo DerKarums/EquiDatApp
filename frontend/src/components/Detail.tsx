@@ -1,15 +1,13 @@
-import { ClassNames } from '@emotion/react';
-import { alpha, Box, Breadcrumbs, Button, Checkbox, FormControlLabel, Grid, IconButton, Link, makeStyles, Switch, Tab, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableSortLabel, Tabs, TextField, Toolbar, Tooltip } from '@material-ui/core';
-import { Alert, Paper, Stack, Table, TableRow } from '@mui/material';
+import { Box, Breadcrumbs, Checkbox, FormControlLabel, Grid, Link, ListItemIcon, ListItemText, makeStyles, MenuList, Switch, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableSortLabel } from '@material-ui/core';
+import { Button, IconButton, Paper, Stack, Menu, MenuItem, Table, TableRow } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import { DataGrid, GridColDef, GridRowsProp, GridSortModel } from '@mui/x-data-grid';
-import { useDemoData } from '@mui/x-data-grid-generator';
-import { DataGridPro, GridCellParams, GridColumnResizeParams, useGridApiRef } from '@mui/x-data-grid-pro';
-import DeleteIcon from '@mui/icons-material/Delete';
-import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import SaveIcon from '@mui/icons-material/Save';
+import EditIcon from '@mui/icons-material/Edit';
+
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -18,21 +16,14 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-const useStyles = makeStyles({
-    table: {
-        minWidth: 650,
-    },
-})
-
 function Detail() {
-    const classes = useStyles();
-
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof Data>('calories');
     const [selected, setSelected] = React.useState<readonly string[]>([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [selection, setSelection] = React.useState([]);
 
     const handleRequestSort = (
         event: React.MouseEvent<unknown>,
@@ -52,7 +43,7 @@ function Detail() {
         setSelected([]);
     };
 
-    const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
+    const handleClickFirst = (event: React.MouseEvent<unknown>, name: string) => {
         const selectedIndex = selected.indexOf(name);
         let newSelected: readonly string[] = [];
 
@@ -85,6 +76,15 @@ function Detail() {
         setDense(event.target.checked);
     };
 
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleClickSecond = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
     const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
     // Avoid a layout jump when reaching the last page with empty rows.
@@ -101,58 +101,71 @@ function Detail() {
                         <Grid item xs={8}>
                             <Item><Breadcrumbs aria-label="breadcrumb">
                                 <Link underline="hover" color="inherit" href="/">
-                                    MUI
+                                    Fertigungssystem
                                 </Link>
                                 <Link
                                     underline="hover"
                                     color="inherit"
                                     href="/getting-started/installation/"
                                 >
-                                    Core
+                                    Testsystem
                                 </Link>
-                                <Typography color="text.primary">Breadcrumbs</Typography>
+                                <Typography color="text.primary">Komponente</Typography>
                             </Breadcrumbs></Item>
                         </Grid>
-                        <Grid item xs={1}>
-                            <Item>xs=1</Item>
-                        </Grid>
-                        <Grid item xs={1}>
-                            <Item>xs=1</Item>
+                        <Grid item xs={2}>
                         </Grid>
                     </Grid>
                     <Grid container spacing={1}>
                         <Grid item xs={2}>
                         </Grid>
                         <Grid item xs={8}>
-                        <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+                            <TableContainer component={Paper}>
+                                <Table sx={{ minWidth: 650 }} aria-label="simple table" >
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>Bezeichnung</TableCell>
+                                            <TableCell align="left">Wert</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {rows.map((row) => (
+                                            <TableRow
+                                                key={row.name}
+                                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                            >
+                                                <TableCell component="th" scope="row">
+                                                    {row.name}
+                                                </TableCell>
+                                                <TableCell align="left">{row.protein}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </Grid>
+                        <Grid item xs={1}>
+                            <Stack spacing={2}
+                                justifyContent="center"
+                                alignItems="left"><IconButton color="primary">
+
+                                    <SaveIcon sx={{ fontSize: 60 }} />
+                                </IconButton><IconButton color="primary">
+                                    <EditIcon sx={{ fontSize: 60 }} />
+                                </IconButton>
+                            </Stack>
+                        </Grid>
+                        <Grid item xs={1}>
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={1}>
+                        <Grid item xs={2}>
+                        </Grid><Grid item xs={8}>
+                            <Stack spacing={2}>
+                                <Typography variant="h4" gutterBottom component="div" align="center">
+                                    Testsysteme
+                                </Typography>
+                            </Stack>
                         </Grid>
                         <Grid item xs={2}>
                         </Grid>
@@ -160,14 +173,7 @@ function Detail() {
                     <Grid container spacing={1}>
                         <Grid item xs={2}>
                         </Grid><Grid item xs={8}>
-                            <Item>Testsystem</Item>
-                        </Grid><Grid item xs={2}>
-                        </Grid>
-                    </Grid>
-                    <Grid container spacing={1}>
-                        <Grid item xs={2}>
-                        </Grid><Grid item xs={8}>
-                        <Box sx={{ width: '100%' }}>
+                            <Box sx={{ width: '100%' }}>
                                 <Paper sx={{ width: '100%', mb: 2 }}>
                                     <TableContainer>
                                         <Table
@@ -195,14 +201,14 @@ function Detail() {
                                                         return (
                                                             <TableRow
                                                                 hover
-                                                                onClick={(event) => handleClick(event, row.name)}
+                                                                // onClick={(event) => handleClickFirst(event, row.name)}
                                                                 role="checkbox"
                                                                 aria-checked={isItemSelected}
                                                                 tabIndex={-1}
                                                                 key={row.name}
                                                                 selected={isItemSelected}
                                                             >
-                                                                <TableCell padding="checkbox">
+                                                                {/* <TableCell padding="checkbox">
                                                                     <Checkbox
                                                                         color="primary"
                                                                         checked={isItemSelected}
@@ -210,7 +216,7 @@ function Detail() {
                                                                             'aria-labelledby': labelId,
                                                                         }}
                                                                     />
-                                                                </TableCell>
+                                                                </TableCell> */}
                                                                 <TableCell
                                                                     component="th"
                                                                     id={labelId}
@@ -222,7 +228,31 @@ function Detail() {
                                                                 <TableCell align="right">{row.calories}</TableCell>
                                                                 <TableCell align="right">{row.fat}</TableCell>
                                                                 <TableCell align="right">{row.carbs}</TableCell>
-                                                                <TableCell align="right">{row.protein}</TableCell>
+                                                                <TableCell align="right"><div>
+                                                                    <IconButton
+                                                                        id="basic-button"
+                                                                        aria-controls="basic-menu"
+                                                                        aria-haspopup="true"
+                                                                        aria-expanded={open ? 'true' : undefined}
+                                                                        onClick={handleClickSecond}
+                                                                    >
+                                                                        <MoreVertIcon></MoreVertIcon>
+                                                                    </IconButton>
+                                                                    <Menu
+                                                                        id="basic-menu"
+                                                                        anchorEl={anchorEl}
+                                                                        open={open}
+                                                                        onClose={handleClose}
+                                                                        MenuListProps={{
+                                                                            'aria-labelledby': 'basic-button',
+                                                                        }}
+                                                                    >
+                                                                        <MenuItem onClick={handleClose}>Dublizieren</MenuItem>
+                                                                        <MenuItem onClick={handleClose}>Neu zuweisen</MenuItem>
+                                                                        <MenuItem onClick={handleClose}>Löschen</MenuItem>
+                                                                    </Menu>
+                                                                </div>
+                                                                </TableCell>
                                                             </TableRow>
                                                         );
                                                     })}
@@ -248,18 +278,15 @@ function Detail() {
                                         onRowsPerPageChange={handleChangeRowsPerPage}
                                     />
                                 </Paper>
-                                <FormControlLabel
-                                    control={<Switch checked={dense} onChange={handleChangeDense} />}
-                                    label="Dense padding"
-                                />
                             </Box>
 
                         </Grid><Grid item xs={2}>
                         </Grid>
                     </Grid>
+
                 </Stack>
             </header>
-        </div>
+        </div >
     );
 }
 
@@ -401,17 +428,6 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     return (
         <TableHead>
             <TableRow>
-                <TableCell padding="checkbox">
-                    <Checkbox
-                        color="primary"
-                        indeterminate={numSelected > 0 && numSelected < rowCount}
-                        checked={rowCount > 0 && numSelected === rowCount}
-                        onChange={onSelectAllClick}
-                        inputProps={{
-                            'aria-label': 'select all desserts',
-                        }}
-                    />
-                </TableCell>
                 {headCells.map((headCell) => (
                     <TableCell
                         key={headCell.id}
