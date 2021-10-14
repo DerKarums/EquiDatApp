@@ -1,6 +1,8 @@
-import { CreateComponentRepository, ShowComponentRepository, SystemProperty, SystemPropertyType, Component, ComponentType } from "core"
+import { CreateComponentRepository, ShowComponentRepository, SystemProperty, SystemPropertyType, Component, ComponentType, AllComponentsRepository } from "core"
 
-export class ComponentRepositoryMock implements CreateComponentRepository, ShowComponentRepository {
+export class ComponentRepositoryMock implements CreateComponentRepository, ShowComponentRepository, AllComponentsRepository {
+    
+
 
     componentTypes = [
         new ComponentType([
@@ -10,6 +12,10 @@ export class ComponentRepositoryMock implements CreateComponentRepository, ShowC
         ])];
 
     components: Map<string, Component> = new Map([["c1", new Component(this.componentTypes[0])]]);
+
+    getComponents(): Component[] {
+        return [...this.components.values()];
+    }
 
     createComponent(component: Component): void {
         console.log("createComponent");

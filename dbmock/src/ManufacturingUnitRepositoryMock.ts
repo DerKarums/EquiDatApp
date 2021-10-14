@@ -1,8 +1,12 @@
-import { ManufacturingUnit, SystemProperty, SystemPropertyType, CreateManufacturingUnitRepository, ShowManufacturingUnitRepository } from "core";
+import { ManufacturingUnit, SystemProperty, SystemPropertyType, CreateManufacturingUnitRepository, ShowManufacturingUnitRepository, AllManufacturingUnitsUseCase, AllManufacturingUnitsCallbacks, AllManufacturingUnitsRepository } from "core";
 
-export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitRepository, ShowManufacturingUnitRepository {
+export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitRepository, ShowManufacturingUnitRepository, AllManufacturingUnitsRepository {
 
     manufacturingUnits: Map<string, ManufacturingUnit> = new Map([["mu1", new ManufacturingUnit(this.getSchema())]]);
+
+    getManufacturingUnits(): ManufacturingUnit[] {
+        return [... this.manufacturingUnits.values()];
+    }
 
     createManufacturingUnit(manufacturingUnit: ManufacturingUnit): void {
         console.log("createManufacturingUnit");

@@ -1,8 +1,12 @@
-import { CreateTestSystemRepository, ShowTestSystemRepository, SystemPropertyType, SystemProperty, TestSystem } from "core"
+import { CreateTestSystemRepository, ShowTestSystemRepository, SystemPropertyType, SystemProperty, TestSystem, AllTestSystemsUseCase, AllTestSystemsCallbacks, AllTestSystemsRepository } from "core"
 
-export class TestSystemRepositoryMock implements CreateTestSystemRepository, ShowTestSystemRepository {
-
+export class TestSystemRepositoryMock implements CreateTestSystemRepository, ShowTestSystemRepository , AllTestSystemsRepository{
+   
     testSystems: Map<string, TestSystem> = new Map([["ts1", new TestSystem(this.getSchema())]]);
+    
+    getTestSystems(): TestSystem[] {
+        return [... this.testSystems.values()];
+    }
 
     createTestSystem(testSystem: TestSystem): void {
         console.log("createTestSystem");
