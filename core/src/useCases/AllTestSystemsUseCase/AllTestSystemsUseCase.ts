@@ -1,6 +1,6 @@
 import { ComponentModel } from "../AllComponentsUseCase/ComponentModel";
 import { AllTestSystemsCallbacks } from "./AllTestSystemsCallbacks";
-import { AllTestSystemsRepository } from "./AllTestSystemsRepository";
+import AllTestSystemsRepository from "./AllTestSystemsRepository";
 import TestSystemModel from "./TestSystemModel";
 
 

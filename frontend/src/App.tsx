@@ -1,8 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import SystemProperty from 'core/src/entities/SystemProperty';
-import SystemPropertyType from 'core/src/entities/SystemPropertyType';
+import { SystemProperty, SystemPropertyType } from 'core';
 
 function App() {
 
