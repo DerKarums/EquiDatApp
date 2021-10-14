@@ -1,16 +1,20 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { ComponentType } from "core/src/entities";
-import AllComponentsUseCase from "core/src/useCases/AllComponentsUseCase/AllComponentsUseCase";
+import SystemProperty from 'core/src/entities/SystemProperty';
+import SystemPropertyType from 'core/src/entities/SystemPropertyType';
 
 function App() {
+
+  const test = new SystemProperty("test", SystemPropertyType.StringType, true);
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
+          {test.label}
         </p>
         <a
           className="App-link"
