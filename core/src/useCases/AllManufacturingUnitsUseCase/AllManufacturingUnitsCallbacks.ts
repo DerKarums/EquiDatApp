@@ -1,4 +1,4 @@
-import ManufacturingUnitModel from "./ManufacturingUnitModel";
+import { ManufacturingUnitModel } from "./ManufacturingUnitModel";
 
 
 export interface AllManufacturingUnitsCallbacks {

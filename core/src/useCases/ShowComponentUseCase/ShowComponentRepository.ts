@@ -1,5 +1,5 @@
-import Component from '../../entities/Component';
+import { Component } from '../../entities/Component';
 
-export default interface ShowComponentRepository {
+export interface ShowComponentRepository {
     getComponent(id: string): Component;
 }

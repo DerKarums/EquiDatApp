@@ -2,7 +2,7 @@
 export { Component, ComponentType, ManufacturingUnit, SubSystem, SystemProperty, SystemPropertyType, TestSystem } from './entities';
 export {
   AllComponentsUseCase, AllComponentsRepository, AllComponentsCallbacks, AllComponentsUseCaseComponentModel,
-  AllManufacturingUnitsUseCase, AllManufacturingUnitsCallbacks, AllManufacturingUnitsRepository, ManufacturingUnitModel,
+  AllManufacturingUnitsUseCase, AllManufacturingUnitsCallbacks, AllManufacturingUnitsRepository,
   AllTestSystemsUseCase, AllTestSystemsCallbacks, AllTestSystemsRepository, AllTestSystemsUseCaseTestSystemModel,
   CreateComponentUseCase, CreateComponentCallbacks, CreateComponentRepository, CreateComponentUseCaseComponentModel,
   CreateManufacturingUnitUseCase, CreateManufacturingUnitCallbacks, CreateManufacturingUnitRepository, ManufacturingUnitModel,

@@ -1,7 +1,7 @@
-import SystemProperty from "./SystemProperty";
+import { SystemProperty } from "./SystemProperty";
 import { v4 as uuid } from 'uuid';
 
-export default abstract class SubSystem {
+export abstract class SubSystem {
 
     constructor(
         private readonly _id: string = uuid(),

@@ -1,10 +1,10 @@
-import ManufacturingUnit from "../../entities/ManufacturingUnit";
+import { ManufacturingUnit } from "../../entities/ManufacturingUnit";
 import { CreateManufacturingUnitCallbacks } from "./CreateManufacturingUnitCallbacks";
 import { CreateManufacturingUnitRepository } from "./CreateManufacturingUnitRepository";
-import ManufacturingUnitModel from "./ManufacturingUnitModel";
+import { ManufacturingUnitModel } from "./ManufacturingUnitModel";
 
 
-export default class CreateManufacturingUnitUseCase {
+export class CreateManufacturingUnitUseCase {
 
     constructor(
         private readonly repository: CreateManufacturingUnitRepository,

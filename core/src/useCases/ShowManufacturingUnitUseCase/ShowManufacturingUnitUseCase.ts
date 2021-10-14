@@ -1,8 +1,8 @@
-import ShowManufacturingUnitCallbacks from "./ShowManufacturingUnitCallbacks";
-import ShowManufacturingUnitRepository from "./ShowManufacturingUnitRepository";
+import { ShowManufacturingUnitCallbacks } from "./ShowManufacturingUnitCallbacks";
+import { ShowManufacturingUnitRepository } from "./ShowManufacturingUnitRepository";
 
 
-export default class ShowManufacturingUnitUseCase {
+export class ShowManufacturingUnitUseCase {
 
     constructor(
         private readonly repository: ShowManufacturingUnitRepository,
@@ -10,7 +10,7 @@ export default class ShowManufacturingUnitUseCase {
 
     }
 
-    public getManufacturingUnit(id: string, callbacks: ShowManufacturingUnitCallbacks) : void {
+    public getManufacturingUnit(id: string, callbacks: ShowManufacturingUnitCallbacks): void {
         const manufacturingUnit = this.repository.getManufacturingUnit(id);
         callbacks.setManufacturingUnit(manufacturingUnit);
     }

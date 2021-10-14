@@ -1,6 +1,6 @@
 
 
-export default class ManufacturingUnitModel {
+export class ManufacturingUnitModel {
     constructor(
         public readonly systemPropertyValues: Map<string, string>
     ) {

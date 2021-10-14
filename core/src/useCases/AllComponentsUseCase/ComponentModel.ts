@@ -1,4 +1,4 @@
-import SystemProperty from "../../entities/SystemProperty";
+import { SystemProperty } from "../../entities/SystemProperty";
 
 
 export class ComponentModel {

@@ -1,10 +1,10 @@
-import Component from "../../entities/Component";
+import { Component } from "../../entities/Component";
 import { CreateManufacturingUnitCallbacks } from "../CreateManufacturingUnitUseCase/CreateManufacturingUnitCallbacks";
-import ComponentModel from "./ComponentModel";
+import { ComponentModel } from "./ComponentModel";
 import { CreateComponentRepository } from "./CreateComponentRepository";
 
 
-export default class CreateComponentUseCase {
+export class CreateComponentUseCase {
 
     constructor(
         private readonly repository: CreateComponentRepository,

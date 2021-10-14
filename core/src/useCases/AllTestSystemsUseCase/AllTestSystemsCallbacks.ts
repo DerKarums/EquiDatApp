@@ -1,4 +1,4 @@
-import TestSystemModel from "./TestSystemModel";
+import { TestSystemModel } from "./TestSystemModel";
 
 
 export interface AllTestSystemsCallbacks {

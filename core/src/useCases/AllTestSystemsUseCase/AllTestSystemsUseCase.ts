@@ -1,10 +1,10 @@
 import { ComponentModel } from "../AllComponentsUseCase/ComponentModel";
 import { AllTestSystemsCallbacks } from "./AllTestSystemsCallbacks";
-import AllTestSystemsRepository from "./AllTestSystemsRepository";
-import TestSystemModel from "./TestSystemModel";
+import { AllTestSystemsRepository } from "./AllTestSystemsRepository";
+import { TestSystemModel } from "./TestSystemModel";
 
 
-export default class AllTestSystemsUseCase {
+export class AllTestSystemsUseCase {
   constructor(
     private repository: AllTestSystemsRepository,
   ) { }

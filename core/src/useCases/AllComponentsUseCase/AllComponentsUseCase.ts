@@ -3,7 +3,7 @@ import { AllComponentsRepository } from "./AllComponentsRepository";
 import { ComponentModel } from "./ComponentModel";
 
 
-export default class AllComponentsUseCase {
+export class AllComponentsUseCase {
   constructor(
     private readonly repository: AllComponentsRepository,
   ) { }

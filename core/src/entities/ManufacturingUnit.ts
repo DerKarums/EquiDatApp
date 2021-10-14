@@ -1,9 +1,9 @@
-import Component from "./Component";
-import SubSystem from "./SubSystem";
-import SystemProperty from "./SystemProperty";
-import TestSystem from "./TestSystem";
+import { Component } from "./Component";
+import { SubSystem } from "./SubSystem";
+import { SystemProperty } from "./SystemProperty";
+import { TestSystem } from "./TestSystem";
 
-export default class ManufacturingUnit extends SubSystem {
+export class ManufacturingUnit extends SubSystem {
 
 
     constructor(private readonly schema: SystemProperty[],

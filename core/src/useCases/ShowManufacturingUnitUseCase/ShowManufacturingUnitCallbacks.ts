@@ -1,5 +1,5 @@
-import ManufacturingUnit from "../../entities/ManufacturingUnit";
+import { ManufacturingUnit } from "../../entities/ManufacturingUnit";
 
-export default interface ShowManufacturingUnitCallbacks {
+export interface ShowManufacturingUnitCallbacks {
     setManufacturingUnit(manufacturingUnit: ManufacturingUnit): void;
 }

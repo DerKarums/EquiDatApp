@@ -1,8 +1,8 @@
-import ShowTestSystemCallbacks from "./ShowTestSystemCallbacks";
-import ShowTestSystemRepository from "./ShowTestSystemRepository";
+import { ShowTestSystemCallbacks } from "./ShowTestSystemCallbacks";
+import { ShowTestSystemRepository } from "./ShowTestSystemRepository";
 
 
-export default class ShowTestSystemUseCase {
+export class ShowTestSystemUseCase {
 
     constructor(
         private readonly repository: ShowTestSystemRepository,
@@ -10,7 +10,7 @@ export default class ShowTestSystemUseCase {
 
     }
 
-    public getTestSystem(id: string, callbacks: ShowTestSystemCallbacks) : void {
+    public getTestSystem(id: string, callbacks: ShowTestSystemCallbacks): void {
         const testSystem = this.repository.getTestSystem(id);
         callbacks.setTestSystem(testSystem);
     }
