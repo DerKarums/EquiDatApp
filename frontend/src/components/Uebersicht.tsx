@@ -15,47 +15,55 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MenuList from '@mui/material/MenuList';
-import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 
 function Uebersicht() {
 
   var USERS: any[] = [], STATUS = ['Okay', 'Achtung', 'Alarm'];
-const [open, setOpen] = useState(false);
-const [selection, setSelection] = useState([]);
-const toggle = (open: boolean) => setOpen(!open);
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
-  table: {
-    minWidth: 650,
-  },
-  tableContainer: {
-    borderRadius: 15,
-    margin: '10px 10px',
-    maxWidth: 950
-  },
-  tableHeaderCell: {
-    fontWeight: 'bold',
-    backgroundColor: '#eeeeee',
-    color: '#bdbdbd',
-  }
-}));
+  const useStyles = makeStyles((theme: Theme) => createStyles({
+    table: {
+      minWidth: 650,
+    },
+    tableContainer: {
+      borderRadius: 15,
+      margin: '10px 10px',
+      maxWidth: 950
+    },
+    tableHeaderCell: {
+      fontWeight: 'bold',
+      backgroundColor: '#eeeeee',
+      color: '#bdbdbd',
+    }
+  }));
 
-for (let i = 0; i < 14; i++) {
-  USERS[i] = {
-    name: faker.commerce.productName(),
-    location: faker.commerce.department(),
-    country: faker.address.country(),
-    fertigungssteuerer: faker.lorem.word(),
-    bereich: faker.lorem.word(),
-    produkte: faker.lorem.words(),
-    status: STATUS[Math.floor(Math.random() * STATUS.length)]
+  for (let i = 0; i < 14; i++) {
+    USERS[i] = {
+      name: faker.commerce.productName(),
+      location: faker.commerce.department(),
+      country: faker.address.country(),
+      fertigungssteuerer: faker.lorem.word(),
+      bereich: faker.lorem.word(),
+      produkte: faker.lorem.words(),
+      status: STATUS[Math.floor(Math.random() * STATUS.length)]
+    }
   }
-}
 
   const classes = useStyles();
+
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <TableContainer component={Paper} className={classes.tableContainer}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -79,22 +87,27 @@ for (let i = 0; i < 14; i++) {
               <TableCell>{row.fertigungssteuerer}</TableCell>
               <TableCell>{row.produkte}</TableCell>
               <TableCell>{row.bereich}</TableCell>
-              <TableCell><IconButton aria-label="menu" onClick={() => toggle(!open)}>
+              <TableCell><IconButton id="basic-button"
+                aria-controls="basic-menu"
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}>
                 <MoreVertIcon />
               </IconButton>
-              {open && (
-                <MenuList >
-                  <MenuItem>
-                    <ListItemIcon>
-                      <MoreVertIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Cut</ListItemText>
-                    <Typography variant="body2" color="text.secondary"> ⌘X </Typography>
-                  </MenuItem>
-                </MenuList>
-                )}
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                  }}
+                >
+                  <MenuItem onClick={handleClose}>Löschen</MenuItem>
+                  <MenuItem onClick={handleClose}>Klonen</MenuItem>
+                  <MenuItem onClick={handleClose}>Bearbeiten</MenuItem>
+                </Menu>
               </TableCell>
-
             </TableRow>
           ))}
         </TableBody>
@@ -105,14 +118,3 @@ for (let i = 0; i < 14; i++) {
 
 export default Uebersicht;
 
-function showMenu(): void {
-  <MenuList>
-    <MenuItem>
-      <ListItemIcon>
-        <MoreVertIcon fontSize="small" />
-      </ListItemIcon>
-      <ListItemText>Cut</ListItemText>
-      <Typography variant="body2" color="text.secondary"> ⌘X </Typography>
-    </MenuItem>
-  </MenuList>
-}
