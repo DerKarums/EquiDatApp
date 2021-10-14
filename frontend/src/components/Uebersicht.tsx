@@ -19,7 +19,9 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-
+import Popper from '@mui/material/Popper';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Grow from '@mui/material/Grow';
 
 function Uebersicht() {
 
@@ -55,64 +57,119 @@ function Uebersicht() {
 
   const classes = useStyles();
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
+  const [open, setOpen] = React.useState(false);
+  const anchorRef = React.useRef<HTMLButtonElement>(null);
+
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleClose = (event: Event | React.SyntheticEvent) => {
+    if (
+      anchorRef.current &&
+      anchorRef.current.contains(event.target as HTMLElement)
+    ) {
+      return;
+    } setOpen(false);
   };
+
+  function handleListKeyDown(event: React.KeyboardEvent) {
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      setOpen(false);
+    } else if (event.key === 'Escape') {
+      setOpen(false);
+    }
+  }
+
+  // return focus to the button when we transitioned from !open -> open
+  const prevOpen = React.useRef(open);
+  React.useEffect(() => {
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current!.focus();
+    }
+
+    prevOpen.current = open;
+  }, [open]);
+
   return (
-    <TableContainer component={Paper} className={classes.tableContainer}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell className={classes.tableHeaderCell}>Name der Fertigungseinheit</TableCell>
-            <TableCell className={classes.tableHeaderCell}>Fertigungssteuerer</TableCell>
-            <TableCell className={classes.tableHeaderCell}>Bereich</TableCell>
-            <TableCell className={classes.tableHeaderCell}>Produkte</TableCell>
-            <TableCell className={classes.tableHeaderCell}>Aktion</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {USERS.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell>
-                <Typography>{row.name}</Typography>
-                <Typography>{row.location}</Typography>
-                <Typography>{row.country}</Typography>
-              </TableCell>
-              <TableCell>{row.fertigungssteuerer}</TableCell>
-              <TableCell>{row.produkte}</TableCell>
-              <TableCell>{row.bereich}</TableCell>
-              <TableCell><IconButton id="basic-button"
-                aria-controls="basic-menu"
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-                onClick={handleClick}>
-                <MoreVertIcon />
-              </IconButton>
-                <Menu
-                  id="basic-menu"
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleClose}
-                  MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                  }}
-                >
-                  <MenuItem onClick={handleClose}>Löschen</MenuItem>
-                  <MenuItem onClick={handleClose}>Klonen</MenuItem>
-                  <MenuItem onClick={handleClose}>Bearbeiten</MenuItem>
-                </Menu>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      <div>
+        <TableContainer component={Paper} className={classes.tableContainer}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell className={classes.tableHeaderCell}>Name der Fertigungseinheit</TableCell>
+                <TableCell className={classes.tableHeaderCell}>Fertigungssteuerer</TableCell>
+                <TableCell className={classes.tableHeaderCell}>Bereich</TableCell>
+                <TableCell className={classes.tableHeaderCell}>Produkte</TableCell>
+                <TableCell className={classes.tableHeaderCell}>Aktion</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {USERS.map((row) => (
+                <TableRow key={row.name}>
+                  <TableCell>
+                    <Typography>{row.name}</Typography>
+                    <Typography>{row.location}</Typography>
+                    <Typography>{row.country}</Typography>
+                  </TableCell>
+                  <TableCell>{row.fertigungssteuerer}</TableCell>
+                  <TableCell>{row.produkte}</TableCell>
+                  <TableCell>{row.bereich}</TableCell>
+                  <TableCell><IconButton ref={anchorRef}
+                    id="composition-button"
+                    aria-controls={open ? 'composition-menu' : undefined}
+                    aria-expanded={open ? 'true' : undefined}
+                    aria-haspopup="true"
+                    onClick={handleToggle}>
+                    <MoreVertIcon />
+                  </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer >
+      </div>
+      <div>
+
+        <Popper
+          open={open}
+          anchorEl={anchorRef.current}
+          role={undefined}
+          placement="bottom-start"
+          transition
+          disablePortal
+          
+        >
+          {({ TransitionProps, placement }) => (
+            <Grow
+              {...TransitionProps}
+              style={{
+                transformOrigin:
+                  placement === 'bottom-start' ? 'left top' : 'left bottom',
+              }}
+            >
+              <Paper>
+                <ClickAwayListener onClickAway={handleClose}>
+                  <MenuList
+                    autoFocusItem={open}
+                    id="composition-menu"
+                    aria-labelledby="composition-button"
+                    onKeyDown={handleListKeyDown}
+                  >
+                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    <MenuItem onClick={handleClose}>My account</MenuItem>
+                    <MenuItem onClick={handleClose}>Logout</MenuItem>
+                  </MenuList>
+                </ClickAwayListener>
+              </Paper>
+            </Grow>
+          )}
+        </Popper>
+      </div>
+    </>
   );
 }
 
