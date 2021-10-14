@@ -19,7 +19,10 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 
-var USERS: any[] = [], STATUS = ['Okay', 'Achtung', 'Alarm'];
+
+function Uebersicht() {
+
+  var USERS: any[] = [], STATUS = ['Okay', 'Achtung', 'Alarm'];
 const [open, setOpen] = useState(false);
 const [selection, setSelection] = useState([]);
 const toggle = (open: boolean) => setOpen(!open);
@@ -51,7 +54,7 @@ for (let i = 0; i < 14; i++) {
     status: STATUS[Math.floor(Math.random() * STATUS.length)]
   }
 }
-function Uebersicht() {
+
   const classes = useStyles();
   return (
     <TableContainer component={Paper} className={classes.tableContainer}>
