@@ -4,6 +4,7 @@ import * as React from 'react';
 import DetailFertigungssystem from './DetailFertigungssystem';
 import DetailTestsystem from './DetailTestsystem';
 import DetailKomponente from './DetailKomponente';
+import App from './Unit-App';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -84,7 +85,7 @@ function Frame() {
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
-            <DetailFertigungssystem />
+            <App />
           </TabPanel>
           <TabPanel value={value} index={1}>
             <DetailTestsystem />
