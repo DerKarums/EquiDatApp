@@ -1,8 +1,8 @@
-import ComponentType from "./ComponentType";
-import SubSystem from "./SubSystem";
-import SystemProperty from "./SystemProperty";
+import { ComponentType } from "./ComponentType";
+import { SubSystem } from "./SubSystem";
+import { SystemProperty } from "./SystemProperty";
 
-export default class Component extends SubSystem {
+export class Component extends SubSystem {
 
     constructor(private readonly componentType: ComponentType,
         id?: string) {
