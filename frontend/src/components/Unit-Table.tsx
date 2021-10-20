@@ -117,12 +117,14 @@ function Uebersicht() {
                   <TableCell>{row.fertigungssteuerer}</TableCell>
                   <TableCell>{row.produkte}</TableCell>
                   <TableCell>{row.bereich}</TableCell>
-                  <TableCell><IconButton ref={anchorRef}
+                  <TableCell><IconButton 
+                  ref={anchorRef}
                     id="composition-button"
-                    aria-controls={open ? 'composition-menu' : undefined}
-                    aria-expanded={open ? 'true' : undefined}
-                    aria-haspopup="true"
-                    onClick={handleToggle}>
+                      aria-controls={open ? 'composition-menu' : undefined}
+                       aria-expanded={open ? 'true' : undefined}
+                       aria-haspopup="true"
+                       onClick={handleToggle}
+                  >
                     <MoreVertIcon />
                   </IconButton>
                   </TableCell>
@@ -159,9 +161,9 @@ function Uebersicht() {
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                   >
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
-                    <MenuItem onClick={handleClose}>Logout</MenuItem>
+                    <MenuItem onClick={handleClose}>Kopieren</MenuItem>
+                    <MenuItem onClick={handleClose}>Löschen</MenuItem>
+                    <MenuItem onClick={handleClose}>Ansicht</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
