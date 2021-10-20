@@ -1,5 +1,5 @@
-import TestSystem from '../../entities/TestSystem';
+import { TestSystem } from '../../entities/TestSystem';
 
-export default interface ShowTestSystemRepository {
+export interface ShowTestSystemRepository {
     getTestSystem(id: string): TestSystem;
 }

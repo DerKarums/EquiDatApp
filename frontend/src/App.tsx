@@ -7,6 +7,9 @@ import IconButton from '@mui/material/IconButton';
 import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
 
 function App() {
+
+  const test = new SystemProperty("test", SystemPropertyType.StringType, true);
+
   return (
         <UnitApp></UnitApp>
   );

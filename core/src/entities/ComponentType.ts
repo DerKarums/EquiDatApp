@@ -1,7 +1,7 @@
-import SystemProperty from "./SystemProperty";
+import { SystemProperty } from "./SystemProperty";
 import { v4 as uuid } from 'uuid';
 
-export default class ComponentType {
+export class ComponentType {
 
     constructor(private _systemProperties: SystemProperty[], private readonly _id = uuid()) {
     }

@@ -1,9 +1,9 @@
-import SystemPropertyType from "./SystemPropertyType";
+import { SystemPropertyType } from "./SystemPropertyType";
 import { v4 as uuid } from 'uuid';
 
-export default class SystemProperty {
+export class SystemProperty {
 
-    constructor(private _label: string, private _type: SystemPropertyType, private readonly _id = uuid()) {
+    constructor(private _label: string, private _type: SystemPropertyType, private _isRequired: boolean, private readonly _id = uuid()) {
     }
 
     get id() {
@@ -24,5 +24,13 @@ export default class SystemProperty {
 
     set type(type: SystemPropertyType) {
         this._type = type;
+    }
+
+    get isRequired() {
+        return this._isRequired;
+    }
+
+    set isRequired(isRequired: boolean) {
+        this._isRequired = isRequired;
     }
 }

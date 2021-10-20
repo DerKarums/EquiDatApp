@@ -1,8 +1,8 @@
-import ShowComponentCallbacks from "./ShowComponentCallbacks";
-import ShowComponentRepository from "./ShowComponentRepository";
+import { ShowComponentCallbacks } from "./ShowComponentCallbacks";
+import { ShowComponentRepository } from "./ShowComponentRepository";
 
 
-export default class ShowComponentUseCase {
+export class ShowComponentUseCase {
 
     constructor(
         private readonly repository: ShowComponentRepository,
@@ -10,7 +10,7 @@ export default class ShowComponentUseCase {
 
     }
 
-    public getComponent(id: string, callbacks: ShowComponentCallbacks) : void{
+    public getComponent(id: string, callbacks: ShowComponentCallbacks): void {
         const component = this.repository.getComponent(id);
         callbacks.setComponent(component);
     }
