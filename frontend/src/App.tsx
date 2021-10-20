@@ -1,14 +1,9 @@
 import React from 'react';
-import Filter from './components/Unit-Filter';
-import UnitApp from './components/Unit-App'
-import { Grid} from '@material-ui/core';
-import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
-import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
+import Frame from './components/Frame';
 
 function App() {
 
   return (
-        <UnitApp></UnitApp>
+        <Frame/>
   );
 } export default App;
