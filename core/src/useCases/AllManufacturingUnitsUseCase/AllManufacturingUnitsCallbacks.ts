@@ -1,7 +1,6 @@
-import { ManufacturingUnit } from "../..";
-import { ManufacturingUnitModel } from "./ManufacturingUnitModel";
-
+import { ManufacturingUnit, SystemProperty } from "../../entities";
 
 export interface AllManufacturingUnitsCallbacks {
-  setManufacturingUnitModels(manufacturingUnits: ManufacturingUnit[]): void;
+  setManufacturingUnits(manufacturingUnits: ManufacturingUnit[]): void;
+  setSchema(schema: SystemProperty[]): void;
 }

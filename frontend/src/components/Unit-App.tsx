@@ -6,14 +6,35 @@ import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
 import {useCases} from '../providers/UseCaseProvider';
-import {ManufacturingUnit} from 'core';
+import {AllManufacturingUnitsCallbacks, ManufacturingUnit, SystemProperty} from 'core';
 
 function App() {
+  const shownSystemPropertyIds = ["name", "createdAt", "count"]
+  
   const allManufacturingUnitsUseCase = useCases.allManufacturingUnitsUseCase;
 
   const [manufacturingUnits, setManufacturingUnits] = useState<ManufacturingUnit[]>([]);
+  const [shownSystemProperties, setShownSystemProperties] = useState<SystemProperty[]>([]);
+
+  const callback: AllManufacturingUnitsCallbacks = {
+    setManufacturingUnits:setManufacturingUnits,
+    setSchema: (schema: SystemProperty[]) => {
+      setShownSystemProperties(shownSystemPropertyIds
+        .map(systemPropertyId => 
+          schema.find(systemProperty => systemProperty.id === systemPropertyId)
+        )
+        .filter(systemProperty => systemProperty != undefined) as SystemProperty[]
+      )
+    }
+  }
+
+  
   useEffect(()=>{
-    allManufacturingUnitsUseCase.getAllManufacturingUnits({setManufacturingUnitModels:setManufacturingUnits});
+    allManufacturingUnitsUseCase.getAllManufacturingUnits(callback);
+  },[]) 
+
+  useEffect(()=>{
+    allManufacturingUnitsUseCase.getManufacturingUnitSchema(callback);
   },[]) 
 
   return (
@@ -27,7 +48,7 @@ function App() {
       </IconButton></Paper>
       </Grid>
       <Grid item xs={8}>
-        <Paper><Uebersicht subSystems={manufacturingUnits} shownSystemProperties={}></Uebersicht></Paper>
+        <Paper><Uebersicht subSystems={manufacturingUnits} shownSystemProperties={shownSystemProperties}></Uebersicht></Paper>
       </Grid>
     </Grid>
 

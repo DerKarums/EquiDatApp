@@ -88,11 +88,10 @@ function Uebersicht({subSystems, shownSystemProperties}: {subSystems:SubSystem[]
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell className={classes.tableHeaderCell}>Name der Fertigungseinheit</TableCell>
-                <TableCell className={classes.tableHeaderCell}>Fertigungssteuerer</TableCell>
-                <TableCell className={classes.tableHeaderCell}>Bereich</TableCell>
-                <TableCell className={classes.tableHeaderCell}>Produkte</TableCell>
-                <TableCell className={classes.tableHeaderCell}>Aktion</TableCell>
+                {shownSystemProperties.map(systemProperty => (
+                  <TableCell className={classes.tableHeaderCell}>{systemProperty.label}</TableCell>
+                ))}
+                <TableCell className={classes.tableHeaderCell} />
               </TableRow>
             </TableHead>
             <TableBody>
