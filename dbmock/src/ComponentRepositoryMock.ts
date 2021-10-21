@@ -4,12 +4,31 @@ export class ComponentRepositoryMock implements CreateComponentRepository, ShowC
 
     componentTypes = [
         new ComponentType([
-            new SystemProperty("Name", SystemPropertyType.StringType, true),
-            new SystemProperty("Aufgestellt am", SystemPropertyType.DateType, false),
-            new SystemProperty("Anzahl", SystemPropertyType.NumberType, false),
+            new SystemProperty("Name", SystemPropertyType.StringType, true, "name"),
+            new SystemProperty("Aufgestellt am", SystemPropertyType.DateType, false, "createdAt"),
+            new SystemProperty("Anzahl", SystemPropertyType.NumberType, false, "count"),
         ])];
 
-    private components: Map<string, Component> = new Map([["c1", new Component(this.componentTypes[0])]]);
+    private initialComponents = [
+        new Component(
+            this.componentTypes[0],
+            new Map([
+                ["name", "Fertigungseinheit Nr. 1"],
+                ["createdAt", "2021-10-14"],
+                ["count", "5"]
+            ])
+        ),
+        new Component(
+            this.componentTypes[0],
+            new Map([
+                ["name", "Montagezelle Nr. 4711"],
+                ["createdAt", "2021-10-12"],
+            ])
+        ),
+    ];
+
+    private components: Map<string, Component> = new Map(this.initialComponents.map(component => [component.id, component]));
+
 
     getComponents(): Component[] {
         return [...this.components.values()];
