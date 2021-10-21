@@ -22,10 +22,10 @@ import MenuItem from '@mui/material/MenuItem';
 import Popper from '@mui/material/Popper';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Grow from '@mui/material/Grow';
+import {ManufacturingUnit, SubSystem, SystemProperty} from 'core';
 
-function Uebersicht() {
+function Uebersicht({subSystems, shownSystemProperties}: {subSystems:SubSystem[], shownSystemProperties:SystemProperty[]}) {
 
-  var USERS: any[] = [], STATUS = ['Okay', 'Achtung', 'Alarm'];
 
   const useStyles = makeStyles((theme: Theme) => createStyles({
     table: {
@@ -43,18 +43,7 @@ function Uebersicht() {
     }
   }));
 
-  for (let i = 0; i < 14; i++) {
-    USERS[i] = {
-      name: faker.commerce.productName(),
-      location: faker.commerce.department(),
-      country: faker.address.country(),
-      fertigungssteuerer: faker.lorem.word(),
-      bereich: faker.lorem.word(),
-      produkte: faker.lorem.words(),
-      status: STATUS[Math.floor(Math.random() * STATUS.length)]
-    }
-  }
-
+  
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
@@ -107,16 +96,13 @@ function Uebersicht() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {USERS.map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell>
-                    <Typography>{row.name}</Typography>
-                    <Typography>{row.location}</Typography>
-                    <Typography>{row.country}</Typography>
+              {subSystems.map((row) => (
+                <TableRow key={row.id}>
+                {shownSystemProperties.map((systemProperty) => (
+                  <TableCell key={systemProperty.id}>
+                    <Typography>{row.getSystemPropertyValue(systemProperty.id)}</Typography>             
                   </TableCell>
-                  <TableCell>{row.fertigungssteuerer}</TableCell>
-                  <TableCell>{row.produkte}</TableCell>
-                  <TableCell>{row.bereich}</TableCell>
+                ))}
                   <TableCell><IconButton 
                   ref={anchorRef}
                     id="composition-button"

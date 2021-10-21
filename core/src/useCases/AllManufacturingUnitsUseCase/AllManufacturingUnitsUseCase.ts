@@ -22,7 +22,7 @@ export class AllManufacturingUnitsUseCase {
       return new ManufacturingUnitModel(manufacturingUnit.getRelevantSystemProperties(),
         testSystemModels, componentModels);
     });
-    callbacks.setManufacturingUnitModels(manufacturingUnitModels);
+    callbacks.setManufacturingUnitModels(manufacturingUnits);
   }
 
   private getComponentModels(components: Component[]) {
