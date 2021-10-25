@@ -89,7 +89,7 @@ function Uebersicht({subSystems, shownSystemProperties}: {subSystems:SubSystem[]
             <TableHead>
               <TableRow>
                 {shownSystemProperties.map(systemProperty => (
-                  <TableCell className={classes.tableHeaderCell}>{systemProperty.label}</TableCell>
+                  <TableCell className={classes.tableHeaderCell} key={systemProperty.id}>{systemProperty.label}</TableCell>
                 ))}
                 <TableCell className={classes.tableHeaderCell} />
               </TableRow>

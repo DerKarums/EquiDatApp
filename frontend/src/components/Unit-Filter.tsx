@@ -49,34 +49,32 @@ function Filter() {
                     <Typography><FilterAltIcon />Filter</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Typography>
-                        <TableContainer component={Paper}>
-                            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                                <TableBody>
-                                    <TableRow>
-                                        <TableCell>
-                                            Bereich
-                                        </TableCell>
-                                        <TableCell>
-                                            <TextField id="standard-basic" label="Bereich" variant="standard" />
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>Land</TableCell>
-                                        <TableCell><TextField id="standard-basic" label="Land" variant="standard" /></TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>Standort</TableCell>
-                                        <TableCell><TextField id="standard-basic" label="Standort" variant="standard" /></TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>Hersteller</TableCell>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell>
+                                        Bereich
+                                    </TableCell>
+                                    <TableCell>
+                                        <TextField id="standard-basic" label="Bereich" variant="standard" />
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Land</TableCell>
+                                    <TableCell><TextField id="standard-basic" label="Land" variant="standard" /></TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Standort</TableCell>
+                                    <TableCell><TextField id="standard-basic" label="Standort" variant="standard" /></TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Hersteller</TableCell>
                                     <TableCell><TextField id="standard-basic" label="Hersteller" variant="standard" /></TableCell>
-                                    </TableRow>
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </Typography>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </AccordionDetails>
             </Accordion>
         </div>
