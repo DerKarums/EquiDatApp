@@ -1,7 +1,7 @@
-import { Component } from "../../entities/Component";
-import { ComponentModel } from "./ComponentModel";
+import { Component, SystemProperty } from "../../entities";
 
 
 export interface AllComponentsCallbacks {
-  setComponents(componentModels: ComponentModel[]): void;
+  setComponents(components: Component[]): void;
+  setRequestedSystemProperties(systemPropertiesByIds: { systemProperty: SystemProperty | null, id: string }[]): void;
 }

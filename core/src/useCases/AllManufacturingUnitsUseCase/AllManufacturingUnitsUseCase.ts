@@ -5,7 +5,8 @@ import { ComponentModel } from "../AllComponentsUseCase/ComponentModel";
 import { TestSystemModel } from "../AllTestSystemsUseCase/TestSystemModel";
 import { AllManufacturingUnitsCallbacks } from "./AllManufacturingUnitsCallbacks";
 import { AllManufacturingUnitsRepository } from "./AllManufacturingUnitsRepository";
-import { ManufacturingUnitModel } from "./ManufacturingUnitModel";
+import { AllManufacturingUnitsManufacturingUnitModel } from "./AllManufacturingUnitsManufacturingUnitModel";
+import { SystemProperty } from "../../entities";
 
 
 
@@ -19,10 +20,15 @@ export class AllManufacturingUnitsUseCase {
     const manufacturingUnitModels = manufacturingUnits.map(manufacturingUnit => {
       const componentModels = this.getComponentModels(manufacturingUnit.components);
       const testSystemModels = this.getTestSystemModels(manufacturingUnit.testSystems);
-      return new ManufacturingUnitModel(manufacturingUnit.getRelevantSystemProperties(),
+      return new AllManufacturingUnitsManufacturingUnitModel(manufacturingUnit.getRelevantSystemProperties(),
         testSystemModels, componentModels);
     });
-    callbacks.setManufacturingUnitModels(manufacturingUnitModels);
+    callbacks.setManufacturingUnits(manufacturingUnits);
+  }
+
+  public getSystemPropertiesByIds(ids: string[], callbacks: AllManufacturingUnitsCallbacks) {
+    const systemProperties = this.repository.getSystemPropertiesByIds(ids);
+    callbacks.setRequestedSystemProperties(systemProperties);
   }
 
   private getComponentModels(components: Component[]) {

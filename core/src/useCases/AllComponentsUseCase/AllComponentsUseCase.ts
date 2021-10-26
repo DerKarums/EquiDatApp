@@ -11,6 +11,11 @@ export class AllComponentsUseCase {
   public getAllComponents(callbacks: AllComponentsCallbacks) {
     const components = this.repository.getComponents();
     const componentModels = components.map(component => new ComponentModel(component.getRelevantSystemProperties()));
-    callbacks.setComponents(componentModels);
+    callbacks.setComponents(components);
+  }
+
+  public getSystemPropertiesByIds(ids: string[], callbacks: AllComponentsCallbacks) {
+    const systemProperties = this.repository.getSystemPropertiesByIds(ids);
+    callbacks.setRequestedSystemProperties(systemProperties);
   }
 }

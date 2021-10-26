@@ -15,6 +15,11 @@ export class AllTestSystemsUseCase {
       const componentModels = testSystem.components.map(component => new ComponentModel(component.getRelevantSystemProperties()));
       return new TestSystemModel(testSystem.getRelevantSystemProperties(), componentModels);
     });
-    callbacks.setTestSystems(testSystemModels);
+    callbacks.setTestSystems(testSystems);
+  }
+  
+  public getSystemPropertiesByIds(ids: string[], callbacks: AllTestSystemsCallbacks) {
+    const systemProperties = this.repository.getSystemPropertiesByIds(ids);
+    callbacks.setRequestedSystemProperties(systemProperties);
   }
 }
