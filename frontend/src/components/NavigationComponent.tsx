@@ -4,35 +4,38 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import ManufacturingUnitDetail from './DetailFertigungssystem';
 import DetailKomponente from './DetailKomponente';
 import DetailTestsystem from './DetailTestsystem';
+import ComponentsOverview from './overview/ComponentsOverview';
+import ManufacturingsUnitsOverview from './overview/ManufacturingUnitsOverview';
+import TestSystemsOverview from './overview/TestSystemsOverview';
 import HeaderBar from './shared/frame/HeaderBar';
 import NavigationTabs from './shared/frame/NavigationTabs';
-import { default as App, default as ManufacturingUnitsComponent } from './Unit-App';
 
 function NavigationComponent() {
     return (
         <Switch>
             <Route path="/components/:componentId">
-                <DetailKomponente /> {/* TODO */}
+                <DetailKomponente />
             </Route>
 
             <Route path="/testSystems/:testSystemId">
-                <DetailTestsystem /> {/* TODO */}
+                <DetailTestsystem />
             </Route>
 
             <Route path="/manufacturingUnits/:manufacturingUnitId">
-                <ManufacturingUnitDetail /> {/* TODO */}
+                <ManufacturingUnitDetail />
             </Route>
 
             <Route path="/manufacturingUnits">
-                <ManufacturingUnitsComponent />
+                <ManufacturingsUnitsOverview />
             </Route>
             <Route path="/testSystems">
-                <ManufacturingUnitsComponent />  {/* TODO */}
+                <TestSystemsOverview />
             </Route>
             <Route path="/components">
-                <ManufacturingUnitsComponent /> {/* TODO */}
+                <ComponentsOverview />
             </Route>
             <Redirect from="" to="/manufacturingUnits" />
         </Switch>
     );
-} export default NavigationComponent;
+};
+ export default NavigationComponent;
