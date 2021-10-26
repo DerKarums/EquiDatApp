@@ -1,10 +1,11 @@
 import React from 'react';
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import ManufacturingUnitDetail from './DetailFertigungssystem';
 import DetailKomponente from './DetailKomponente';
 import DetailTestsystem from './DetailTestsystem';
 import Frame from './Frame';
 import HeaderBar from './shared/frame/HeaderBar';
+import NavigationTabs from './shared/frame/NavigationTabs';
 import ManufacturingUnitsComponent from './Unit-App';
 
 function NavigationComponent() {
@@ -13,7 +14,20 @@ function NavigationComponent() {
     return (
         <>
             <HeaderBar language={language} setLanguage={setLanguage} />
+            <NavigationTabs />
             <Switch>
+                <Route path="/components/:componentId">
+                    <DetailKomponente /> {/* TODO */}
+                </Route>
+
+                <Route path="/testSystems/:testSystemId">
+                    <DetailTestsystem /> {/* TODO */}
+                </Route>
+
+                <Route path="/manufacturingUnits/:manufacturingUnitId">
+                    <ManufacturingUnitDetail /> {/* TODO */}
+                </Route>
+
                 <Route path="/manufacturingUnits">
                     <ManufacturingUnitsComponent />
                 </Route>
@@ -24,21 +38,12 @@ function NavigationComponent() {
                     <ManufacturingUnitsComponent /> {/* TODO */}
                 </Route>
 
-                <Route path="/component/:componentId">
-                    <DetailKomponente /> {/* TODO */}
-                </Route>
 
-                <Route path="/testSystem/:testSystemId">
-                    <DetailTestsystem /> {/* TODO */}
-                </Route>
-
-                <Route path="/manufacturingUnit/:manufacturingUnitId">
-                    <ManufacturingUnitDetail /> {/* TODO */}
-                </Route>
 
                 <Route path="">
                     <Frame language={language} setLanguage={setLanguage} /> { /* For testing purposes only */}
                 </Route>
+                <Redirect from="" to="/manufacturingUnits" />
             </Switch>
         </>
     );
