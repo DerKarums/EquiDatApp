@@ -6,6 +6,7 @@ import { TestSystemModel } from "../AllTestSystemsUseCase/TestSystemModel";
 import { AllManufacturingUnitsCallbacks } from "./AllManufacturingUnitsCallbacks";
 import { AllManufacturingUnitsRepository } from "./AllManufacturingUnitsRepository";
 import { AllManufacturingUnitsManufacturingUnitModel } from "./AllManufacturingUnitsManufacturingUnitModel";
+import { SystemProperty } from "../../entities";
 
 
 
@@ -25,9 +26,9 @@ export class AllManufacturingUnitsUseCase {
     callbacks.setManufacturingUnits(manufacturingUnits);
   }
 
-  public getManufacturingUnitSchema(callbacks: AllManufacturingUnitsCallbacks) {
-    const schema = this.repository.getSchema();
-    callbacks.setSchema(schema);
+  public getSystemPropertiesByIds(ids: string[], callbacks: AllManufacturingUnitsCallbacks) {
+    const systemProperties = this.repository.getSystemPropertiesByIds(ids);
+    callbacks.setRequestedSystemProperties(systemProperties);
   }
 
   private getComponentModels(components: Component[]) {

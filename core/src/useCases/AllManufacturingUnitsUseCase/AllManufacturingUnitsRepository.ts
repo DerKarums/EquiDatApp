@@ -4,5 +4,5 @@ import { ManufacturingUnit } from '../../entities/ManufacturingUnit';
 
 export interface AllManufacturingUnitsRepository {
   getManufacturingUnits(): ManufacturingUnit[];
-  getSchema(): SystemProperty[];
+  getSystemPropertiesByIds(ids: string[]): { systemProperty: SystemProperty | null, id: string }[];
 }

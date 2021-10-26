@@ -2,5 +2,5 @@ import { ManufacturingUnit, SystemProperty } from "../../entities";
 
 export interface AllManufacturingUnitsCallbacks {
   setManufacturingUnits(manufacturingUnits: ManufacturingUnit[]): void;
-  setSchema(schema: SystemProperty[]): void;
+  setRequestedSystemProperties(systemPropertiesByIds: { systemProperty: SystemProperty | null, id: string }[]): void;
 }

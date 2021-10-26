@@ -1,6 +1,6 @@
-import { TestSystemModel } from "./TestSystemModel";
-
+import { SystemProperty, TestSystem } from "../../entities";
 
 export interface AllTestSystemsCallbacks {
-  setTestSystems(testSystemModels: TestSystemModel[]): void
+  setTestSystems(testSystems: TestSystem[]): void;
+  setRequestedSystemProperties(systemPropertiesByIds: { systemProperty: SystemProperty | null, id: string }[]): void;
 }
