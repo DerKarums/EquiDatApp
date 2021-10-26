@@ -1,3 +1,3 @@
-export * from './ComponentRepositoryMock';
-export * from './ManufacturingUnitRepositoryMock';
-export * from './TestSystemRepositoryMock';
+export * from './mocks/ComponentRepositoryMock';
+export * from './mocks/ManufacturingUnitRepositoryMock';
+export * from './mocks/TestSystemRepositoryMock';

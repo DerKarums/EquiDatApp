@@ -1,0 +1,69 @@
+[
+    {
+        "id": "68f8dc61-5268-4db6-aed4-19878b34c5f3",
+        "systemPropertyValues": {
+            "country": "Deutschland",
+            "location": "Groß Berkel",
+            "building": "Werk 1",
+            "street": "Hans-Lenze-Straße 1",
+            "city": "31855 Aerzen",
+            "name": "Montagezelle 21 (i950)",
+            "fertigungssteuerer": "MKA",
+            "region": "Gerätemontage",
+            "products": "i950",
+            "power": "<=15kW",
+            "size": "3, 4, 5",
+            "mes": "Sigma Leitrechner",
+            "trace_system": "Itac",
+            "function": "HV- und EoL- Prüfung für Servoantriebsregler i950",
+            "comments": "..."
+        },
+        "testSystems": [],
+        "components": [
+            "feadb8d3-f5ff-45da-845f-41c1cc10a969"
+        ]
+    },
+    {
+        "id": "bfe41462-5fd2-4046-83be-c3cbf9d9dbc8",
+        "systemPropertyValues": {
+            "country": "Deutschland",
+            "location": "Groß Berkel",
+            "building": "Werk 1",
+            "street": "Hans-Lenze-Straße 1",
+            "city": "31855 Aerzen",
+            "name": "Montagezelle 22 (i930)",
+            "fertigungssteuerer": "MKA",
+            "region": "Gerätemontage",
+            "products": "i930",
+            "power": "<=15kW",
+            "size": "3, 4, 5",
+            "mes": "Sigma Leitrechner",
+            "trace_system": "Itac",
+            "function": "HV- und EoL- Prüfung für Servoantriebsregler i950",
+            "comments": "Keine Kommentare"
+        },
+        "testSystems": [],
+        "components": []
+    },
+    {
+        "id": "c648e65d-b8ba-4bb6-a0c1-96b76e4d9010",
+        "systemPropertyValues": {
+            "country": "Deutschland",
+            "location": "Groß Berkel",
+            "building": "Werk 1",
+            "street": "Hans-Lenze-Straße 1",
+            "city": "31855 Aerzen",
+            "name": "Montagezelle 23 (i960)",
+            "fertigungssteuerer": "MKA",
+            "region": "Gerätemontage",
+            "products": "i960",
+            "power": "<=15kW",
+            "size": "3, 4, 5",
+            "mes": "Sigma Leitrechner",
+            "trace_system": "Itac",
+            "function": "HV- und EoL- Prüfung für Servoantriebsregler i950"
+        },
+        "testSystems": [],
+        "components": []
+    }
+]

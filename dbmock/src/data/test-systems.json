@@ -1,0 +1,100 @@
+[
+    {
+        "id": "d6636120-86e0-470e-b06a-77557aa8544a",
+        "systemPropertyValues": {
+            "name": "M21_E01",
+            "supplier": "Lenze Engineering",
+            "manufacturer": "Westermann",
+            "test_type": "HV",
+            "diagram_id": "71052",
+            "diagram_url": "https://de.wikipedia.org/wiki/Schaltplan#/media/Datei:OpAmpTransistorLevel_Colored_DE.svg",
+            "construction_year": "2017",
+            "locker_count": "1",
+            "terminal_box_count": "1",
+            "installation_date": "2017-10-01",
+            "voltage": "1 PE/N 230V 50Hz",
+            "rated_current": "10A",
+            "backup_current": "16A",
+            "voltage_it": "1 PE/N 230V 50Hz",
+            "rated_current_it": "10A",
+            "backup_current_it": "16A"
+        },
+        "components": [
+            "0ec70ba2-3685-11ec-8d3d-0242ac130003",
+            "ac43cfde-545f-4d80-8fff-45dd9574d2ae",
+            "72ccae4b-d0b1-447b-af4c-d8d9ee55debd",
+            "d852677a-b44b-4911-b40f-485b29b2dbfd",
+            "12548a2c-c2f3-4e43-953b-99411dab77f5",
+            "af199b39-3489-4556-a221-06dc51d2f5d8",
+            "30aa01e6-c216-461f-8f71-53dc8ba91f60"
+        ]
+    },
+    {
+        "id": "3edab1fa-b42d-45de-b2df-0f1fc3a1ee09",
+        "systemPropertyValues": {
+            "name": "M21_E02",
+            "supplier": "Lenze Engineering",
+            "manufacturer": "Westermann",
+            "test_type": "EoL",
+            "diagram_id": "71053",
+            "diagram_url": "https://de.wikipedia.org/wiki/Schaltplan#/media/Datei:OpAmpTransistorLevel_Colored_DE.svg",
+            "construction_year": "2017",
+            "locker_count": "1",
+            "terminal_box_count": "2",
+            "installation_date": "2017-10-01",
+            "voltage": "3 PE/N 230V/400V 50Hz",
+            "rated_current": "25A",
+            "backup_current": "32A",
+            "voltage_it": "1 PE/N 230V 50Hz",
+            "rated_current_it": "10A",
+            "backup_current_it": "16A",
+            "voltage_lighting": "1 PE/N 230V 50Hz",
+            "rated_current_lighting": "10A",
+            "backup_current_lighting": "16A"
+        },
+        "components": [
+            "c73403d6-f262-438e-89c7-e2a1a06aae9b",
+            "3887fc40-3c7e-4b39-a50a-86a392a73ced",
+            "bb15da92-44e1-4711-b319-24fc9e03f63c",
+            "ded060ce-0ab1-4a13-bb0a-974a52bfb531",
+            "1981f9bd-b1f6-483b-be72-56d2580ea248",
+            "79b9a12c-838e-4356-93c7-0f8d5bba0fcf",
+            "9f67d66a-d8ee-431f-9cf9-7cd0d253d881",
+            "984d95d3-8479-4ab0-9221-15f0c6fe3e86",
+            "d8ca4098-d66f-41cb-bc8a-74008d99fb8f",
+            "28f905c7-9d86-437e-bc42-ddb3521dfbca",
+            "68502a68-66d5-483f-bac9-9ae04c60c213",
+            "72893c49-e3ab-4eb0-b1b4-075bbf35ddf7",
+            "ab484350-ca39-4fa6-a264-bc6056a953be"
+        ]
+    },
+    {
+        "id": "218e4571-cb48-4358-a809-e984e73ed4b3",
+        "systemPropertyValues": {
+            "name": "M21_E03",
+            "supplier": "Lenze Engineering",
+            "manufacturer": "Westermann",
+            "test_type": "EoL",
+            "diagram_id": "71054",
+            "diagram_url": "https://de.wikipedia.org/wiki/Schaltplan#/media/Datei:OpAmpTransistorLevel_Colored_DE.svg",
+            "construction_year": "2021",
+            "locker_count": "1",
+            "terminal_box_count": "2",
+            "installation_date": "2021-10-01",
+            "voltage": "3 PE/N 230V/400V 50Hz",
+            "rated_current": "25A",
+            "backup_current": "32A",
+            "voltage_it": "1 PE/N 230V 50Hz",
+            "rated_current_it": "10A",
+            "backup_current_it": "16A",
+            "voltage_lighting": "1 PE/N 230V 50Hz",
+            "rated_current_lighting": "10A",
+            "backup_current_lighting": "16A"
+        },
+        "components": [
+            "85943b61-86ea-417f-9dcb-abc7c634097b",
+            "f9f6d01b-c396-4b5c-bc51-1fed1a6533a8",
+            "14561e99-0058-4782-8978-5fd8a52d3d86"
+        ]
+    }
+]
