@@ -43,4 +43,12 @@ export class TestSystemRepositoryMock implements CreateTestSystemRepository, Sho
             new SystemProperty("Anzahl", SystemPropertyType.NumberType, false, "count"),
         ];
     }
+
+    getSystemPropertiesByIds(ids: string[]): { systemProperty: SystemProperty | null; id: string; }[] {
+        return ids.map(id => ({ systemProperty: this.getSystemPropertyById(id), id }))
+    }
+
+    getSystemPropertyById(id: string): SystemProperty | null {
+        return this.getSchema().find(systemProperty => systemProperty.id === id) ?? null;
+    }
 }

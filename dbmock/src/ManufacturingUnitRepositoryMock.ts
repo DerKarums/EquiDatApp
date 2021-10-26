@@ -2,6 +2,7 @@ import { ManufacturingUnit, SystemProperty, SystemPropertyType, CreateManufactur
 
 export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitRepository, ShowManufacturingUnitRepository, AllManufacturingUnitsRepository {
 
+
     private initialManufacturingUnits = [
         new ManufacturingUnit(
             this.getSchema(),
@@ -41,5 +42,13 @@ export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitR
             new SystemProperty("Aufgestellt am", SystemPropertyType.DateType, false, "createdAt"),
             new SystemProperty("Anzahl", SystemPropertyType.NumberType, false, "count"),
         ];
+    }
+
+    getSystemPropertiesByIds(ids: string[]): { systemProperty: SystemProperty | null; id: string; }[] {
+        return ids.map(id => ({ systemProperty: this.getSystemPropertyById(id), id }))
+    }
+
+    getSystemPropertyById(id: string): SystemProperty | null {
+        return this.getSchema().find(systemProperty => systemProperty.id === id) ?? null;
     }
 }

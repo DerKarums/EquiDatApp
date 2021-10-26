@@ -2,12 +2,16 @@ import { CreateComponentRepository, ShowComponentRepository, SystemProperty, Sys
 
 export class ComponentRepositoryMock implements CreateComponentRepository, ShowComponentRepository, AllComponentsRepository {
 
+
+    systemProperties = [
+        new SystemProperty("Name", SystemPropertyType.StringType, true, "name"),
+        new SystemProperty("Aufgestellt am", SystemPropertyType.DateType, false, "createdAt"),
+        new SystemProperty("Anzahl", SystemPropertyType.NumberType, false, "count"),
+    ]
+
     componentTypes = [
-        new ComponentType([
-            new SystemProperty("Name", SystemPropertyType.StringType, true, "name"),
-            new SystemProperty("Aufgestellt am", SystemPropertyType.DateType, false, "createdAt"),
-            new SystemProperty("Anzahl", SystemPropertyType.NumberType, false, "count"),
-        ])];
+        new ComponentType(this.systemProperties)
+    ];
 
     private initialComponents = [
         new Component(
@@ -41,5 +45,13 @@ export class ComponentRepositoryMock implements CreateComponentRepository, ShowC
 
     getComponent(id: string): Component {
         return this.components.get(id) as Component;
+    }
+
+    getSystemPropertiesByIds(ids: string[]): { systemProperty: SystemProperty | null; id: string; }[] {
+        return ids.map(id => ({ systemProperty: this.getSystemPropertyById(id), id }))
+    }
+
+    getSystemPropertyById(id: string): SystemProperty | null {
+        return this.systemProperties.find(systemProperty => systemProperty.id === id) ?? null;
     }
 }
