@@ -9,6 +9,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import EditIcon from '@mui/icons-material/Edit';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { AddBox } from '@material-ui/icons';
+import { useParams } from 'react-router-dom';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -25,6 +26,7 @@ const useStyles = makeStyles({
 })
 
 function DetailKomponente() {
+    const { componentId } = useParams() as { componentId: string };
     const classes = useStyles();
 
     const [order, setOrder] = React.useState<Order>('asc');
