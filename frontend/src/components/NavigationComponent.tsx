@@ -3,7 +3,6 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import ManufacturingUnitDetail from './DetailFertigungssystem';
 import DetailKomponente from './DetailKomponente';
 import DetailTestsystem from './DetailTestsystem';
-import Frame from './Frame';
 import HeaderBar from './shared/frame/HeaderBar';
 import NavigationTabs from './shared/frame/NavigationTabs';
 import ManufacturingUnitsComponent from './Unit-App';
@@ -34,14 +33,8 @@ function NavigationComponent() {
                 <Route path="/testSystems">
                     <ManufacturingUnitsComponent />  {/* TODO */}
                 </Route>
-                <Route path="component">
+                <Route path="/components">
                     <ManufacturingUnitsComponent /> {/* TODO */}
-                </Route>
-
-
-
-                <Route path="">
-                    <Frame language={language} setLanguage={setLanguage} /> { /* For testing purposes only */}
                 </Route>
                 <Redirect from="" to="/manufacturingUnits" />
             </Switch>
