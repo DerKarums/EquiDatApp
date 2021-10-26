@@ -42,6 +42,7 @@ const NavigationTabs = () => {
         <Tabs value={selectedTabIndex} aria-label="basic tabs example">
             {tabs.map((tab, index) => (
                 <Tab
+                    key={index}
                     label={tab.label}
                     onClick={() => { navigateTo(tab.target) }}
                     {...a11yProps(index)}
