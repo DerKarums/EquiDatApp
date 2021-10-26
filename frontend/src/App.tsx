@@ -1,38 +1,14 @@
 import React from 'react';
+import { BrowserRouter } from "react-router-dom";
 import Frame from './components/Frame';
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import ManufacturingUnitsComponent from './components/Unit-App';
-import DetailKomponente from './components/DetailKomponente';
-import ManufacturingUnitDetail from './components/DetailFertigungssystem';
-import DetailTestsystem from './components/DetailTestsystem';
+import NavigationComponent from './components/NavigationComponent';
+import HeaderBar from './components/shared/frame/HeaderBar';
 
 function App() {
 
   return (
     <BrowserRouter>
-      <Switch>
-        <Route path="/manufacturingUnits">
-          <ManufacturingUnitsComponent />
-        </Route>
-        <Route path="/testSystems">
-          <ManufacturingUnitsComponent />  {/* TODO */ }
-        </Route>
-        <Route path="/components">
-          <ManufacturingUnitsComponent /> {/* TODO */ }
-        </Route>
-
-        <Route path="/component/:componentId">
-          <DetailKomponente /> {/* TODO */ }
-        </Route>
-
-        <Route path="/testSystem/:testSystemId">
-          <DetailTestsystem /> {/* TODO */ }
-        </Route>
-
-        <Route path="/manufacturingUnit/:manufacturingUnitId">
-          <ManufacturingUnitDetail /> {/* TODO */ }
-        </Route>
-      </Switch>
+      <NavigationComponent />
     </BrowserRouter>
   );
 } export default App;
