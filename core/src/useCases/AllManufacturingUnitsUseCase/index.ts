@@ -1,4 +1,4 @@
 export * from './AllManufacturingUnitsUseCase';
 export * from './AllManufacturingUnitsCallbacks';
 export * from './AllManufacturingUnitsRepository';
-export * as AllManufactutingUnitsManufacturingUnitModel from './ManufacturingUnitModel';
+export * as AllManufacturingUnitsManufacturingUnitModel from './ManufacturingUnitModel';
