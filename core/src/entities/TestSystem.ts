@@ -5,11 +5,11 @@ import { SystemProperty } from "./SystemProperty";
 export class TestSystem extends SubSystem {
 
 
-    constructor(private readonly schema: SystemProperty[],
+    constructor(
+        private readonly schema: SystemProperty[],
         systemPropertyValues?: Map<string, string>,
         private _components: Component[] = [],
         id?: string,
-
     ) {
         super(id, systemPropertyValues);
     }

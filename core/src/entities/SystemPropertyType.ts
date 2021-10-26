@@ -3,4 +3,5 @@ export enum SystemPropertyType {
     NumberType,
     YearType,
     DateType,
+    BooleanType,
 }

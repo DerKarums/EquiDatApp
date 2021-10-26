@@ -4,9 +4,11 @@ import { SystemProperty } from "./SystemProperty";
 
 export class Component extends SubSystem {
 
-    constructor(private readonly componentType: ComponentType,
+    constructor(
+        private readonly componentType: ComponentType,
         systemPropertyValues?: Map<string, string>,
-        id?: string) {
+        id?: string
+    ) {
         super(id, systemPropertyValues);
     }
 
