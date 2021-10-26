@@ -8,7 +8,7 @@ import SubSystemOverview from './SubSystemOverview';
 function TestSystemsOverview() {
     const history = useHistory();
 
-    const shownSystemPropertyIds = ["name", "createdAt", "count"]
+    const shownSystemPropertyIds = ["name", "test_type", "installation_date", "decommissioning_date"]
 
     const allTestSystemsUseCase = useCases.allTestSystemsUseCase;
 
