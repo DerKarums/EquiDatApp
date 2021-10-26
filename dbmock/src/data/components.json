@@ -1,0 +1,305 @@
+[
+    {
+        "id": "0ec70ba2-3685-11ec-8d3d-0242ac130003",
+        "type": "computer",
+        "systemPropertyValues": {
+            "name": "M21_E01",
+            "manufacturer": "Lenovo",
+            "supplier": "bhn",
+            "operating_system": "Win7",
+            "leasing": "true",
+            "expiration": "2022",
+            "ip_lenze": "DHCP",
+            "ip_test_system": "172.16.192.1",
+            "interfaces": "...",
+            "user_name": "M21_E01",
+            "password": "g3h31m3s_p455w0rt1",
+            "software_manufacturer": "GIE",
+            "ide": "VS2008",
+            "comments": "Bemerkung"
+        }
+    },
+    {
+        "id": "c73403d6-f262-438e-89c7-e2a1a06aae9b",
+        "type": "computer",
+        "systemPropertyValues": {
+            "name": "M21_E02",
+            "manufacturer": "Lenovo",
+            "supplier": "bhn",
+            "operating_system": "Win7",
+            "leasing": "true",
+            "expiration": "2022",
+            "ip_lenze": "DHCP",
+            "ip_test_system": "172.16.192.1",
+            "interfaces": "...",
+            "user_name": "M21_E02",
+            "password": "g3h31m3s_p455w0rt2",
+            "software_manufacturer": "GIE",
+            "ide": "VS2008",
+            "comments": "Bemerkung"
+        }
+    },
+    {
+        "id": "85943b61-86ea-417f-9dcb-abc7c634097b",
+        "type": "computer",
+        "systemPropertyValues": {
+            "name": "M21_E03",
+            "manufacturer": "Lenovo",
+            "supplier": "bhn",
+            "operating_system": "Win7",
+            "leasing": "true",
+            "expiration": "2026",
+            "ip_lenze": "DHCP",
+            "ip_test_system": "172.16.192.1",
+            "interfaces": "...",
+            "user_name": "M21_E03",
+            "password": "g3h31m3s_p455w0rt2",
+            "software_manufacturer": "GIE",
+            "ide": "VS2008",
+            "comments": "Bemerkung"
+        }
+    },
+    {
+        "id": "ac43cfde-545f-4d80-8fff-45dd9574d2ae",
+        "type": "hardware",
+        "systemPropertyValues": {
+            "name": "PLC",
+            "manufacturer": "Lenze",
+            "supplier": "siehe Schaltschrank",
+            "type_name_manufacturer": "C3200",
+            "order_no": "…",
+            "supply_connection": "24V",
+            "safety_component": "false",
+            "duration": "#",
+            "comments": ""
+        }
+    },
+    {
+        "id": "d852677a-b44b-4911-b40f-485b29b2dbfd",
+        "type": "hardware",
+        "systemPropertyValues": {
+            "name": "Sicherheitsschaltgerät",
+            "manufacturer": "PhoenixContact",
+            "supplier": "siehe Schaltschrank",
+            "type_name_manufacturer": "PR1-RSP3-LDP-24DC/2X21 ",
+            "order_no": "2834562",
+            "supply_connection": "24V",
+            "safety_component": "true",
+            "duration": "20 Jahre",
+            "comments": ""
+        }
+    },
+    {
+        "id": "12548a2c-c2f3-4e43-953b-99411dab77f5",
+        "type": "hardware",
+        "systemPropertyValues": {
+            "name": "Sicherheitszuhaltung",
+            "manufacturer": "Schmersal",
+            "supplier": "Schmersal",
+            "type_name_manufacturer": "AZM161 SK-12/12RK-024",
+            "order_no": "101164207",
+            "supply_connection": "24V",
+            "safety_component": "true",
+            "duration": "20 Jahre",
+            "comments": ""
+        }
+    },
+    {
+        "id": "af199b39-3489-4556-a221-06dc51d2f5d8",
+        "type": "hardware",
+        "systemPropertyValues": {
+            "name": "Schutzhaube",
+            "manufacturer": "SPS electronic",
+            "supplier": "DataTec",
+            "type_name_manufacturer": "HB 3400",
+            "order_no": "HB3400A",
+            "supply_connection": "#",
+            "safety_component": "true",
+            "duration": "nicht relevant",
+            "comments": ""
+        }
+    },
+    {
+        "id": "30aa01e6-c216-461f-8f71-53dc8ba91f60",
+        "type": "hardware",
+        "systemPropertyValues": {
+            "name": "Schwellwertschalter",
+            "manufacturer": "PhoenixContact",
+            "supplier": "siehe Schaltschrank",
+            "type_name_manufacturer": "MACX MCR-T-UIREL-UP-SP",
+            "order_no": "2811828",
+            "supply_connection": "24V",
+            "safety_component": "true",
+            "duration": "10 Jahre",
+            "comments": ""
+        }
+    },
+    {
+        "id": "68502a68-66d5-483f-bac9-9ae04c60c213",
+        "type": "hardware",
+        "systemPropertyValues": {
+            "name": "Last 1",
+            "manufacturer": "Lenze",
+            "supplier": "siehe Schaltschrank",
+            "type_name_manufacturer": "Motor ",
+            "order_no": "",
+            "supply_connection": "400/230V 0,95/1,6A 370W",
+            "safety_component": "false",
+            "duration": "#",
+            "comments": ""
+        }
+    },
+    {
+        "id": "72893c49-e3ab-4eb0-b1b4-075bbf35ddf7",
+        "type": "hardware",
+        "systemPropertyValues": {
+            "name": "Last 2",
+            "manufacturer": "Lenze",
+            "supplier": "siehe Schaltschrank",
+            "type_name_manufacturer": "Motor ",
+            "order_no": "",
+            "supply_connection": "400/230V 0,95/1,6A 370W",
+            "safety_component": "false",
+            "duration": "#",
+            "comments": ""
+        }
+    },
+    {
+        "id": "ab484350-ca39-4fa6-a264-bc6056a953be",
+        "type": "hardware",
+        "systemPropertyValues": {
+            "name": "Last 3",
+            "manufacturer": "Lenze",
+            "supplier": "siehe Schaltschrank",
+            "type_name_manufacturer": "Motor ",
+            "order_no": "",
+            "supply_connection": "400/230V 0,95/1,6A 370W",
+            "safety_component": "false",
+            "duration": "#",
+            "comments": ""
+        }
+    },
+    {
+        "id": "f9f6d01b-c396-4b5c-bc51-1fed1a6533a8",
+        "type": "hardware",
+        "systemPropertyValues": {
+            "name": "Last 4",
+            "manufacturer": "Lenze",
+            "supplier": "siehe Schaltschrank",
+            "type_name_manufacturer": "Motor ",
+            "order_no": "",
+            "supply_connection": "400/230V 0,95/1,6A 370W",
+            "safety_component": "false",
+            "duration": "#",
+            "comments": ""
+        }
+    },
+    {
+        "id": "14561e99-0058-4782-8978-5fd8a52d3d86",
+        "type": "hardware",
+        "systemPropertyValues": {
+            "name": "Last 5",
+            "manufacturer": "Lenze",
+            "supplier": "siehe Schaltschrank",
+            "type_name_manufacturer": "Motor ",
+            "order_no": "",
+            "supply_connection": "400/230V 0,95/1,6A 370W",
+            "safety_component": "false",
+            "duration": "#",
+            "comments": ""
+        }
+    },
+    {
+        "id": "79b9a12c-838e-4356-93c7-0f8d5bba0fcf",
+        "type": "measurement_instrument",
+        "systemPropertyValues": {
+            "name": "Strommessbox 10A",
+            "manufacturer": "Lenze",
+            "supplier": "Lenze",
+            "type_name_manufacturer": "Lenze CurvoDetec 10A",
+            "order_no": "12345",
+            "supply_connection": "24V",
+            "measurement_type": "Strom-/Spannungsmessung Motor",
+            "measurement_range": "10A",
+            "serial_no": "1042 / 0019",
+            "needs_calibration": "true",
+            "calibration_date": "",
+            "comments": ""
+        }
+    },
+    {
+        "id": "94ba6bb9-d2a2-41d1-9e92-ec4fb061ea26",
+        "type": "measurement_instrument",
+        "systemPropertyValues": {
+            "name": "Strommessbox 50A",
+            "manufacturer": "Lenze",
+            "supplier": "Lenze",
+            "type_name_manufacturer": "Lenze CurvoDetec 50A",
+            "order_no": "12346",
+            "supply_connection": "24V",
+            "measurement_type": "Strom-/Spannungsmessung Motor",
+            "measurement_range": "50A",
+            "serial_no": "1042 / 0165",
+            "needs_calibration": "true",
+            "calibration_date": "",
+            "comments": ""
+        }
+    },
+    {
+        "id": "94ba6bb9-d2a2-41d1-9e92-ec4fb061ea26",
+        "type": "voltage_source",
+        "systemPropertyValues": {
+            "name": "HV-Generator",
+            "manufacturer": "iseg",
+            "supplier": "iseg",
+            "type_name_manufacturer": "iseg H060506p1400A9050300",
+            "order_no": "12323",
+            "supply_connection": "230V",
+            "outlet": "6kV DC / 50mA",
+            "serial_no": "4711",
+            "safety_component": "false",
+            "duration": "#",
+            "needs_calibration": "true",
+            "calibration_date": "",
+            "comments": ""
+        }
+    },
+    {
+        "id": "94ba6bb9-d2a2-41d1-9e92-ec4fb061ea26",
+        "type": "voltage_source",
+        "systemPropertyValues": {
+            "name": "1000V-Spannungsquelle",
+            "manufacturer": "TET",
+            "supplier": "Telemeter",
+            "type_name_manufacturer": "ARGOS 500 1000V/0,5A",
+            "order_no": "12323",
+            "supply_connection": "230V",
+            "outlet": "1000V DC / 0,5A / 500W",
+            "serial_no": "4712",
+            "safety_component": "false",
+            "duration": "#",
+            "needs_calibration": "false",
+            "calibration_date": "",
+            "comments": ""
+        }
+    },
+    {
+        "id": "94ba6bb9-d2a2-41d1-9e92-ec4fb061ea26",
+        "type": "voltage_source",
+        "systemPropertyValues": {
+            "name": "35V-Quelle",
+            "manufacturer": "TTi",
+            "supplier": "Telemeter",
+            "type_name_manufacturer": "QL355P",
+            "order_no": "12323",
+            "supply_connection": "230V",
+            "outlet": "35V DC / 3A",
+            "serial_no": "4714",
+            "safety_component": "false",
+            "duration": "#",
+            "needs_calibration": "true",
+            "calibration_date": "",
+            "comments": ""
+        }
+    },
+]
