@@ -67,7 +67,22 @@
             "manufacturer": "Lenze",
             "supplier": "siehe Schaltschrank",
             "type_name_manufacturer": "C3200",
-            "order_no": "…",
+            "order_no": "112423",
+            "supply_connection": "24V",
+            "safety_component": "false",
+            "duration": "#",
+            "comments": ""
+        }
+    },
+    {
+        "id": "3887fc40-3c7e-4b39-a50a-86a392a73ced",
+        "type": "hardware",
+        "systemPropertyValues": {
+            "name": "PLC",
+            "manufacturer": "Lenze",
+            "supplier": "siehe Schaltschrank",
+            "type_name_manufacturer": "C3200",
+            "order_no": "201283",
             "supply_connection": "24V",
             "safety_component": "false",
             "duration": "#",
@@ -76,6 +91,21 @@
     },
     {
         "id": "d852677a-b44b-4911-b40f-485b29b2dbfd",
+        "type": "hardware",
+        "systemPropertyValues": {
+            "name": "Sicherheitsschaltgerät",
+            "manufacturer": "PhoenixContact",
+            "supplier": "siehe Schaltschrank",
+            "type_name_manufacturer": "PR1-RSP3-LDP-24DC/2X21 ",
+            "order_no": "2834562",
+            "supply_connection": "24V",
+            "safety_component": "true",
+            "duration": "20 Jahre",
+            "comments": ""
+        }
+    },
+    {
+        "id": "bb15da92-44e1-4711-b319-24fc9e03f63c",
         "type": "hardware",
         "systemPropertyValues": {
             "name": "Sicherheitsschaltgerät",
@@ -105,6 +135,21 @@
         }
     },
     {
+        "id": "984d95d3-8479-4ab0-9221-15f0c6fe3e86",
+        "type": "hardware",
+        "systemPropertyValues": {
+            "name": "Sicherheitszuhaltung",
+            "manufacturer": "Schmersal",
+            "supplier": "Schmersal",
+            "type_name_manufacturer": "AZM161 SK-12/12RK-024",
+            "order_no": "101164208",
+            "supply_connection": "24V",
+            "safety_component": "true",
+            "duration": "20 Jahre",
+            "comments": ""
+        }
+    },
+    {
         "id": "af199b39-3489-4556-a221-06dc51d2f5d8",
         "type": "hardware",
         "systemPropertyValues": {
@@ -120,7 +165,37 @@
         }
     },
     {
+        "id": "d8ca4098-d66f-41cb-bc8a-74008d99fb8f",
+        "type": "hardware",
+        "systemPropertyValues": {
+            "name": "Schutzhaube",
+            "manufacturer": "SPS electronic",
+            "supplier": "DataTec",
+            "type_name_manufacturer": "HB 3400",
+            "order_no": "HB3400A",
+            "supply_connection": "#",
+            "safety_component": "true",
+            "duration": "nicht relevant",
+            "comments": ""
+        }
+    },
+    {
         "id": "30aa01e6-c216-461f-8f71-53dc8ba91f60",
+        "type": "hardware",
+        "systemPropertyValues": {
+            "name": "Schwellwertschalter",
+            "manufacturer": "PhoenixContact",
+            "supplier": "siehe Schaltschrank",
+            "type_name_manufacturer": "MACX MCR-T-UIREL-UP-SP",
+            "order_no": "2811828",
+            "supply_connection": "24V",
+            "safety_component": "true",
+            "duration": "10 Jahre",
+            "comments": ""
+        }
+    },
+    {
+        "id": "28f905c7-9d86-437e-bc42-ddb3521dfbca",
         "type": "hardware",
         "systemPropertyValues": {
             "name": "Schwellwertschalter",
@@ -210,6 +285,19 @@
         }
     },
     {
+        "id": "feadb8d3-f5ff-45da-845f-41c1cc10a969",
+        "type": "hardware",
+        "systemPropertyValues": {
+            "name": "Drucker 01",
+            "manufacturer": "Dell",
+            "supplier": "steht dran",
+            "type_name_manufacturer": "Dell Printer 1234",
+            "order_no": "123",
+            "safety_component": "false",
+            "comments": ""
+        }
+    },
+    {
         "id": "79b9a12c-838e-4356-93c7-0f8d5bba0fcf",
         "type": "measurement_instrument",
         "systemPropertyValues": {
@@ -228,7 +316,7 @@
         }
     },
     {
-        "id": "94ba6bb9-d2a2-41d1-9e92-ec4fb061ea26",
+        "id": "9f67d66a-d8ee-431f-9cf9-7cd0d253d881",
         "type": "measurement_instrument",
         "systemPropertyValues": {
             "name": "Strommessbox 50A",
@@ -246,7 +334,7 @@
         }
     },
     {
-        "id": "94ba6bb9-d2a2-41d1-9e92-ec4fb061ea26",
+        "id": "72ccae4b-d0b1-447b-af4c-d8d9ee55debd",
         "type": "voltage_source",
         "systemPropertyValues": {
             "name": "HV-Generator",
@@ -265,7 +353,7 @@
         }
     },
     {
-        "id": "94ba6bb9-d2a2-41d1-9e92-ec4fb061ea26",
+        "id": "1981f9bd-b1f6-483b-be72-56d2580ea248",
         "type": "voltage_source",
         "systemPropertyValues": {
             "name": "1000V-Spannungsquelle",
@@ -284,7 +372,7 @@
         }
     },
     {
-        "id": "94ba6bb9-d2a2-41d1-9e92-ec4fb061ea26",
+        "id": "ded060ce-0ab1-4a13-bb0a-974a52bfb531",
         "type": "voltage_source",
         "systemPropertyValues": {
             "name": "35V-Quelle",
@@ -301,5 +389,5 @@
             "calibration_date": "",
             "comments": ""
         }
-    },
+    }
 ]
