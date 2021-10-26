@@ -23,7 +23,7 @@ interface OverviewTableProps<SubSystemType extends SubSystem> {
   selectSubSystem(id: string): void;
 }
 
-function Uebersicht<SubSystemType extends SubSystem>({ subSystems, shownSystemProperties, selectSubSystem }: OverviewTableProps<SubSystemType>) {
+function SubSystemTable<SubSystemType extends SubSystem>({ subSystems, shownSystemProperties, selectSubSystem }: OverviewTableProps<SubSystemType>) {
 
 
   const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -164,5 +164,5 @@ function Uebersicht<SubSystemType extends SubSystem>({ subSystems, shownSystemPr
   );
 }
 
-export default Uebersicht;
+export default SubSystemTable;
 
