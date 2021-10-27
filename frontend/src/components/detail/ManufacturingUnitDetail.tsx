@@ -120,25 +120,11 @@ function ManufacturingUnitDetail() {
             </Grid>
             <Grid item xs={1}></Grid>
           </Grid>
-          <Grid container spacing={1}>
-            <Grid item xs={11}>
-              {manufacturingUnit && (
-                <SystemPropertyOverview
-                  systemPropertyValues={manufacturingUnit.getRelevantSystemProperties()}
-                />
-              )}
-            </Grid>
-            <Grid item xs={1}>
-              <Stack spacing={2} justifyContent="center" alignItems="left">
-                <IconButton color="primary">
-                  <Edit sx={{ fontSize: 60 }} />
-                </IconButton>
-                {/*<IconButton color="primary">
-                  <Save sx={{ fontSize: 60 }} />
-              </IconButton>*/}
-              </Stack>
-            </Grid>
-          </Grid>
+          {manufacturingUnit && (
+            <SystemPropertyOverview
+              systemPropertyValues={manufacturingUnit.getRelevantSystemProperties()}
+            />
+          )}
           <Grid container spacing={1}>
             <Grid item xs={11}>
               {manufacturingUnit && (
