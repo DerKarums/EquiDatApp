@@ -1,7 +1,7 @@
-import { CreateTestSystemRepository, ShowTestSystemRepository, SystemPropertyType, SystemProperty, TestSystem, AllTestSystemsUseCase, AllTestSystemsCallbacks, AllTestSystemsRepository } from "core"
+import { CreateTestSystemRepository, ShowTestSystemRepository, SystemPropertyType, SystemProperty, TestSystem, AllTestSystemsUseCase, AllTestSystemsCallbacks, EditTestSystemRepository, AllTestSystemsRepository } from "core"
 import { testSystems, testSystemSchema } from "../DataStore";
 
-export class TestSystemRepositoryMock implements CreateTestSystemRepository, ShowTestSystemRepository, AllTestSystemsRepository {
+export class TestSystemRepositoryMock implements CreateTestSystemRepository, ShowTestSystemRepository, AllTestSystemsRepository, EditTestSystemRepository {
 
     getTestSystems(): TestSystem[] {
         return [... testSystems.values()];
@@ -27,5 +27,9 @@ export class TestSystemRepositoryMock implements CreateTestSystemRepository, Sho
 
     getSystemPropertyById(id: string): SystemProperty | null {
         return this.getSchema().find(systemProperty => systemProperty.id === id) ?? null;
+    }
+
+    editTestSystem(id: string, newValues: Map<string, string>): void {
+        Array.from(newValues).forEach(([systemPropertyId, value]) => testSystems.get(id)?.editSystemPropertyValue(systemPropertyId, value))
     }
 }

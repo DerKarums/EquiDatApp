@@ -8,7 +8,7 @@ import SubSystemOverview from './SubSystemOverview';
 function ComponentsOverview() {
     const history = useHistory();
 
-    const shownSystemPropertyIds = ["name", "createdAt", "count"]
+    const shownSystemPropertyIds = ["name", "manufacturer", "type_name_manufacturer"];
 
     const allComponentsUseCase = useCases.allComponentsUseCase;
 
