@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from 'react';
 import Filter from '../Unit-Filter';
 import SubSystemTable from './SubSystemTable'
 import { Grid } from '@material-ui/core';
-import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
-import { useCases } from '../../providers/UseCaseProvider';
-import { AllManufacturingUnitsCallbacks, ManufacturingUnit, SubSystem, SystemProperty } from 'core';
+import { SubSystem, SystemProperty } from 'core';
 
 interface SubSystemOverviewProps<SubSystemType extends SubSystem> {
     shownSystemProperties: SystemProperty[];
@@ -21,17 +18,17 @@ function SubSystemOverview<SubSystemType extends SubSystem>({ shownSubsystems, s
             <Grid item xs={11}>
                 <Filter />
             </Grid>
-            <Grid item xs={1}>
-                <IconButton aria-label="add">
-                    <AddToPhotosIcon />
-                </IconButton>
-            </Grid>
             <Grid item xs={11}>
                 <SubSystemTable
                     subSystems={shownSubsystems}
                     shownSystemProperties={shownSystemProperties}
                     selectSubSystem={selectSubSystem}
                 />
+            </Grid>
+            <Grid item xs={1}>
+                <IconButton aria-label="add">
+                    <AddToPhotosIcon fontSize="large"/>
+                </IconButton>
             </Grid>
         </Grid>
 

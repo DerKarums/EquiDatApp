@@ -1,4 +1,5 @@
-import { AppBar, Box, FormControl, MenuItem, Select, SelectChangeEvent, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Toolbar, Typography } from '@mui/material';
+import { De, Gb } from 'react-flags-select';
 
 interface HeaderBarProps {
     language: string;
@@ -10,7 +11,7 @@ const HeaderBar = ({ language, setLanguage }: HeaderBarProps) => {
         setLanguage(event.target.value as string);
     };
 
-    return (<AppBar position="static">
+    return (<AppBar position="absolute">
         <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 Equidat - Equipment-Datenbank für Prüfsysteme
@@ -21,11 +22,12 @@ const HeaderBar = ({ language, setLanguage }: HeaderBarProps) => {
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={language}
-                        label="Language"
                         onChange={handleChangeFirst}
+                        autoWidth
+                        displayEmpty
                     >
-                        <MenuItem value={1} sx={{ minWidth: 100 }}>Deutsch</MenuItem>
-                        <MenuItem value={2} sx={{ minWidth: 100 }}>English</MenuItem>
+                        <MenuItem value={""} sx={{ minWidth: 100 }}><De fontSize="large" /> Deutsch</MenuItem>
+                        <MenuItem value={2} sx={{ minWidth: 100 }}><Gb fontSize="large" /> English</MenuItem>
                     </Select>
                 </FormControl>
             </Box>

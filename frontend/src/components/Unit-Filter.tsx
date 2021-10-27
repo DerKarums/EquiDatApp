@@ -45,7 +45,7 @@ function Filter() {
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                 >
-                    <Typography><FilterAltIcon />Filter</Typography>
+                    <Typography><FilterAltIcon  fontSize="large" />Filter</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <TableContainer component={Paper}>
