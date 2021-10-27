@@ -11,7 +11,7 @@ const HeaderBar = ({ language, setLanguage }: HeaderBarProps) => {
         setLanguage(event.target.value as string);
     };
 
-    return (<AppBar position="absolute">
+    return (<AppBar position="static">
         <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 Equidat - Equipment-Datenbank für Prüfsysteme
