@@ -115,7 +115,7 @@
                 "isRequired": true
             },
             {
-                "id": "type_name_manufacturer",
+                "id": "order_no",
                 "type": "StringType",
                 "label": "Bestell-Nr.",
                 "isRequired": true
