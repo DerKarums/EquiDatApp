@@ -18,7 +18,7 @@ function SubSystemOverview<SubSystemType extends SubSystem>({ shownSubsystems, s
 
     return (
         <Grid container spacing={2}>
-            <Grid item xs={8}>
+            <Grid item xs={11}>
                 <Paper><Filter></Filter></Paper>
             </Grid>
             <Grid item xs={1}>
@@ -26,7 +26,7 @@ function SubSystemOverview<SubSystemType extends SubSystem>({ shownSubsystems, s
                     <AddToPhotosIcon />
                 </IconButton></Paper>
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={11}>
                 <Paper>
                     <SubSystemTable
                         subSystems={shownSubsystems}
