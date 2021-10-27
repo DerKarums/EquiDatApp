@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import {
   allComponentsUseCase,
+  editTestSystemUseCase,
   showTestSystemUseCase,
 } from "../../providers/UseCaseProvider";
 import SubSystemBreadCrumbs from "../shared/breadcrumbs/SubSystemBreadCrumbs";
@@ -61,6 +62,17 @@ function TestSystemDetail() {
     history.push(`/components/${id}`);
   };
 
+  const saveValues = (values: [SystemProperty, string | null][]) => {
+    editTestSystemUseCase.edit(testSystemId,
+      new Map<string, string>(
+        values.filter(([_, value]) => value !== null)
+          .map(
+            ([systemProperty, value]: [SystemProperty, string | null]) =>
+              [systemProperty.id, value] as [string, string])),
+      {onSuccess: () => {console.log("saved successfully")}});
+  }
+
+
   return (
     <div className="Detail">
       <header className="Detail-header">
@@ -77,7 +89,7 @@ function TestSystemDetail() {
           {testSystem && (
             <SystemPropertyOverview
               systemPropertyValues={testSystem?.getRelevantSystemProperties()}
-              saveValues={() => {}}
+              saveValues={saveValues}
             />
           )}
           <Grid container spacing={1}>

@@ -13,6 +13,7 @@ import { useHistory, useParams } from "react-router-dom";
 import {
   allComponentsUseCase,
   allTestSystemsUseCase,
+  editManufacturingUnitUseCase,
   showManufacturingUnitsUseCase,
 } from "../../providers/UseCaseProvider";
 import SubSystemBreadCrumbs from "../shared/breadcrumbs/SubSystemBreadCrumbs";
@@ -108,6 +109,16 @@ function ManufacturingUnitDetail() {
     history.push(`/components/${id}`);
   };
 
+  const saveValues = (values: [SystemProperty, string | null][]) => {
+    editManufacturingUnitUseCase.edit(manufacturingUnitId,
+      new Map<string, string>(
+        values.filter(([_, value]) => value !== null)
+          .map(
+            ([systemProperty, value]: [SystemProperty, string | null]) =>
+              [systemProperty.id, value] as [string, string])),
+      {onSuccess: () => {console.log("saved successfully")}});
+  }
+
   return (
     <div className="Detail">
       <header className="Detail-header">
@@ -123,7 +134,7 @@ function ManufacturingUnitDetail() {
           {manufacturingUnit && (
             <SystemPropertyOverview
               systemPropertyValues={manufacturingUnit.getRelevantSystemProperties()}
-              saveValues={() => {}}
+              saveValues={saveValues}
             />
           )}
           <Grid container spacing={1}>

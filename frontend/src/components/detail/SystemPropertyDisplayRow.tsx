@@ -28,7 +28,7 @@ const SystemPropertyDisplayRow = ({ systemProperty, value, mode, setValue }: Sys
                     fullWidth
                     type="text"
                     disabled={mode !== "edit"}
-                    value={mode !== "edit" && !value ? '#' : value}
+                    value={mode !== "edit" && !value ? "#" : value}
                     onChange={handleValueChanged}
                 />
             </TableCell>
