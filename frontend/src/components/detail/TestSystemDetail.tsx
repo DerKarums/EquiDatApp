@@ -12,6 +12,7 @@ import {
   allComponentsUseCase,
   showTestSystemUseCase,
 } from "../../providers/UseCaseProvider";
+import SubSystemBreadCrumbs from "../shared/breadcrumbs/SubSystemBreadCrumbs";
 import TableToolbar from "../shared/TableToolbar";
 import InnerSubSystemTable from "./InnerSubsystemTable";
 import SystemPropertyOverview from "./SystemPropertyOverview";
@@ -32,7 +33,7 @@ function TestSystemDetail() {
     SystemProperty[]
   >([]);
   const callback: AllComponentsCallbacks = {
-    setComponents: (_: Component[]) => {},
+    setComponents: (_: Component[]) => { },
     setRequestedSystemProperties: (
       systemPropertiesByIds: {
         systemProperty: SystemProperty | null;
@@ -66,14 +67,10 @@ function TestSystemDetail() {
         <Stack spacing={2}>
           <Grid container spacing={1}>
             <Grid item xs={10}>
-              <Breadcrumbs aria-label="breadcrumb">
-                <Link underline="hover" color="inherit">
-                  Name_des_Fertigungssystems
-                </Link>
-                <Link underline="hover" color="inherit">
-                  Name_des_Testsystems
-                </Link>
-              </Breadcrumbs>
+              <SubSystemBreadCrumbs 
+                manufacturingUnit={testSystem?.owningManufacturingUnit}
+                testSystem={testSystem}
+              />
             </Grid>
             <Grid item xs={1}></Grid>
           </Grid>
@@ -99,15 +96,15 @@ function TestSystemDetail() {
           <Grid container spacing={1}>
             <Grid item xs={11}>
               {testSystem && (
-                 <>
-                 <TableToolbar title="Komponenten">
-                     
-                 </TableToolbar> 
-                <InnerSubSystemTable
-                  subSystems={testSystem.components}
-                  shownSystemProperties={shownSystemProperties}
-                  selectSubSystem={selectComponent}
-                />
+                <>
+                  <TableToolbar title="Komponenten">
+
+                  </TableToolbar>
+                  <InnerSubSystemTable
+                    subSystems={testSystem.components}
+                    shownSystemProperties={shownSystemProperties}
+                    selectSubSystem={selectComponent}
+                  />
                 </>
               )}
             </Grid>
