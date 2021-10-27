@@ -1,21 +1,20 @@
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { Typography } from '@mui/material';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-import Grow from '@mui/material/Grow';
-import IconButton from '@mui/material/IconButton';
-import MenuItem from '@mui/material/MenuItem';
-import MenuList from '@mui/material/MenuList';
-import Paper from '@mui/material/Paper';
-import Popper from '@mui/material/Popper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import { SubSystem, SystemProperty } from 'core';
-import React from 'react';
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { Typography } from "@mui/material";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import Grow from "@mui/material/Grow";
+import IconButton from "@mui/material/IconButton";
+import MenuItem from "@mui/material/MenuItem";
+import MenuList from "@mui/material/MenuList";
+import Paper from "@mui/material/Paper";
+import Popper from "@mui/material/Popper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import { SubSystem, SystemProperty } from "core";
+import React, { useRef, useState } from "react";
 
 interface OverviewTableProps<SubSystemType extends SubSystem> {
   subSystems: SubSystemType[];
@@ -23,37 +22,21 @@ interface OverviewTableProps<SubSystemType extends SubSystem> {
   selectSubSystem(id: string): void;
 }
 
-function SubSystemTable<SubSystemType extends SubSystem>({ subSystems, shownSystemProperties, selectSubSystem }: OverviewTableProps<SubSystemType>) {
-
-
-  const useStyles = makeStyles((theme: Theme) => createStyles({
-    table: {
-      minWidth: 650,
-    },
-    tableContainer: {
-      borderRadius: 15,
-      margin: '10px 10px',
-      maxWidth: 950
-    },
-    tableHeaderCell: {
-      fontWeight: 'bold',
-      backgroundColor: '#eeeeee',
-      color: '#bdbdbd',
-    }
-  }));
-
-
-  const classes = useStyles();
-
-  const [selectedSubsystem, setSelectedSubsystem] = React.useState<SubSystemType | null>(null);
-  const anchorRef = React.useRef<HTMLButtonElement>(null);
+function SubSystemTable<SubSystemType extends SubSystem>({
+  subSystems,
+  shownSystemProperties,
+  selectSubSystem,
+}: OverviewTableProps<SubSystemType>) {
+  const [selectedSubsystem, setSelectedSubsystem] =
+    useState<SubSystemType | null>(null);
+  const anchorRef = useRef<HTMLButtonElement>(null);
 
   const handleShowDetails = (event: Event | React.SyntheticEvent) => {
     handleClose(event);
     if (selectedSubsystem === null) {
       return;
     }
-    selectSubSystem(selectedSubsystem.id)
+    selectSubSystem(selectedSubsystem.id);
   };
 
   const handleClose = (event: Event | React.SyntheticEvent) => {
@@ -62,15 +45,15 @@ function SubSystemTable<SubSystemType extends SubSystem>({ subSystems, shownSyst
       anchorRef.current.contains(event.target as HTMLElement)
     ) {
       return;
-    } 
+    }
     setSelectedSubsystem(null);
   };
 
   function handleListKeyDown(event: React.KeyboardEvent) {
-    if (event.key === 'Tab') {
+    if (event.key === "Tab") {
       event.preventDefault();
       setSelectedSubsystem(null);
-    } else if (event.key === 'Escape') {
+    } else if (event.key === "Escape") {
       setSelectedSubsystem(null);
     }
   }
@@ -85,17 +68,23 @@ function SubSystemTable<SubSystemType extends SubSystem>({ subSystems, shownSyst
     prevOpen.current = selectedSubsystem !== null;
   }, [selectedSubsystem]);
 
+  const tableHeaderCellStyle = {
+    fontWeight: "bold",
+    backgroundColor: "#eeeeee",
+    color: "#bdbdbd",
+  };
+
   return (
     <>
       <div>
-        <TableContainer component={Paper} className={classes.tableContainer}>
+        <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                {shownSystemProperties.map(systemProperty => (
-                  <TableCell className={classes.tableHeaderCell} key={systemProperty.id}>{systemProperty.label}</TableCell>
+                {shownSystemProperties.map((systemProperty) => (
+                  <TableCell sx={tableHeaderCellStyle} key={systemProperty.id}>{systemProperty.label}</TableCell>
                 ))}
-                <TableCell className={classes.tableHeaderCell} />
+                <TableCell sx={tableHeaderCellStyle} />
               </TableRow>
             </TableHead>
             <TableBody>
@@ -103,28 +92,32 @@ function SubSystemTable<SubSystemType extends SubSystem>({ subSystems, shownSyst
                 <TableRow key={subSystem.id}>
                   {shownSystemProperties.map((systemProperty) => (
                     <TableCell key={systemProperty.id}>
-                      <Typography>{subSystem.getSystemPropertyValue(systemProperty.id)}</Typography>
+                      <Typography>
+                        {subSystem.getSystemPropertyValue(systemProperty.id)}
+                      </Typography>
                     </TableCell>
                   ))}
-                  <TableCell><IconButton
-                    ref={anchorRef}
-                    id="composition-button"
-                    aria-controls={selectedSubsystem ? 'composition-menu' : undefined}
-                    aria-expanded={selectedSubsystem ? 'true' : undefined}
-                    aria-haspopup="true"
-                    onClick={_ => setSelectedSubsystem(subSystem)}
-                  >
-                    <MoreVertIcon />
-                  </IconButton>
+                  <TableCell>
+                    <IconButton
+                      ref={anchorRef}
+                      id="composition-button"
+                      aria-controls={
+                        selectedSubsystem ? "composition-menu" : undefined
+                      }
+                      aria-expanded={selectedSubsystem ? "true" : undefined}
+                      aria-haspopup="true"
+                      onClick={(_) => setSelectedSubsystem(subSystem)}
+                    >
+                      <MoreVertIcon />
+                    </IconButton>
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
-        </TableContainer >
+        </TableContainer>
       </div>
       <div>
-
         <Popper
           open={selectedSubsystem !== null}
           anchorEl={anchorRef.current}
@@ -132,20 +125,19 @@ function SubSystemTable<SubSystemType extends SubSystem>({ subSystems, shownSyst
           placement="bottom-start"
           transition
           disablePortal
-
         >
           {({ TransitionProps, placement }) => (
             <Grow
               {...TransitionProps}
               style={{
                 transformOrigin:
-                  placement === 'bottom-start' ? 'left top' : 'left bottom',
+                  placement === "bottom-start" ? "left top" : "left bottom",
               }}
             >
               <Paper>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList
-                    autoFocusItem={selectedSubsystem !== null }
+                    autoFocusItem={selectedSubsystem !== null}
                     id="composition-menu"
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
@@ -165,4 +157,3 @@ function SubSystemTable<SubSystemType extends SubSystem>({ subSystems, shownSyst
 }
 
 export default SubSystemTable;
-

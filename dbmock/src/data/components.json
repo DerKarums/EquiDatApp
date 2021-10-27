@@ -328,9 +328,7 @@
             "measurement_type": "Strom-/Spannungsmessung Motor",
             "measurement_range": "50A",
             "serial_no": "1042 / 0165",
-            "needs_calibration": "true",
-            "calibration_date": "",
-            "comments": ""
+            "needs_calibration": "true"
         }
     },
     {

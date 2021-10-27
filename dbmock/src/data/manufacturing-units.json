@@ -18,7 +18,10 @@
             "function": "HV- und EoL- Prüfung für Servoantriebsregler i950",
             "comments": "..."
         },
-        "testSystems": [],
+        "testSystems": [
+            "d6636120-86e0-470e-b06a-77557aa8544a",
+            "3edab1fa-b42d-45de-b2df-0f1fc3a1ee09"
+        ],
         "components": [
             "feadb8d3-f5ff-45da-845f-41c1cc10a969"
         ]
@@ -42,7 +45,9 @@
             "function": "HV- und EoL- Prüfung für Servoantriebsregler i950",
             "comments": "Keine Kommentare"
         },
-        "testSystems": [],
+        "testSystems": [
+            "218e4571-cb48-4358-a809-e984e73ed4b3"
+        ],
         "components": []
     },
     {

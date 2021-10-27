@@ -39,9 +39,10 @@ const NavigationTabs = () => {
     }
 
     return (<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={selectedTabIndex} aria-label="basic tabs example">
+        <Tabs value={selectedTabIndex < 0 ? 0 : selectedTabIndex} aria-label="basic tabs example">
             {tabs.map((tab, index) => (
                 <Tab
+                    key={index}
                     label={tab.label}
                     onClick={() => { navigateTo(tab.target) }}
                     {...a11yProps(index)}
