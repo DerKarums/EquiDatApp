@@ -1,9 +1,11 @@
 import { Component } from "./Component";
+import { ManufacturingUnit } from "./ManufacturingUnit";
 import { SubSystem } from "./SubSystem";
 import { SystemProperty } from "./SystemProperty";
 
 export class TestSystem extends SubSystem {
 
+    private _owningManufacturingUnit: ManufacturingUnit | null = null;
 
     constructor(
         private readonly schema: SystemProperty[],
@@ -28,5 +30,13 @@ export class TestSystem extends SubSystem {
 
     public get components(): Component[] {
         return this._components;
+    }
+
+    public set owningManufacturingUnit(manufacturingUnit: ManufacturingUnit | null) {
+        this._owningManufacturingUnit = manufacturingUnit;
+    } 
+
+    public get owningManufacturingUnit(): ManufacturingUnit | null {
+        return this._owningManufacturingUnit;
     }
 }
