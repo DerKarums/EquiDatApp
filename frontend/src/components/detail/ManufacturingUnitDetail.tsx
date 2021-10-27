@@ -15,6 +15,7 @@ import {
   allTestSystemsUseCase,
   showManufacturingUnitsUseCase,
 } from "../../providers/UseCaseProvider";
+import SubSystemBreadCrumbs from "../shared/breadcrumbs/SubSystemBreadCrumbs";
 import TableToolbar from "../shared/TableToolbar";
 import InnerSubSystemTable from "./InnerSubsystemTable";
 import SystemPropertyOverview from "./SystemPropertyOverview";
@@ -45,7 +46,7 @@ function ManufacturingUnitDetail() {
   const [shownTestSystemSystemProperties, setShownTestSystemSystemProperties] =
     useState<SystemProperty[]>([]);
   const testSystemCallback: AllTestSystemsCallbacks = {
-    setTestSystems: (_: TestSystem[]) => {},
+    setTestSystems: (_: TestSystem[]) => { },
     setRequestedSystemProperties: (
       systemPropertiesByIds: {
         systemProperty: SystemProperty | null;
@@ -80,7 +81,7 @@ function ManufacturingUnitDetail() {
   const [shownComponentSystemProperties, setShownComponentSystemProperties] =
     useState<SystemProperty[]>([]);
   const componentsCallback: AllComponentsCallbacks = {
-    setComponents: (_: Component[]) => {},
+    setComponents: (_: Component[]) => { },
     setRequestedSystemProperties: (
       systemPropertiesByIds: {
         systemProperty: SystemProperty | null;
@@ -113,14 +114,9 @@ function ManufacturingUnitDetail() {
         <Stack spacing={2}>
           <Grid container spacing={1}>
             <Grid item xs={10}>
-              <Breadcrumbs aria-label="breadcrumb">
-                <Link underline="hover" color="inherit">
-                  Name_des_Fertigungssystems
-                </Link>
-                <Link underline="hover" color="inherit">
-                  Name_des_Testsystems
-                </Link>
-              </Breadcrumbs>
+              <SubSystemBreadCrumbs
+                manufacturingUnit={manufacturingUnit}
+              />
             </Grid>
             <Grid item xs={1}></Grid>
           </Grid>

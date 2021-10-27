@@ -4,6 +4,7 @@ import { Component } from "core";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { showComponentUseCase } from "../../providers/UseCaseProvider";
+import SubSystemBreadCrumbs from "../shared/breadcrumbs/SubSystemBreadCrumbs";
 import SystemPropertyOverview from "./SystemPropertyOverview";
 
 function ComponentDetail() {
@@ -22,17 +23,11 @@ function ComponentDetail() {
         <Stack spacing={2}>
           <Grid container spacing={1}>
             <Grid item xs={10}>
-              <Breadcrumbs aria-label="breadcrumb">
-                <Link underline="hover" color="inherit">
-                  Name_des_Fertigungssystems
-                </Link>
-                <Link underline="hover" color="inherit">
-                  Name_des_Testsystems
-                </Link>
-                <Link underline="hover" color="inherit">
-                  Name_der_Komponente
-                </Link>
-              </Breadcrumbs>
+            <SubSystemBreadCrumbs 
+                manufacturingUnit={component?.owningManufacturingUnit}
+                testSystem={component?.owningTestSystem}
+                component={component}
+              />
             </Grid>
             <Grid item xs={1}></Grid>
           </Grid>
