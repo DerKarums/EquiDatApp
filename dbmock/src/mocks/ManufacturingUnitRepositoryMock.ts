@@ -1,11 +1,11 @@
-import { ManufacturingUnit, SystemProperty, SystemPropertyType, CreateManufacturingUnitRepository, ShowManufacturingUnitRepository, AllManufacturingUnitsUseCase, AllManufacturingUnitsCallbacks, AllManufacturingUnitsRepository } from "core";
+import { AllManufacturingUnitsRepository, CreateManufacturingUnitRepository, EditManufacturingUnitRepository, ManufacturingUnit, ShowManufacturingUnitRepository, SystemProperty } from "core";
 import { manufacturingUnits, manufacturingUnitSchema } from "../DataStore";
 
-export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitRepository, ShowManufacturingUnitRepository, AllManufacturingUnitsRepository {
+export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitRepository, ShowManufacturingUnitRepository, AllManufacturingUnitsRepository, EditManufacturingUnitRepository {
 
 
     getManufacturingUnits(): ManufacturingUnit[] {
-        return [... manufacturingUnits.values()];
+        return [...manufacturingUnits.values()];
     }
 
     createManufacturingUnit(manufacturingUnit: ManufacturingUnit): void {
@@ -27,5 +27,9 @@ export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitR
 
     getSystemPropertyById(id: string): SystemProperty | null {
         return this.getSchema().find(systemProperty => systemProperty.id === id) ?? null;
+    }
+
+    editManufacturingUnit(id: string, newValues: Map<string, string>): void {
+        Array.from(newValues).forEach(([systemPropertyId, value]) => manufacturingUnits.get(id)?.editSystemPropertyValue(systemPropertyId, value))
     }
 }
