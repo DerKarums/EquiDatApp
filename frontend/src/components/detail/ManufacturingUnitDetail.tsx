@@ -123,6 +123,7 @@ function ManufacturingUnitDetail() {
           {manufacturingUnit && (
             <SystemPropertyOverview
               systemPropertyValues={manufacturingUnit.getRelevantSystemProperties()}
+              saveValues={() => {}}
             />
           )}
           <Grid container spacing={1}>

@@ -17,10 +17,12 @@ import SystemPropertyDisplayRow from "./SystemPropertyDisplayRow";
 
 interface SystemPropertyOverviewProps {
   systemPropertyValues: Map<SystemProperty, string | null>;
+  saveValues(values: [SystemProperty, string | null][]): void
 }
 
 function SystemPropertyOverview({
   systemPropertyValues,
+  saveValues,
 }: SystemPropertyOverviewProps) {
 
   const [mode, setMode] = useState<Mode>("display");
@@ -34,6 +36,7 @@ function SystemPropertyOverview({
       setMode("edit");
     } else {
       setMode("display");
+      saveValues(values);
     }
   }
 

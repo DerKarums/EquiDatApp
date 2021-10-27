@@ -23,4 +23,8 @@ export class ComponentRepositoryMock implements CreateComponentRepository, ShowC
     getSystemPropertyById(id: string): SystemProperty | null {
         return sharedSystemProperties.find(systemProperty => systemProperty.id === id) ?? null;
     }
+
+    editComponent(id: string, newValues: Map<string, string>): void {
+        Array.from(newValues).forEach(([systemPropertyId, value]) => components.get(id)?.editSystemPropertyValue(systemPropertyId, value))
+    }
 }

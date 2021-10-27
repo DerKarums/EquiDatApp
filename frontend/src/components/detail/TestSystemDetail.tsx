@@ -77,6 +77,7 @@ function TestSystemDetail() {
           {testSystem && (
             <SystemPropertyOverview
               systemPropertyValues={testSystem?.getRelevantSystemProperties()}
+              saveValues={() => {}}
             />
           )}
           <Grid container spacing={1}>

@@ -7,3 +7,4 @@ export * from './CreateTestSystemUseCase';
 export * from './ShowComponentUseCase';
 export * from './ShowManufacturingUnitUseCase';
 export * from './ShowTestSystemUseCase';
+export * from './EditComponentUseCase';
