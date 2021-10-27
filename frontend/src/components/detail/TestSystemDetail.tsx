@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import {
   allComponentsUseCase,
+  editTestSystemUseCase,
   showTestSystemUseCase,
 } from "../../providers/UseCaseProvider";
 import SubSystemBreadCrumbs from "../shared/breadcrumbs/SubSystemBreadCrumbs";
@@ -61,38 +62,36 @@ function TestSystemDetail() {
     history.push(`/components/${id}`);
   };
 
+  const saveValues = (values: [SystemProperty, string | null][]) => {
+    editTestSystemUseCase.edit(testSystemId,
+      new Map<string, string>(
+        values.filter(([_, value]) => value !== null)
+          .map(
+            ([systemProperty, value]: [SystemProperty, string | null]) =>
+              [systemProperty.id, value] as [string, string])),
+      {onSuccess: () => {console.log("saved successfully")}});
+  }
+
+
   return (
     <div className="Detail">
       <header className="Detail-header">
         <Stack spacing={2}>
           <Grid container spacing={1}>
             <Grid item xs={10}>
-              <SubSystemBreadCrumbs 
+              <SubSystemBreadCrumbs
                 manufacturingUnit={testSystem?.owningManufacturingUnit}
                 testSystem={testSystem}
               />
             </Grid>
             <Grid item xs={1}></Grid>
           </Grid>
-          <Grid container spacing={1}>
-            <Grid item xs={11}>
-              {testSystem && (
-                <SystemPropertyOverview
-                  systemPropertyValues={testSystem?.getRelevantSystemProperties()}
-                />
-              )}
-            </Grid>
-            <Grid item xs={1}>
-              <Stack spacing={2} justifyContent="center" alignItems="left">
-                <IconButton color="primary">
-                  <Edit sx={{ fontSize: 60 }} />
-                </IconButton>
-                {/*<IconButton color="primary">
-                  <Save sx={{ fontSize: 60 }} />
-              </IconButton>*/}
-              </Stack>
-            </Grid>
-          </Grid>
+          {testSystem && (
+            <SystemPropertyOverview
+              systemPropertyValues={testSystem?.getRelevantSystemProperties()}
+              saveValues={saveValues}
+            />
+          )}
           <Grid container spacing={1}>
             <Grid item xs={11}>
               {testSystem && (

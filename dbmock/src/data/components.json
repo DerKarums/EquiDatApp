@@ -69,9 +69,7 @@
             "type_name_manufacturer": "C3200",
             "order_no": "112423",
             "supply_connection": "24V",
-            "safety_component": "false",
-            "duration": "#",
-            "comments": ""
+            "safety_component": "false"
         }
     },
     {
@@ -84,9 +82,7 @@
             "type_name_manufacturer": "C3200",
             "order_no": "201283",
             "supply_connection": "24V",
-            "safety_component": "false",
-            "duration": "#",
-            "comments": ""
+            "safety_component": "false"
         }
     },
     {
@@ -158,7 +154,6 @@
             "supplier": "DataTec",
             "type_name_manufacturer": "HB 3400",
             "order_no": "HB3400A",
-            "supply_connection": "#",
             "safety_component": "true",
             "duration": "nicht relevant",
             "comments": ""
@@ -173,7 +168,6 @@
             "supplier": "DataTec",
             "type_name_manufacturer": "HB 3400",
             "order_no": "HB3400A",
-            "supply_connection": "#",
             "safety_component": "true",
             "duration": "nicht relevant",
             "comments": ""
@@ -220,7 +214,6 @@
             "order_no": "",
             "supply_connection": "400/230V 0,95/1,6A 370W",
             "safety_component": "false",
-            "duration": "#",
             "comments": ""
         }
     },
@@ -235,7 +228,6 @@
             "order_no": "",
             "supply_connection": "400/230V 0,95/1,6A 370W",
             "safety_component": "false",
-            "duration": "#",
             "comments": ""
         }
     },
@@ -250,7 +242,6 @@
             "order_no": "",
             "supply_connection": "400/230V 0,95/1,6A 370W",
             "safety_component": "false",
-            "duration": "#",
             "comments": ""
         }
     },
@@ -265,7 +256,6 @@
             "order_no": "",
             "supply_connection": "400/230V 0,95/1,6A 370W",
             "safety_component": "false",
-            "duration": "#",
             "comments": ""
         }
     },
@@ -280,7 +270,6 @@
             "order_no": "",
             "supply_connection": "400/230V 0,95/1,6A 370W",
             "safety_component": "false",
-            "duration": "#",
             "comments": ""
         }
     },
@@ -344,7 +333,6 @@
             "outlet": "6kV DC / 50mA",
             "serial_no": "4711",
             "safety_component": "false",
-            "duration": "#",
             "needs_calibration": "true",
             "calibration_date": "",
             "comments": ""
@@ -363,9 +351,7 @@
             "outlet": "1000V DC / 0,5A / 500W",
             "serial_no": "4712",
             "safety_component": "false",
-            "duration": "#",
             "needs_calibration": "false",
-            "calibration_date": "",
             "comments": ""
         }
     },
@@ -382,9 +368,7 @@
             "outlet": "35V DC / 3A",
             "serial_no": "4714",
             "safety_component": "false",
-            "duration": "#",
             "needs_calibration": "true",
-            "calibration_date": "",
             "comments": ""
         }
     }

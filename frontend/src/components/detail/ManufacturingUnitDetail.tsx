@@ -13,6 +13,7 @@ import { useHistory, useParams } from "react-router-dom";
 import {
   allComponentsUseCase,
   allTestSystemsUseCase,
+  editManufacturingUnitUseCase,
   showManufacturingUnitsUseCase,
 } from "../../providers/UseCaseProvider";
 import SubSystemBreadCrumbs from "../shared/breadcrumbs/SubSystemBreadCrumbs";
@@ -108,6 +109,16 @@ function ManufacturingUnitDetail() {
     history.push(`/components/${id}`);
   };
 
+  const saveValues = (values: [SystemProperty, string | null][]) => {
+    editManufacturingUnitUseCase.edit(manufacturingUnitId,
+      new Map<string, string>(
+        values.filter(([_, value]) => value !== null)
+          .map(
+            ([systemProperty, value]: [SystemProperty, string | null]) =>
+              [systemProperty.id, value] as [string, string])),
+      {onSuccess: () => {console.log("saved successfully")}});
+  }
+
   return (
     <div className="Detail">
       <header className="Detail-header">
@@ -120,25 +131,12 @@ function ManufacturingUnitDetail() {
             </Grid>
             <Grid item xs={1}></Grid>
           </Grid>
-          <Grid container spacing={1}>
-            <Grid item xs={11}>
-              {manufacturingUnit && (
-                <SystemPropertyOverview
-                  systemPropertyValues={manufacturingUnit.getRelevantSystemProperties()}
-                />
-              )}
-            </Grid>
-            <Grid item xs={1}>
-              <Stack spacing={2} justifyContent="center" alignItems="left">
-                <IconButton color="primary">
-                  <Edit sx={{ fontSize: 60 }} />
-                </IconButton>
-                {/*<IconButton color="primary">
-                  <Save sx={{ fontSize: 60 }} />
-              </IconButton>*/}
-              </Stack>
-            </Grid>
-          </Grid>
+          {manufacturingUnit && (
+            <SystemPropertyOverview
+              systemPropertyValues={manufacturingUnit.getRelevantSystemProperties()}
+              saveValues={saveValues}
+            />
+          )}
           <Grid container spacing={1}>
             <Grid item xs={11}>
               {manufacturingUnit && (
