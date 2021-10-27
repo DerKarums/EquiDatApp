@@ -24,10 +24,10 @@ const HeaderBar = ({ language, setLanguage }: HeaderBarProps) => {
                         value={language}
                         onChange={handleChangeFirst}
                         autoWidth
-                        displayEmpty
+                        defaultValue={language}
                     >
-                        <MenuItem value={""} sx={{ minWidth: 100 }}><De fontSize="large" /> Deutsch</MenuItem>
-                        <MenuItem value={2} sx={{ minWidth: 100 }}><Gb fontSize="large" /> English</MenuItem>
+                        <MenuItem value={"de"} sx={{ minWidth: 100 }}><De fontSize="large" />&#160;&#160;Deutsch</MenuItem>
+                        <MenuItem value={"gb"} sx={{ minWidth: 100 }}><Gb fontSize="large" />&#160;&#160;English</MenuItem>
                     </Select>
                 </FormControl>
             </Box>
