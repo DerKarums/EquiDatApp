@@ -33,7 +33,6 @@ function Filter() {
         akkordeon: {
             borderRadius: 15,
             margin: '10px 10px',
-            maxWidth: 950,
             backgroundColor: '#2196f3'
         },
     }));
@@ -46,7 +45,7 @@ function Filter() {
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                 >
-                    <Typography><FilterAltIcon />Filter</Typography>
+                    <Typography><FilterAltIcon  fontSize="large" />Filter</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <TableContainer component={Paper}>

@@ -1,4 +1,5 @@
-import { AppBar, Box, FormControl, MenuItem, Select, SelectChangeEvent, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Toolbar, Typography } from '@mui/material';
+import { De, Gb } from 'react-flags-select';
 
 interface HeaderBarProps {
     language: string;
@@ -21,11 +22,12 @@ const HeaderBar = ({ language, setLanguage }: HeaderBarProps) => {
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={language}
-                        label="Language"
                         onChange={handleChangeFirst}
+                        autoWidth
+                        defaultValue={language}
                     >
-                        <MenuItem value={1} sx={{ minWidth: 100 }}>Deutsch</MenuItem>
-                        <MenuItem value={2} sx={{ minWidth: 100 }}>English</MenuItem>
+                        <MenuItem value={"de"} sx={{ minWidth: 100 }}><De fontSize="large" />&#160;&#160;Deutsch</MenuItem>
+                        <MenuItem value={"gb"} sx={{ minWidth: 100 }}><Gb fontSize="large" />&#160;&#160;English</MenuItem>
                     </Select>
                 </FormControl>
             </Box>

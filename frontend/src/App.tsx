@@ -4,7 +4,7 @@ import NavigationComponent from './components/NavigationComponent';
 import Frame from './components/shared/frame/Frame';
 
 function App() {
-  const [language, setLanguage] = React.useState('');
+  const [language, setLanguage] = React.useState('de');
 
   return (
     <BrowserRouter>
