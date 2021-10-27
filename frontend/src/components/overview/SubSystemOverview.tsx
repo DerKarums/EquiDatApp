@@ -19,21 +19,19 @@ function SubSystemOverview<SubSystemType extends SubSystem>({ shownSubsystems, s
     return (
         <Grid container spacing={2}>
             <Grid item xs={11}>
-                <Paper><Filter></Filter></Paper>
+                <Filter />
             </Grid>
             <Grid item xs={1}>
-                <Paper><IconButton aria-label="add">
+                <IconButton aria-label="add">
                     <AddToPhotosIcon />
-                </IconButton></Paper>
+                </IconButton>
             </Grid>
             <Grid item xs={11}>
-                <Paper>
-                    <SubSystemTable
-                        subSystems={shownSubsystems}
-                        shownSystemProperties={shownSystemProperties}
-                        selectSubSystem={selectSubSystem}
-                    />
-                </Paper>
+                <SubSystemTable
+                    subSystems={shownSubsystems}
+                    shownSystemProperties={shownSystemProperties}
+                    selectSubSystem={selectSubSystem}
+                />
             </Grid>
         </Grid>
 
