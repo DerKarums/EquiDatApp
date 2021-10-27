@@ -1,4 +1,4 @@
-import { Edit, Save } from "@mui/icons-material";
+import { Cancel, Edit, Save } from "@mui/icons-material";
 import {
   Table,
   TableRow,
@@ -26,12 +26,20 @@ function SystemPropertyOverview({
   const [mode, setMode] = useState<Mode>("display");
   const [values, setValues] = useState(Array.from(systemPropertyValues));
 
+  const [valueBackup, setValueBackup] = useState<[SystemProperty, string | null][]>([]);
+
   const switchMode = () => {
-    if (mode === "display"){
+    if (mode === "display") {
+      setValueBackup(values);
       setMode("edit");
     } else {
       setMode("display");
     }
+  }
+
+  const discardEdit = () => {
+    setValues(valueBackup);
+    setMode("display");
   }
 
   return (
@@ -67,6 +75,11 @@ function SystemPropertyOverview({
               <Edit sx={{ fontSize: 60 }} />
             }
           </IconButton>
+          {mode === "edit" &&
+            <IconButton color="primary" onClick={discardEdit}>
+              <Cancel sx={{ fontSize: 60 }} />
+            </IconButton>
+          }
         </Stack>
       </Grid>
     </Grid>
