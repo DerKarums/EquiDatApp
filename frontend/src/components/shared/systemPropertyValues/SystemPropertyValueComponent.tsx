@@ -1,6 +1,7 @@
 import { SystemPropertyType } from "core";
 import { Mode } from "../../detail/SystemPropertyOverview";
 import BooleanTypeSystemPropertyValueComponent from "./BooleanTypeSystemPropertyValueComponent";
+import DateTypeSystemPropertyValueComponent from "./DateTypeSystemPropertyValueComponent";
 import NumberTypeSystemPropertyValueComponent from "./NumberTypeSystemPropertyValueComponent";
 import StringTypeSystemPropertyValueComponent from "./StringTypeSystemPropertyValueComponent";
 import SystemPropertyValueProps from "./SystemPropertyValueProps";
@@ -16,6 +17,8 @@ const componentsBySystemPropertyType = new Map<SystemPropertyType, (props: Syste
     [SystemPropertyType.BooleanType, BooleanTypeSystemPropertyValueComponent],
     [SystemPropertyType.StringType, StringTypeSystemPropertyValueComponent],
     [SystemPropertyType.NumberType, NumberTypeSystemPropertyValueComponent],
+    [SystemPropertyType.DateType, DateTypeSystemPropertyValueComponent],
+    
 ])
 
 const SystemPropertyValueComponent = ({ systemPropertyType, mode, value, setValue }: SystemPropertyValueComponentProps) => {

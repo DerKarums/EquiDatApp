@@ -55,13 +55,13 @@
     },
     {
         "id": "installation_date",
-        "type": "StringType",
+        "type": "DateType",
         "label": "Inbetriebnahme",
         "isRequired": true
     },
     {
         "id": "decommissioning_date",
-        "type": "StringType",
+        "type": "DateType",
         "label": "Außerbetriebnahme",
         "isRequired": true
     },
