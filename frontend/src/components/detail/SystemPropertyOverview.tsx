@@ -49,7 +49,11 @@ function SystemPropertyOverview({
     <Grid container spacing={1}>
       <Grid item xs={11}>
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Table sx={{ width: "100%" }} aria-label="simple table">
+            <colgroup>
+              <col style={{ width: "30%"}} />
+              <col style={{ width: "70%"}} />
+            </colgroup>
             <TableHead>
               <TableRow>
                 <TableCell>Bezeichnung</TableCell>

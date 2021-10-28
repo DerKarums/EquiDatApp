@@ -5,6 +5,7 @@ import DateTypeSystemPropertyValueComponent from "./DateTypeSystemPropertyValueC
 import NumberTypeSystemPropertyValueComponent from "./NumberTypeSystemPropertyValueComponent";
 import StringTypeSystemPropertyValueComponent from "./StringTypeSystemPropertyValueComponent";
 import SystemPropertyValueProps from "./SystemPropertyValueProps";
+import UrlTypeSystemPropertyValueComponent from "./UrlTypeSystemPropertyValueComponent";
 
 interface SystemPropertyValueComponentProps {
     systemPropertyType: SystemPropertyType;
@@ -18,7 +19,7 @@ const componentsBySystemPropertyType = new Map<SystemPropertyType, (props: Syste
     [SystemPropertyType.StringType, StringTypeSystemPropertyValueComponent],
     [SystemPropertyType.NumberType, NumberTypeSystemPropertyValueComponent],
     [SystemPropertyType.DateType, DateTypeSystemPropertyValueComponent],
-    
+    [SystemPropertyType.UrlType, UrlTypeSystemPropertyValueComponent],    
 ])
 
 const SystemPropertyValueComponent = ({ systemPropertyType, mode, value, setValue }: SystemPropertyValueComponentProps) => {
