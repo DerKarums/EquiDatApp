@@ -1,9 +1,8 @@
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import Input from '@mui/material/Input';
 import { SystemProperty } from "core";
 import { Mode } from './SystemPropertyOverview';
-import StringTypeSystemPropertyValueComponent from '../shared/systemPropertyValues/StringTypeSystemPropertyValueComponent';
+import SystemPropertyValueComponent from '../shared/systemPropertyValues/SystemPropertyValueComponent';
 
 interface SystemPropertyDisplayRowProps {
     systemProperty: SystemProperty;
@@ -21,7 +20,8 @@ const SystemPropertyDisplayRow = ({ systemProperty, value, mode, setValue }: Sys
                 {systemProperty.label}
             </TableCell>
             <TableCell align="left">
-                <StringTypeSystemPropertyValueComponent
+                <SystemPropertyValueComponent
+                    systemPropertyType={systemProperty.type}
                     mode={mode}
                     value={value}
                     setValue={setValue}

@@ -1,25 +1,31 @@
 import { Input } from "@mui/material";
-import { Mode } from "../../detail/SystemPropertyOverview";
+import SystemPropertyValueProps from "./SystemPropertyValueProps";
 
-interface StringTypeSystemPropertyValueComponentProps {
-    mode: Mode;
-    value: string | null;
-    setValue(value: string | null): void; 
-}
-
-const StringTypeSystemPropertyValueComponent = ({mode, value, setValue}: StringTypeSystemPropertyValueComponentProps) => {
+const StringTypeSystemPropertyValueComponent = ({mode, value, setValue}: SystemPropertyValueProps) => {
     const handleValueChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value)
     }
+    
+    const getShownValue = () => {
+        if (mode === "edit") {
+            return value ?? "";
+        } else {
+            return value ? value : "#";
+        }
+    }
+
+    const shownValue = getShownValue();
+    
     return (
         <Input
             fullWidth
             type="text"
             disabled={mode !== "edit"}
-            value={mode !== "edit" && !value ? "#" : value}
+            value={shownValue}
             onChange={handleValueChanged}
         />
     )
 }
 
 export default StringTypeSystemPropertyValueComponent;
+
