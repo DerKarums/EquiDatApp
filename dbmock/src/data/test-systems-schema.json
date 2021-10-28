@@ -43,13 +43,13 @@
     },
     {
         "id": "locker_count",
-        "type": "StringType",
+        "type": "NumberType",
         "label": "Schränke",
         "isRequired": true
     },
     {
         "id": "terminal_box_count",
-        "type": "StringType",
+        "type": "NumberType",
         "label": "Klemmenkästen",
         "isRequired": true
     },
