@@ -33,8 +33,8 @@ export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitR
     }
 
     setComponentParentManufacturingUnit(componentId: string, manufacturingUnitId: string): void {
-        let testSystem = components.get(componentId) as Component;
-        testSystem.owningManufacturingUnit = manufacturingUnits.get(manufacturingUnitId) as ManufacturingUnit;
+        let component = components.get(componentId) as Component;
+        component.owningManufacturingUnit = manufacturingUnits.get(manufacturingUnitId) as ManufacturingUnit;
     }
 
     addComponentToManufacturingUnit(manufacturingUnitId: string, componentId: string): void {

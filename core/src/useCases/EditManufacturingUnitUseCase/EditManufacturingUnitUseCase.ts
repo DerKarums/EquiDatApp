@@ -13,4 +13,16 @@ export class EditManufacturingUnitUseCase {
         this.repository.editManufacturingUnit(id, newValues);
         callbacks.onSuccess();
     }
+
+    public addTestSystemToManufacturingUnit(manufacturingUnitId: string, testSystemId: string, callbacks: EditManufacturingUnitCallbacks): void {
+        this.repository.addTestSystemToManufacturingUnit(manufacturingUnitId, testSystemId);
+        this.repository.setTestSystemParentManufacturingUnit(testSystemId, manufacturingUnitId);
+        callbacks.onTestSystemAdded();
+    }
+
+    public addComponentToManufacturingUnit(manufacturingUnitId: string, componentId: string, callbacks: EditManufacturingUnitCallbacks): void {
+        this.repository.addComponentToManufacturingUnit(manufacturingUnitId, componentId);
+        this.repository.setComponentParentManufacturingUnit(componentId, manufacturingUnitId);
+        callbacks.onComponentAdded();
+    }
 }
