@@ -29,7 +29,7 @@ function InnerSubSystemTable<SubSystemType extends SubSystem>({
 }: InnerSubSystemTableProps<SubSystemType>) {
   const [selectedSubsystem, setSelectedSubsystem] =
     useState<SubSystemType | null>(null);
-  const anchorRef = useRef<HTMLButtonElement>(null);
+  const [anchorRef, setAnchorRef] = useState<HTMLButtonElement | null>(null);
 
   const handleShowDetails = (event: Event | React.SyntheticEvent) => {
     handleClose(event);
@@ -41,8 +41,8 @@ function InnerSubSystemTable<SubSystemType extends SubSystem>({
 
   const handleClose = (event: Event | React.SyntheticEvent) => {
     if (
-      anchorRef.current &&
-      anchorRef.current.contains(event.target as HTMLElement)
+      anchorRef &&
+      anchorRef.contains(event.target as HTMLElement)
     ) {
       return;
     }
@@ -58,11 +58,16 @@ function InnerSubSystemTable<SubSystemType extends SubSystem>({
     }
   }
 
+  function clickMenu(subsystem: SubSystemType, event: React.MouseEvent<HTMLElement>) {
+    setAnchorRef(event.target as HTMLButtonElement);
+    setSelectedSubsystem(subsystem);
+  }
+
   // return focus to the button when we transitioned from !open -> open
   const prevOpen = React.useRef(selectedSubsystem !== null);
   React.useEffect(() => {
     if (prevOpen.current === true && selectedSubsystem === null) {
-      anchorRef.current!.focus();
+      anchorRef?.focus();
     }
 
     prevOpen.current = selectedSubsystem !== null;
@@ -100,14 +105,13 @@ function InnerSubSystemTable<SubSystemType extends SubSystem>({
                 ))}
                 <TableCell>
                   <IconButton
-                    ref={anchorRef}
                     id="composition-button"
                     aria-controls={
                       selectedSubsystem ? "composition-menu" : undefined
                     }
                     aria-expanded={selectedSubsystem ? "true" : undefined}
                     aria-haspopup="true"
-                    onClick={(_) => setSelectedSubsystem(subSystem)}
+                    onClick={(e: React.MouseEvent<HTMLElement>) => clickMenu(subSystem, e)}
                   >
                     <MoreVertIcon />
                   </IconButton>
@@ -119,7 +123,7 @@ function InnerSubSystemTable<SubSystemType extends SubSystem>({
       </TableContainer>
       <Popper
         open={selectedSubsystem !== null}
-        anchorEl={anchorRef.current}
+        anchorEl={anchorRef}
         role={undefined}
         placement="bottom-start"
         transition
