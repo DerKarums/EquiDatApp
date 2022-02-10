@@ -22,7 +22,7 @@ const parseBoolean = (value: string | null): boolean => {
     if (value === "true") {
         return true;
     }
-    if (value === "false" || value === "true") {
+    if (value === "false" || value === null) {
         return false;
     }
     console.warn(`'${value}' is not a valid boolean value. Parsing it as false.`);
