@@ -12,6 +12,11 @@ export class TestSystemRepositoryMock implements CreateTestSystemRepository, Sho
         testSystems.set(testSystem.id, testSystem);
     }
 
+    deleteTestSystem(testSystem: TestSystem): void {
+        console.log("deleteTestSystem");
+        testSystems.delete(testSystem.id);
+    }
+
     getTestSystem(id: string): TestSystem {
         return testSystems.get(id) as TestSystem;
     }

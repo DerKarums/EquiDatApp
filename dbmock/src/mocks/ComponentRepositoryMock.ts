@@ -11,7 +11,11 @@ export class ComponentRepositoryMock implements CreateComponentRepository, ShowC
         console.log("createComponent");
         components.set(component.id, component);
     }
-
+    
+    deleteComponent(component: Component): void {
+        console.log("deleteComponent");
+        components.delete(component.id);
+    }
     getComponent(id: string): Component {
         return components.get(id) as Component;
     }

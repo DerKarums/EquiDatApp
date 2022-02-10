@@ -13,6 +13,11 @@ export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitR
         manufacturingUnits.set(manufacturingUnit.id, manufacturingUnit);
     }
 
+    deleteManufacturingUnit(manufacturingUnit: ManufacturingUnit): void {
+        console.log("deleteManufacturingUnit");
+        manufacturingUnits.delete(manufacturingUnit.id);
+    }
+
     getManufacturingUnit(id: string): ManufacturingUnit {
         return manufacturingUnits.get(id) as ManufacturingUnit;
     }
