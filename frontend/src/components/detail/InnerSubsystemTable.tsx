@@ -59,7 +59,7 @@ function InnerSubSystemTable<SubSystemType extends SubSystem>({
   }
 
   function clickMenu(subsystem: SubSystemType, event: React.MouseEvent<HTMLElement>) {
-    setAnchorRef(event.target as HTMLButtonElement);
+    setAnchorRef(event.currentTarget as HTMLButtonElement);
     setSelectedSubsystem(subsystem);
   }
 
