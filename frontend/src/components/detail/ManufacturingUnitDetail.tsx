@@ -35,6 +35,8 @@ function ManufacturingUnitDetail() {
         console.log(manufacturingUnit);
         setManufacturingUnit(manufacturingUnit);
       },
+      onComponentAdded: () => console.log("Component added"),
+      onTestSystemAdded: () => console.log("Test System added")
     });
   }, []);
 

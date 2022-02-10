@@ -26,6 +26,7 @@ function TestSystemDetail() {
   useEffect(() => {
     showTestSystemUseCase.getTestSystem(testSystemId, {
       setTestSystem: (testSystem: TestSystem) => setTestSystem(testSystem),
+      onComponentAdded: () => console.log("TestSystem added")
     });
   }, []);
 

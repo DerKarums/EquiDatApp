@@ -14,4 +14,11 @@ export class ShowTestSystemUseCase {
         const testSystem = this.repository.getTestSystem(id);
         callbacks.setTestSystem(testSystem);
     }
+
+    public addComponentToTestSystem(testSystemId: string, componentId: string, callbacks: ShowTestSystemCallbacks) : void {
+        this.repository.addComponentToTestSystem(testSystemId, componentId);
+        this.repository.setComponentParentTestSystem(componentId, testSystemId);
+        callbacks.onComponentAdded();
+      }
+    
 }
