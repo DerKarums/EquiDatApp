@@ -42,7 +42,6 @@ function SubSystemTable<SubSystemType extends SubSystem>({
   };
 
   const handleDelete = (event: Event | React.SyntheticEvent) => {
-    handleDelete(event);
     if (selectedSubsystem === null) {
       return;
     }
