@@ -2,6 +2,6 @@ import { SystemProperty } from '../../entities/SystemProperty';
 import { TestSystem } from '../../entities/TestSystem';
 
 export interface DeleteTestSystemRepository {
-    deleteTestSystem(testSystem: TestSystem): void;
+    deleteTestSystem(testSystemId: String): void;
     getSchema(): SystemProperty[];
 }

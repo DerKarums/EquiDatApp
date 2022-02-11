@@ -12,9 +12,8 @@ export class DeleteComponentUseCase {
 
     }
 
-    public deleteComponent(componentModel: ComponentModel, callbacks: DeleteManufacturingUnitCallbacks) {
-        const component = new Component(componentModel.componentType);
-        this.repository.deleteComponent(component);
+    public deleteComponent(componentId: String, callbacks: DeleteManufacturingUnitCallbacks) {
+        this.repository.deleteComponent(componentId);
         callbacks.onComplete();
     }
 }

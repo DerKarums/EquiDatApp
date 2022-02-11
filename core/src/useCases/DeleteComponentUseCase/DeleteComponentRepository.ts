@@ -3,5 +3,5 @@ import { SystemProperty } from "../../entities/SystemProperty";
 
 
 export interface DeleteComponentRepository {
-    deleteComponent(component: Component): void;
+    deleteComponent(componentId: String): void;
 }

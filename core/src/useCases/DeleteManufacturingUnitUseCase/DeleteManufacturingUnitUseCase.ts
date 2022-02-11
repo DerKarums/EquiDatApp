@@ -12,9 +12,8 @@ export class DeleteManufacturingUnitUseCase {
 
     }
 
-    public deleteManufacturingUnit(manufacturingUnitModel: ManufacturingUnitModel, callbacks: DeleteManufacturingUnitCallbacks) {
-        const manufacturingUnit = new ManufacturingUnit(this.repository.getSchema(), manufacturingUnitModel.systemPropertyValues);
-        this.repository.deleteManufacturingUnit(manufacturingUnit);
+    public deleteManufacturingUnit(manufacturingUnitId: String, callbacks: DeleteManufacturingUnitCallbacks) {
+        this.repository.deleteManufacturingUnit(manufacturingUnitId);
         callbacks.onComplete();
     }
 }

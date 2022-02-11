@@ -12,10 +12,8 @@ export class DeleteTestSystemUseCase {
 
     }
 
-    public deleteTestSystem(testSystemModel: TestSystemModel, callbacks: DeleteTestSystemCallbacks) {
-        const schema = this.repository.getSchema()
-        const testSystem = new TestSystem(schema, testSystemModel.systemPropertyValues);
-        this.repository.deleteTestSystem(testSystem);
+    public deleteTestSystem(testSystemId: String, callbacks: DeleteTestSystemCallbacks) {
+        this.repository.deleteTestSystem(testSystemId);
         callbacks.onComplete();
     }
 }

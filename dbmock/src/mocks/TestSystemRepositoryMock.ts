@@ -1,7 +1,7 @@
-import { CreateTestSystemRepository, ShowTestSystemRepository, SystemPropertyType, SystemProperty, TestSystem, AllTestSystemsUseCase, AllTestSystemsCallbacks, EditTestSystemRepository, AllTestSystemsRepository } from "core"
+import { CreateTestSystemRepository, ShowTestSystemRepository, SystemPropertyType, SystemProperty, TestSystem, AllTestSystemsUseCase, AllTestSystemsCallbacks, EditTestSystemRepository, AllTestSystemsRepository, DeleteTestSystemRepository } from "core"
 import { testSystems, testSystemSchema } from "../DataStore";
 
-export class TestSystemRepositoryMock implements CreateTestSystemRepository, ShowTestSystemRepository, AllTestSystemsRepository, EditTestSystemRepository {
+export class TestSystemRepositoryMock implements CreateTestSystemRepository, ShowTestSystemRepository, AllTestSystemsRepository, EditTestSystemRepository, DeleteTestSystemRepository {
 
     getTestSystems(): TestSystem[] {
         return [... testSystems.values()];
@@ -12,9 +12,9 @@ export class TestSystemRepositoryMock implements CreateTestSystemRepository, Sho
         testSystems.set(testSystem.id, testSystem);
     }
 
-    deleteTestSystem(testSystem: TestSystem): void {
+    deleteTestSystem(id: string): void {
         console.log("deleteTestSystem");
-        testSystems.delete(testSystem.id);
+        testSystems.delete(id);
     }
 
     getTestSystem(id: string): TestSystem {

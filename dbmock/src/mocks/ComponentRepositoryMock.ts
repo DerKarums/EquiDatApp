@@ -1,6 +1,6 @@
-import { CreateComponentRepository, ShowComponentRepository, SystemProperty, SystemPropertyType, Component, ComponentType, AllComponentsRepository, EditComponentRepository } from "core"
+import { CreateComponentRepository, ShowComponentRepository, SystemProperty, SystemPropertyType, Component, ComponentType, AllComponentsRepository, EditComponentRepository, DeleteComponentRepository } from "core"
 import { components, sharedSystemProperties } from "../DataStore";
-export class ComponentRepositoryMock implements CreateComponentRepository, ShowComponentRepository, AllComponentsRepository, EditComponentRepository {
+export class ComponentRepositoryMock implements CreateComponentRepository, ShowComponentRepository, AllComponentsRepository, EditComponentRepository, DeleteComponentRepository {
 
 
     getComponents(): Component[] {
@@ -12,9 +12,9 @@ export class ComponentRepositoryMock implements CreateComponentRepository, ShowC
         components.set(component.id, component);
     }
     
-    deleteComponent(component: Component): void {
+    deleteComponent(id: string): void {
         console.log("deleteComponent");
-        components.delete(component.id);
+        components.delete(id);
     }
     getComponent(id: string): Component {
         return components.get(id) as Component;

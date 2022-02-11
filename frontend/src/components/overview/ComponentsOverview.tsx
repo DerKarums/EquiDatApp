@@ -1,4 +1,4 @@
-import { AllComponentsCallbacks, Component, SystemProperty } from 'core';
+import { AllComponentsCallbacks, Component, SubSystem, SystemProperty, DeleteComponentCallbacks } from 'core';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useCases } from '../../providers/UseCaseProvider';
@@ -28,8 +28,18 @@ function ComponentsOverview() {
         }
     }
 
+    const deleteCallback: DeleteComponentCallbacks = {
+        onComplete:()=>{
+            allComponentsUseCase.getAllComponents(callback);
+        }
+    }
+
     const selectSubSystem = (id: string): void => {
         history.push(`components/${id}`)
+    }
+
+    const deleteSubSystem = (id: string): void => {
+        useCases.deleteComponentUseCase.deleteComponent(id,deleteCallback);
     }
 
     useEffect(() => {
@@ -45,6 +55,7 @@ function ComponentsOverview() {
             shownSystemProperties={ shownSystemProperties }
             shownSubsystems={ components }
             selectSubSystem={ selectSubSystem }
+            deleteSubSystem={ deleteSubSystem}
         />
     )
 

@@ -20,12 +20,14 @@ interface OverviewTableProps<SubSystemType extends SubSystem> {
   subSystems: SubSystemType[];
   shownSystemProperties: SystemProperty[];
   selectSubSystem(id: string): void;
+  deleteSubSystem(id: string): void;
 }
 
 function SubSystemTable<SubSystemType extends SubSystem>({
   subSystems,
   shownSystemProperties,
   selectSubSystem,
+  deleteSubSystem,
 }: OverviewTableProps<SubSystemType>) {
   const [selectedSubsystem, setSelectedSubsystem] =
     useState<SubSystemType | null>(null);
@@ -37,6 +39,14 @@ function SubSystemTable<SubSystemType extends SubSystem>({
       return;
     }
     selectSubSystem(selectedSubsystem.id);
+  };
+
+  const handleDelete = (event: Event | React.SyntheticEvent) => {
+    handleDelete(event);
+    if (selectedSubsystem === null) {
+      return;
+    }
+   deleteSubSystem(selectedSubsystem.id);
   };
 
   const handleClose = (event: Event | React.SyntheticEvent) => {
@@ -143,7 +153,7 @@ function SubSystemTable<SubSystemType extends SubSystem>({
                     onKeyDown={handleListKeyDown}
                   >
                     <MenuItem onClick={handleClose}>Duplizieren</MenuItem>
-                    <MenuItem onClick={handleClose}>Löschen</MenuItem>
+                    <MenuItem onClick={handleDelete}>Löschen</MenuItem>
                     <MenuItem onClick={handleShowDetails}>Ansicht</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
