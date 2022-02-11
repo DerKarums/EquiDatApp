@@ -69,7 +69,10 @@ function TestSystemDetail() {
           .map(
             ([systemProperty, value]: [SystemProperty, string | null]) =>
               [systemProperty.id, value] as [string, string])),
-      {onSuccess: () => {console.log("saved successfully")}});
+      {
+        onSuccess: () => console.log("saved successfully"),
+        onComponentAdded: () => console.log("TestSystem added")
+      });
   }
 
 

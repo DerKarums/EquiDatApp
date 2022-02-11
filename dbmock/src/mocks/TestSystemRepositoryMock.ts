@@ -1,7 +1,8 @@
-import { CreateTestSystemRepository, ShowTestSystemRepository, SystemPropertyType, SystemProperty, TestSystem, AllTestSystemsUseCase, AllTestSystemsCallbacks, EditTestSystemRepository, AllTestSystemsRepository, DeleteTestSystemRepository } from "core"
-import { testSystems, testSystemSchema } from "../DataStore";
+import { CreateTestSystemRepository, ShowTestSystemRepository, SystemPropertyType, SystemProperty, TestSystem, AllTestSystemsUseCase, AllTestSystemsCallbacks, EditTestSystemRepository, AllTestSystemsRepository, DeleteTestSystemRepository, Component } from "core"
+import { testSystems, testSystemSchema, components } from "../DataStore";
 
 export class TestSystemRepositoryMock implements CreateTestSystemRepository, ShowTestSystemRepository, AllTestSystemsRepository, EditTestSystemRepository, DeleteTestSystemRepository {
+
 
     getTestSystems(): TestSystem[] {
         return [... testSystems.values()];
@@ -37,4 +38,14 @@ export class TestSystemRepositoryMock implements CreateTestSystemRepository, Sho
     editTestSystem(id: string, newValues: Map<string, string>): void {
         Array.from(newValues).forEach(([systemPropertyId, value]) => testSystems.get(id)?.editSystemPropertyValue(systemPropertyId, value))
     }
+
+    setComponentParentTestSystem(componentId: string, testSystemId: string): void {
+        let component = components.get(componentId) as Component;
+        component.owningTestSystem = testSystems.get(testSystemId) as TestSystem;
+    }
+    addComponentToTestSystem(testSystemId: string, componentId: string): void {
+        let testSystem = testSystems.get(testSystemId) as TestSystem;
+        testSystem.addComponent(components.get(componentId) as Component)
+    }
+
 }

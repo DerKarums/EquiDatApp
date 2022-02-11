@@ -1,5 +1,5 @@
-import { AllManufacturingUnitsRepository, CreateManufacturingUnitRepository, DeleteManufacturingUnitRepository, EditManufacturingUnitRepository, ManufacturingUnit, ShowManufacturingUnitRepository, SystemProperty } from "core";
-import { manufacturingUnits, manufacturingUnitSchema } from "../DataStore";
+import { AllManufacturingUnitsRepository, Component, CreateManufacturingUnitRepository, DeleteManufacturingUnitRepository, EditManufacturingUnitRepository, ManufacturingUnit, ShowManufacturingUnitRepository, SystemProperty, TestSystem } from "core";
+import { manufacturingUnits, manufacturingUnitSchema, components, testSystems } from "../DataStore";
 
 export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitRepository, ShowManufacturingUnitRepository, AllManufacturingUnitsRepository, EditManufacturingUnitRepository, DeleteManufacturingUnitRepository {
 
@@ -36,5 +36,25 @@ export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitR
 
     editManufacturingUnit(id: string, newValues: Map<string, string>): void {
         Array.from(newValues).forEach(([systemPropertyId, value]) => manufacturingUnits.get(id)?.editSystemPropertyValue(systemPropertyId, value))
+    }
+
+    setComponentParentManufacturingUnit(componentId: string, manufacturingUnitId: string): void {
+        let component = components.get(componentId) as Component;
+        component.owningManufacturingUnit = manufacturingUnits.get(manufacturingUnitId) as ManufacturingUnit;
+    }
+
+    addComponentToManufacturingUnit(manufacturingUnitId: string, componentId: string): void {
+        let manufacturingUnit = manufacturingUnits.get(manufacturingUnitId) as ManufacturingUnit;
+        manufacturingUnit.addComponent(components.get(componentId) as Component)
+    }
+
+    setTestSystemParentManufacturingUnit(testSystemId: string, manufacturingUnitId: string): void {
+        let testSystem = testSystems.get(testSystemId) as TestSystem
+        testSystem.owningManufacturingUnit = manufacturingUnits.get(manufacturingUnitId) as ManufacturingUnit;
+    }
+    
+    addTestSystemToManufacturingUnit(manufacturingUnitId: string, testSystemId: string): void {
+        let manufacturingUnit = manufacturingUnits.get(manufacturingUnitId) as ManufacturingUnit;
+        manufacturingUnit.addTestSystem(testSystems.get(testSystemId) as TestSystem)
     }
 }

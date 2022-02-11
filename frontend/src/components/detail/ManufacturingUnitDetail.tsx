@@ -116,7 +116,11 @@ function ManufacturingUnitDetail() {
           .map(
             ([systemProperty, value]: [SystemProperty, string | null]) =>
               [systemProperty.id, value] as [string, string])),
-      {onSuccess: () => {console.log("saved successfully")}});
+      {
+        onSuccess: () => console.log("saved successfully"),
+        onComponentAdded: () => console.log("Component added"),
+        onTestSystemAdded: () => console.log("TestSystem added"),
+      });
   }
 
   return (
