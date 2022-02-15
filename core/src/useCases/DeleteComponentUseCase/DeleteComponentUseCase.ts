@@ -1,6 +1,4 @@
-import { Component } from "../../entities/Component";
 import { DeleteManufacturingUnitCallbacks } from "../DeleteManufacturingUnitUseCase/DeleteManufacturingUnitCallbacks";
-import { ComponentModel } from "./ComponentModel";
 import { DeleteComponentRepository } from "./DeleteComponentRepository";
 
 

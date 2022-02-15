@@ -1,7 +1,5 @@
-import { TestSystem } from "../../entities/TestSystem";
 import { DeleteTestSystemCallbacks } from "./DeleteTestSystemCallbacks";
 import { DeleteTestSystemRepository } from "./DeleteTestSystemRepository";
-import { TestSystemModel } from "./TestSystemModel";
 
 
 export class DeleteTestSystemUseCase {
