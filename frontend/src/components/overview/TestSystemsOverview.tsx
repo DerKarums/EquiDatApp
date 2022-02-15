@@ -1,4 +1,4 @@
-import { AllTestSystemsCallbacks, SystemProperty, TestSystem } from 'core';
+import { AllTestSystemsCallbacks, SystemProperty, TestSystem, DeleteTestSystemCallbacks } from 'core';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useCases } from '../../providers/UseCaseProvider';
@@ -28,8 +28,18 @@ function TestSystemsOverview() {
         }
     }
 
+    const deleteCallback: DeleteTestSystemCallbacks = {
+        onComplete:()=>{
+            allTestSystemsUseCase.getAllTestSystems(callback);
+        }
+    }
+
     const selectSubSystem = (id: string): void => {
         history.push(`testSystems/${id}`)
+    }
+    
+    const deleteSubSystem = (id: string): void => {
+        useCases.deleteTestSystemUseCase.deleteTestSystem(id,deleteCallback);
     }
 
     useEffect(() => {
@@ -45,6 +55,7 @@ function TestSystemsOverview() {
             shownSystemProperties={ shownSystemProperties }
             shownSubsystems={ testSystems }
             selectSubSystem={ selectSubSystem }
+            deleteSubSystem={ deleteSubSystem }
         />
     )
 

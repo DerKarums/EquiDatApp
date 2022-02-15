@@ -57,35 +57,25 @@ function SubSystemPopupMenu<SubSystemType extends SubSystem>({
             anchorEl={anchorEl}
             role={undefined}
             placement="bottom-start"
-            transition
             disablePortal
         >
-            {({ TransitionProps, placement }) => (
-                <Grow
-                    {...TransitionProps}
-                    style={{
-                        transformOrigin:
-                            placement === "bottom-start" ? "left top" : "left bottom",
-                    }}
-                >
-                    <Paper>
-                        <ClickAwayListener onClickAway={handleClose}>
-                            <MenuList
-                                autoFocusItem={selectedSubSystem !== null}
-                                id="composition-menu"
-                                aria-labelledby="composition-button"
-                                onKeyDown={handleListKeyDown}
-                            >
-                                {menuEntries.map((menuEntry, index) => (
-                                    <MenuItem key={index} onClick={() => handleClick(menuEntry.onClick)}>
-                                        {menuEntry.label}
-                                    </MenuItem>
-                                ))}
-                            </MenuList>
-                        </ClickAwayListener>
-                    </Paper>
-                </Grow>
-            )}
+            <Paper>
+                <ClickAwayListener onClickAway={handleClose}>
+                    <MenuList
+                        autoFocusItem={selectedSubSystem !== null}
+                        id="composition-menu"
+                        aria-labelledby="composition-button"
+                        onKeyDown={handleListKeyDown}
+                    >
+                        {menuEntries.map((menuEntry, index) => (
+                            <MenuItem key={index} onClick={() => handleClick(menuEntry.onClick)}>
+                                {menuEntry.label}
+                            </MenuItem>
+                        ))}
+                    </MenuList>
+                </ClickAwayListener>
+            </Paper>
+
         </Popper>
     )
 }
