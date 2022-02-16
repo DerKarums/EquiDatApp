@@ -2,11 +2,6 @@ import { Breadcrumbs } from "@mui/material";
 import { ManufacturingUnit, TestSystem , Component} from "../../../../../core/dist";
 import BreadCrumbLink from "./BreadCrumbLink";
 
-interface BreadCrumbLinkProps {
-    label: string;
-    id: string;
-}
-
 interface SubSystemBreadCrumbsProps {
     manufacturingUnit?: ManufacturingUnit | null;
     testSystem?: TestSystem | null;

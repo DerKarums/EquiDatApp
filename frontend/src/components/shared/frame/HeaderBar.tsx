@@ -14,7 +14,7 @@ const HeaderBar = () => {
     };
 
     return (
-    <AppBar position="static"  color="secondary">
+    <AppBar position="static">
         <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 {t("headerBar.title")}
