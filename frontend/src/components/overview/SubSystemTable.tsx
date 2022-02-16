@@ -17,23 +17,25 @@ interface OverviewTableProps<SubSystemType extends SubSystem> {
   subSystems: SubSystemType[];
   shownSystemProperties: SystemProperty[];
   selectSubSystem(id: string): void;
+  deleteSubSystem(id: string): void;
 }
 
 function SubSystemTable<SubSystemType extends SubSystem>({
   subSystems,
   shownSystemProperties,
   selectSubSystem,
+  deleteSubSystem,
 }: OverviewTableProps<SubSystemType>) {
   const { t } = useTranslation();
   const [selectedSubsystem, setSelectedSubsystem] =
     useState<SubSystemType | null>(null);
     const [anchorRef, setAnchorRef] = useState<HTMLButtonElement | null>(null);
 
-  const handleShowDetails = () => {
-    if (selectedSubsystem === null) {
-      return;
-    }
-    selectSubSystem(selectedSubsystem.id);
+  const handleShowDetails = (selectedSubSystem: SubSystemType) => {
+    selectSubSystem(selectedSubSystem.id);
+  };
+  const handleDelete = (selectedSubSystem: SubSystemType) => {
+    deleteSubSystem(selectedSubSystem.id);
   };
 
   function openMenu(subsystem: SubSystemType, event: React.MouseEvent<HTMLElement>) {
@@ -96,6 +98,9 @@ function SubSystemTable<SubSystemType extends SubSystem>({
           {label: t("popUpMenu.dublicate"), onClick: (_: SubSystemType) => {}},
           {label: t("popUpMenu.delete"), onClick: (_: SubSystemType) => {}},
           {label: t("popUpMenu.view"), onClick: (selectedSubSystem: SubSystemType) => handleShowDetails()},
+          {label: "Duplizieren", onClick: (_: SubSystemType) => {}},
+          {label: "Löschen", onClick: (selectedSubSystem: SubSystemType) => handleDelete(selectedSubSystem)},
+          {label: "Ansicht", onClick: (selectedSubSystem: SubSystemType) => handleShowDetails(selectedSubSystem)},
         ]}
         setSelectedSubSystem={setSelectedSubsystem}
       />

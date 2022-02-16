@@ -1,8 +1,9 @@
-import { AllManufacturingUnitsRepository, Component, CreateManufacturingUnitRepository, EditManufacturingUnitRepository, ManufacturingUnit, ShowManufacturingUnitRepository, SystemProperty, TestSystem } from "core";
+import { AllManufacturingUnitsRepository, Component, CreateManufacturingUnitRepository, DeleteManufacturingUnitRepository, EditManufacturingUnitRepository, ManufacturingUnit, ShowManufacturingUnitRepository, SystemProperty, TestSystem } from "core";
 import { manufacturingUnits, manufacturingUnitSchema, components, testSystems } from "../DataStore";
 
-export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitRepository, ShowManufacturingUnitRepository, AllManufacturingUnitsRepository, EditManufacturingUnitRepository {
-    
+export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitRepository, ShowManufacturingUnitRepository, AllManufacturingUnitsRepository, EditManufacturingUnitRepository, DeleteManufacturingUnitRepository {
+
+
     getManufacturingUnits(): ManufacturingUnit[] {
         return [...manufacturingUnits.values()];
     }
@@ -10,6 +11,11 @@ export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitR
     createManufacturingUnit(manufacturingUnit: ManufacturingUnit): void {
         console.log("createManufacturingUnit");
         manufacturingUnits.set(manufacturingUnit.id, manufacturingUnit);
+    }
+
+    deleteManufacturingUnit(id: string): void {
+        console.log("deleteManufacturingUnit");
+        manufacturingUnits.delete(id);
     }
 
     getManufacturingUnit(id: string): ManufacturingUnit {

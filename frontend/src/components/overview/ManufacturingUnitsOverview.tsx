@@ -1,4 +1,4 @@
-import { AllManufacturingUnitsCallbacks, ManufacturingUnit, SystemProperty } from 'core';
+import { AllManufacturingUnitsCallbacks, ManufacturingUnit, SystemProperty, DeleteManufacturingUnitCallbacks } from 'core';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useCases } from '../../providers/UseCaseProvider';
@@ -28,8 +28,18 @@ function ManufacturingUnitsOverview() {
         }
     }
 
+    const deleteCallback: DeleteManufacturingUnitCallbacks = {
+        onComplete:()=>{
+            allManufacturingUnitsUseCase.getAllManufacturingUnits(callback);
+        }
+    }
+
     const selectSubSystem = (id: string): void => {
         history.push(`manufacturingUnits/${id}`)
+    }
+
+    const deleteSubSystem = (id:string): void => {
+        useCases.deleteManufacturingUnitUseCase.deleteManufacturingUnit(id,deleteCallback);
     }
 
     useEffect(() => {
@@ -45,6 +55,7 @@ function ManufacturingUnitsOverview() {
             shownSystemProperties={ shownSystemProperties }
             shownSubsystems={ manufacturingUnits }
             selectSubSystem={ selectSubSystem }
+            deleteSubSystem={deleteSubSystem}
         />
     )
 
