@@ -20,8 +20,10 @@ import SubSystemBreadCrumbs from "../shared/breadcrumbs/SubSystemBreadCrumbs";
 import TableToolbar from "../shared/TableToolbar";
 import InnerSubSystemTable from "./InnerSubsystemTable";
 import SystemPropertyOverview from "./SystemPropertyOverview";
+import { useTranslation } from "react-i18next";
 
 function ManufacturingUnitDetail() {
+  const { t } = useTranslation();
   const history = useHistory();
   const { manufacturingUnitId } = useParams() as {
     manufacturingUnitId: string;
@@ -118,8 +120,8 @@ function ManufacturingUnitDetail() {
               [systemProperty.id, value] as [string, string])),
       {
         onSuccess: () => console.log("saved successfully"),
-        onComponentAdded: () => console.log("Component added"),
-        onTestSystemAdded: () => console.log("TestSystem added"),
+       // onComponentAdded: () => console.log("Component added"),
+        //onTestSystemAdded: () => console.log("TestSystem added"),
       });
   }
 
@@ -145,7 +147,7 @@ function ManufacturingUnitDetail() {
             <Grid item xs={11}>
               {manufacturingUnit && (
                 <>
-                  <TableToolbar title="Testsysteme"></TableToolbar>
+                  <TableToolbar title={t("manufacturingUnitDetail.testSystems")}></TableToolbar>
                   <InnerSubSystemTable
                     subSystems={manufacturingUnit.testSystems}
                     shownSystemProperties={shownTestSystemSystemProperties}
@@ -160,7 +162,7 @@ function ManufacturingUnitDetail() {
             <Grid item xs={11}>
               {manufacturingUnit && (
                 <>
-                  <TableToolbar title="Komponenten"></TableToolbar>
+                  <TableToolbar title={t("manufacturingUnitDetail.components")}></TableToolbar>
                   <InnerSubSystemTable
                     subSystems={manufacturingUnit.components}
                     shownSystemProperties={shownComponentSystemProperties}

@@ -17,8 +17,10 @@ import SubSystemBreadCrumbs from "../shared/breadcrumbs/SubSystemBreadCrumbs";
 import TableToolbar from "../shared/TableToolbar";
 import InnerSubSystemTable from "./InnerSubsystemTable";
 import SystemPropertyOverview from "./SystemPropertyOverview";
+import { useTranslation } from "react-i18next";
 
 function TestSystemDetail() {
+  const { t } = useTranslation();
   const history = useHistory();
   const { testSystemId } = useParams() as { testSystemId: string };
   const [testSystem, setTestSystem] = useState<TestSystem | null>(null);
@@ -71,7 +73,7 @@ function TestSystemDetail() {
               [systemProperty.id, value] as [string, string])),
       {
         onSuccess: () => console.log("saved successfully"),
-        onComponentAdded: () => console.log("TestSystem added")
+        //onComponentAdded: () => console.log("TestSystem added")
       });
   }
 
@@ -99,7 +101,7 @@ function TestSystemDetail() {
             <Grid item xs={11}>
               {testSystem && (
                 <>
-                  <TableToolbar title="Komponenten">
+                  <TableToolbar title={t("testSystemDetail.components")}>
 
                   </TableToolbar>
                   <InnerSubSystemTable

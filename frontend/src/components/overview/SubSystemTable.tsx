@@ -11,6 +11,7 @@ import TableRow from "@mui/material/TableRow";
 import { SubSystem, SystemProperty } from "core";
 import React, { useState } from "react";
 import SubSystemPopupMenu from "../shared/abstract/SubSystemTable/SubSystemPopupMenu";
+import { useTranslation } from "react-i18next";
 
 interface OverviewTableProps<SubSystemType extends SubSystem> {
   subSystems: SubSystemType[];
@@ -23,6 +24,7 @@ function SubSystemTable<SubSystemType extends SubSystem>({
   shownSystemProperties,
   selectSubSystem,
 }: OverviewTableProps<SubSystemType>) {
+  const { t } = useTranslation();
   const [selectedSubsystem, setSelectedSubsystem] =
     useState<SubSystemType | null>(null);
     const [anchorRef, setAnchorRef] = useState<HTMLButtonElement | null>(null);
@@ -91,9 +93,9 @@ function SubSystemTable<SubSystemType extends SubSystem>({
         selectedSubSystem={selectedSubsystem}
         anchorEl={anchorRef}
         menuEntries={[
-          {label: "Duplizieren", onClick: (_: SubSystemType) => {}},
-          {label: "Löschen", onClick: (_: SubSystemType) => {}},
-          {label: "Ansicht", onClick: (selectedSubSystem: SubSystemType) => handleShowDetails()},
+          {label: t("popUpMenu.dublicate"), onClick: (_: SubSystemType) => {}},
+          {label: t("popUpMenu.delete"), onClick: (_: SubSystemType) => {}},
+          {label: t("popUpMenu.view"), onClick: (selectedSubSystem: SubSystemType) => handleShowDetails()},
         ]}
         setSelectedSubSystem={setSelectedSubsystem}
       />

@@ -1,24 +1,22 @@
-import { Box, Button, Tab, Tabs } from '@material-ui/core';
-import React, { useState } from 'react';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import React from 'react';
+import { useTranslation } from "react-i18next";
 
 function Filter() {
-
-
+    const { t } = useTranslation();
     const useStyles = makeStyles((theme: Theme) => createStyles({
         table: {
             minWidth: 650,
@@ -45,7 +43,7 @@ function Filter() {
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                 >
-                    <Typography><FilterAltIcon  fontSize="large" />Filter</Typography>
+                    <Typography><FilterAltIcon  fontSize="large" />{t("filter.filter")}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <TableContainer component={Paper}>
@@ -53,23 +51,23 @@ function Filter() {
                             <TableBody>
                                 <TableRow>
                                     <TableCell>
-                                        Bereich
+                                    {t("filter.area")}
                                     </TableCell>
                                     <TableCell>
-                                        <TextField id="standard-basic" label="Bereich" variant="standard" />
+                                        <TextField id="standard-basic" label={t("filter.area")} variant="standard" />
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>Land</TableCell>
-                                    <TableCell><TextField id="standard-basic" label="Land" variant="standard" /></TableCell>
+                                    <TableCell>{t("filter.country")}</TableCell>
+                                    <TableCell><TextField id="standard-basic" label={t("filter.country")} variant="standard" /></TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>Standort</TableCell>
-                                    <TableCell><TextField id="standard-basic" label="Standort" variant="standard" /></TableCell>
+                                    <TableCell>{t("filter.location")}</TableCell>
+                                    <TableCell><TextField id="standard-basic" label={t("filter.location")} variant="standard" /></TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell>Hersteller</TableCell>
-                                    <TableCell><TextField id="standard-basic" label="Hersteller" variant="standard" /></TableCell>
+                                    <TableCell>{t("filter.manufacturer")}</TableCell>
+                                    <TableCell><TextField id="standard-basic" label={t("filter.manufacturer")} variant="standard" /></TableCell>
                                 </TableRow>
                             </TableBody>
                         </Table>
