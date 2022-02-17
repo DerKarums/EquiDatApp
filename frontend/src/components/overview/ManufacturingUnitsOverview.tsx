@@ -8,7 +8,7 @@ import SubSystemOverview from './SubSystemOverview';
 function ManufacturingUnitsOverview() {
     const history = useHistory();
 
-    const shownSystemPropertyIds = ["name", "location", "building"]
+    const shownSystemPropertyIds = ["name", "location", "products", "fertigungssteuerer", "size"]
 
     const allManufacturingUnitsUseCase = useCases.allManufacturingUnitsUseCase;
 
