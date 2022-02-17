@@ -72,7 +72,7 @@ function TestSystemDetail() {
               [systemProperty.id, value] as [string, string])),
       {
         onSuccess: () => console.log("saved successfully"),
-        //onComponentAdded: () => console.log("TestSystem added")
+        onComponentAdded: () => console.log("TestSystem added")
       });
   }
 
