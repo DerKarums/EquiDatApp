@@ -18,6 +18,7 @@ interface OverviewTableProps<SubSystemType extends SubSystem> {
   shownSystemProperties: SystemProperty[];
   selectSubSystem(id: string): void;
   deleteSubSystem(id: string): void;
+  duplicateSubSystem(id: string): void;
 }
 
 function SubSystemTable<SubSystemType extends SubSystem>({
@@ -25,6 +26,7 @@ function SubSystemTable<SubSystemType extends SubSystem>({
   shownSystemProperties,
   selectSubSystem,
   deleteSubSystem,
+  duplicateSubSystem,
 }: OverviewTableProps<SubSystemType>) {
   const { t } = useTranslation();
   const [selectedSubsystem, setSelectedSubsystem] =
@@ -36,6 +38,9 @@ function SubSystemTable<SubSystemType extends SubSystem>({
   };
   const handleDelete = (selectedSubSystem: SubSystemType) => {
     deleteSubSystem(selectedSubSystem.id);
+  };
+  const handleDuplicate = (selectedSubSystem: SubSystemType) => {
+    duplicateSubSystem(selectedSubSystem.id);
   };
 
   function openMenu(subsystem: SubSystemType, event: React.MouseEvent<HTMLElement>) {
@@ -95,7 +100,7 @@ function SubSystemTable<SubSystemType extends SubSystem>({
         selectedSubSystem={selectedSubsystem}
         anchorEl={anchorRef}
         menuEntries={[
-          {label: t("popUpMenu.dublicate"), onClick: (_: SubSystemType) => {}},
+          {label: t("popUpMenu.dublicate"), onClick: (selectedSubSystem: SubSystemType) => handleDuplicate(selectedSubSystem)},
           {label: t("popUpMenu.delete"), onClick: (selectedSubSystem: SubSystemType) => handleDelete(selectedSubSystem)},
           {label: t("popUpMenu.view"), onClick: (selectedSubSystem: SubSystemType) => handleShowDetails(selectedSubSystem)},
         ]}
