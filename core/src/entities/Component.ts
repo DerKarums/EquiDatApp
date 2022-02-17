@@ -10,7 +10,7 @@ export class Component extends SubSystem {
     private _owningTestSystem: TestSystem | null = null;
 
     constructor(
-        private readonly componentType: ComponentType,
+        readonly componentType: ComponentType,
         systemPropertyValues?: Map<string, string>,
         id?: string
     ) {
