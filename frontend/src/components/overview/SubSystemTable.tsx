@@ -96,11 +96,8 @@ function SubSystemTable<SubSystemType extends SubSystem>({
         anchorEl={anchorRef}
         menuEntries={[
           {label: t("popUpMenu.dublicate"), onClick: (_: SubSystemType) => {}},
-          {label: t("popUpMenu.delete"), onClick: (_: SubSystemType) => {}},
-          {label: t("popUpMenu.view"), onClick: (selectedSubSystem: SubSystemType) => handleShowDetails()},
-          {label: "Duplizieren", onClick: (_: SubSystemType) => {}},
-          {label: "Löschen", onClick: (selectedSubSystem: SubSystemType) => handleDelete(selectedSubSystem)},
-          {label: "Ansicht", onClick: (selectedSubSystem: SubSystemType) => handleShowDetails(selectedSubSystem)},
+          {label: t("popUpMenu.delete"), onClick: (selectedSubSystem: SubSystemType) => handleDelete(selectedSubSystem)},
+          {label: t("popUpMenu.view"), onClick: (selectedSubSystem: SubSystemType) => handleShowDetails(selectedSubSystem)},
         ]}
         setSelectedSubSystem={setSelectedSubsystem}
       />
