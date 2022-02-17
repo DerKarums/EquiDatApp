@@ -1,5 +1,6 @@
 
 
 export interface CreateManufacturingUnitCallbacks {
-    onComplete(): void;
+    onDuplicateComplete(): void;
+    onCreateComplete(): void;
 }
