@@ -1,7 +1,6 @@
 import { TestSystem } from "../../entities/TestSystem";
 import { CreateTestSystemCallbacks } from "./CreateTestSystemCallbacks";
 import { CreateTestSystemRepository } from "./CreateTestSystemRepository";
-import { TestSystemModel } from "./TestSystemModel";
 
 
 export class CreateTestSystemUseCase {
@@ -12,9 +11,7 @@ export class CreateTestSystemUseCase {
 
     }
 
-    public createTestSystem(testSystemModel: TestSystemModel, callbacks: CreateTestSystemCallbacks) {
-        const schema = this.repository.getSchema()
-        const testSystem = new TestSystem(schema, testSystemModel.systemPropertyValues);
+    public createTestSystem(testSystem: TestSystem, callbacks: CreateTestSystemCallbacks) {
         this.repository.createTestSystem(testSystem);
         callbacks.onCreateComplete();
     }

@@ -54,6 +54,9 @@ function ComponentsOverview() {
     const duplicateSubSystem = (id: string): void => {
         useCases.createComponentUseCase.createDuplicateComponent(id, createCallback);
     }
+    const createSubSystem = (model: Component): void => {
+        useCases.createComponentUseCase.createComponent(model, createCallback);
+    }
 
     useEffect(() => {
         allComponentsUseCase.getAllComponents(callback);
@@ -70,6 +73,7 @@ function ComponentsOverview() {
             selectSubSystem={ selectSubSystem }
             deleteSubSystem={ deleteSubSystem}
             duplicateSubSystem={duplicateSubSystem}
+            createSubSystem={createSubSystem}
         />
     )
 
