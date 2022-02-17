@@ -1,5 +1,5 @@
 import { Component } from "../../entities/Component";
-import { CreateManufacturingUnitCallbacks } from "../CreateManufacturingUnitUseCase/CreateManufacturingUnitCallbacks";
+import { CreateComponentCallbacks } from "./CreateComponentCallbacks";
 import { ComponentModel } from "./ComponentModel";
 import { CreateComponentRepository } from "./CreateComponentRepository";
 
@@ -12,9 +12,16 @@ export class CreateComponentUseCase {
 
     }
 
-    public createComponent(componentModel: ComponentModel, callbacks: CreateManufacturingUnitCallbacks) {
+    public createComponent(componentModel: ComponentModel, callbacks: CreateComponentCallbacks) {
         const component = new Component(componentModel.componentType);
         this.repository.createComponent(component);
-        callbacks.onComplete();
+        callbacks.onCreateComplete();
+    }
+
+    
+    public createDuplicateComponent(componentId: string, callbacks: CreateComponentCallbacks) {
+        const component = this.repository.getComponent(componentId);
+        this.repository.createComponent(component);
+        callbacks.onDuplicateComplete();
     }
 }

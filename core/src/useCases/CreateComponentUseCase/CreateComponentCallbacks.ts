@@ -1,5 +1,6 @@
 
 
 export interface CreateComponentCallbacks {
-    onComplete(): void;
+    onDuplicateComplete(): void;
+    onCreateComplete(): void;
 }

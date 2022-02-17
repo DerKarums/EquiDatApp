@@ -16,6 +16,12 @@ export class CreateTestSystemUseCase {
         const schema = this.repository.getSchema()
         const testSystem = new TestSystem(schema, testSystemModel.systemPropertyValues);
         this.repository.createTestSystem(testSystem);
-        callbacks.onComplete();
+        callbacks.onCreateComplete();
+    }
+
+    public createDuplicateTestSystem(testSystemId: string, callbacks: CreateTestSystemCallbacks) {
+        const testSystem = this.repository.getTestSystem(testSystemId);
+        this.repository.createTestSystem(testSystem);
+        callbacks.onDuplicateComplete();
     }
 }

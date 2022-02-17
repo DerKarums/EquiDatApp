@@ -1,3 +1,4 @@
 export interface CreateTestSystemCallbacks {
-    onComplete(): void;
+    onDuplicateComplete(): void;
+    onCreateComplete(): void;
 }
