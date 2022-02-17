@@ -1,26 +1,29 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import * as React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 const NavigationTabs = () => {
+    const { t } = useTranslation();
 
     const history = useHistory();
     const location = useLocation();
 
+
     const tabs = [
         {
-            label: "Fertigungssysteme",
+            label: t("navigationTabs.manufacturingUnits"),
             pathPrefix: "/manufacturingUnit",
             target: "/manufacturingUnits"
         },
         {
-            label: "Testsysteme",
+            label: t("navigationTabs.testSystems"),
             pathPrefix: "/testSystem",
             target: "/testSystems"
 
         },
         {
-            label: "Komponenten",
+            label: t("navigationTabs.components"),
             pathPrefix: "/component",
             target: "/components"
         }

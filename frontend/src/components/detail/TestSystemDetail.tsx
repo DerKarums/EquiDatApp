@@ -1,17 +1,17 @@
-import { Edit, Save } from "@mui/icons-material";
-import { Breadcrumbs, Grid, IconButton, Link, Stack } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
 import {
   AllComponentsCallbacks,
   Component,
   SystemProperty,
-  TestSystem,
+  TestSystem
 } from "core";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
 import {
   allComponentsUseCase,
   editTestSystemUseCase,
-  showTestSystemUseCase,
+  showTestSystemUseCase
 } from "../../providers/UseCaseProvider";
 import SubSystemBreadCrumbs from "../shared/breadcrumbs/SubSystemBreadCrumbs";
 import TableToolbar from "../shared/TableToolbar";
@@ -19,6 +19,7 @@ import InnerSubSystemTable from "./InnerSubsystemTable";
 import SystemPropertyOverview from "./SystemPropertyOverview";
 
 function TestSystemDetail() {
+  const { t } = useTranslation();
   const history = useHistory();
   const { testSystemId } = useParams() as { testSystemId: string };
   const [testSystem, setTestSystem] = useState<TestSystem | null>(null);
@@ -99,7 +100,7 @@ function TestSystemDetail() {
             <Grid item xs={11}>
               {testSystem && (
                 <>
-                  <TableToolbar title="Komponenten">
+                  <TableToolbar title={t("testSystemDetail.components")}>
 
                   </TableToolbar>
                   <InnerSubSystemTable
