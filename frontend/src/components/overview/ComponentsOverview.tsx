@@ -1,5 +1,5 @@
 import { AllComponentsCallbacks, Component, SubSystem, SystemProperty, DeleteComponentCallbacks, CreateComponentCallbacks } from 'core';
-import { useEffect, useState } from 'react';
+import { ComponentType, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useCases } from '../../providers/UseCaseProvider';
 import SubSystemOverview from './SubSystemOverview';
@@ -54,8 +54,8 @@ function ComponentsOverview() {
     const duplicateSubSystem = (id: string): void => {
         useCases.createComponentUseCase.createDuplicateComponent(id, createCallback);
     }
-    const createSubSystem = (model: Component): void => {
-        useCases.createComponentUseCase.createComponent(model, createCallback);
+    const createSubSystem = (): void => {
+        useCases.createComponentUseCase.createComponent(type, createCallback);
     }
 
     useEffect(() => {

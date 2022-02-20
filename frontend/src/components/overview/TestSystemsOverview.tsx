@@ -52,8 +52,8 @@ function TestSystemsOverview() {
         useCases.deleteTestSystemUseCase.deleteTestSystem(id,deleteCallback);
     }
 
-    const createSubSystem = (model: TestSystem): void => {
-        useCases.createTestSystemUseCase.createTestSystem(model, createCallback);
+    const createSubSystem = (): void => {
+        useCases.createTestSystemUseCase.createTestSystem(createCallback);
     }
 
     const duplicateSubSystem = (id: string): void => {

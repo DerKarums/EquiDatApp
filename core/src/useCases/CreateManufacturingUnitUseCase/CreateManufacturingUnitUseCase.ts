@@ -11,7 +11,8 @@ export class CreateManufacturingUnitUseCase {
 
     }
 
-    public createManufacturingUnit(manufacturingUnit: ManufacturingUnit, callbacks: CreateManufacturingUnitCallbacks) {
+    public createManufacturingUnit(callbacks: CreateManufacturingUnitCallbacks) {
+        const manufacturingUnit = new ManufacturingUnit(this.repository.getSchema(), new SystemPropertyValue);
         this.repository.createManufacturingUnit(manufacturingUnit);
         callbacks.onCreateComplete();
     }

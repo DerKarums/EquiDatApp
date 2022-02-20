@@ -57,8 +57,8 @@ function ManufacturingUnitsOverview() {
         useCases.createManufacturingUnitUseCase.createDuplicateManufacturingUnit(id, createCallback);
     }
 
-    const createSubSystem = (model: ManufacturingUnit): void => {
-        useCases.createManufacturingUnitUseCase.createManufacturingUnit(model, createCallback)
+    const createSubSystem = (): void => {
+        useCases.createManufacturingUnitUseCase.createManufacturingUnit(createCallback)
     }
 
     useEffect(() => {
