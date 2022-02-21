@@ -59,7 +59,7 @@ function SubSystemTable<SubSystemType extends SubSystem>({
             <TableHead>
               <TableRow>
                 {shownSystemProperties.map((systemProperty) => (
-                  <TableCell sx={tableHeaderCellStyle} key={systemProperty.id}>{t(typeOfSubSystem + "." + systemProperty.id)}</TableCell>
+                  <TableCell sx={tableHeaderCellStyle} key={systemProperty.id}>{t("subsystems." + systemProperty.id)}</TableCell>
                 ))}
                 <TableCell sx={tableHeaderCellStyle} />
               </TableRow>
