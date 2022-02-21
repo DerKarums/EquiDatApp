@@ -18,6 +18,7 @@ interface OverviewTableProps<SubSystemType extends SubSystem> {
   shownSystemProperties: SystemProperty[];
   selectSubSystem(id: string): void;
   deleteSubSystem(id: string): void;
+  typeOfSubSystem: String;
 }
 
 function SubSystemTable<SubSystemType extends SubSystem>({
@@ -25,6 +26,7 @@ function SubSystemTable<SubSystemType extends SubSystem>({
   shownSystemProperties,
   selectSubSystem,
   deleteSubSystem,
+  typeOfSubSystem,
 }: OverviewTableProps<SubSystemType>) {
   const { t } = useTranslation();
   const [selectedSubsystem, setSelectedSubsystem] =
@@ -57,7 +59,7 @@ function SubSystemTable<SubSystemType extends SubSystem>({
             <TableHead>
               <TableRow>
                 {shownSystemProperties.map((systemProperty) => (
-                  <TableCell sx={tableHeaderCellStyle} key={systemProperty.id}>{systemProperty.label}</TableCell>
+                  <TableCell sx={tableHeaderCellStyle} key={systemProperty.id}>{t(typeOfSubSystem + "." + systemProperty.id)}</TableCell>
                 ))}
                 <TableCell sx={tableHeaderCellStyle} />
               </TableRow>
@@ -95,7 +97,7 @@ function SubSystemTable<SubSystemType extends SubSystem>({
         selectedSubSystem={selectedSubsystem}
         anchorEl={anchorRef}
         menuEntries={[
-          {label: t("popUpMenu.dublicate"), onClick: (_: SubSystemType) => {}},
+          {label: t("popUpMenu.duplicate"), onClick: (_: SubSystemType) => {}},
           {label: t("popUpMenu.delete"), onClick: (selectedSubSystem: SubSystemType) => handleDelete(selectedSubSystem)},
           {label: t("popUpMenu.view"), onClick: (selectedSubSystem: SubSystemType) => handleShowDetails(selectedSubSystem)},
         ]}

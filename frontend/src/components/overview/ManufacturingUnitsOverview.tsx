@@ -50,12 +50,15 @@ function ManufacturingUnitsOverview() {
         allManufacturingUnitsUseCase.getSystemPropertiesByIds(shownSystemPropertyIds, callback);
     }, [])
 
+    const typeOfSubSystem = "manufacturing_unit_schema"
+
     return (
         <SubSystemOverview
             shownSystemProperties={ shownSystemProperties }
             shownSubsystems={ manufacturingUnits }
             selectSubSystem={ selectSubSystem }
             deleteSubSystem={deleteSubSystem}
+            typeOfSubSystem={typeOfSubSystem}
         />
     )
 

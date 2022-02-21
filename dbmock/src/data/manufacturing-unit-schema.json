@@ -36,7 +36,7 @@
         "isRequired": false
     },
     {
-        "id": "fertigungssteuerer",
+        "id": "manufacturing_controller",
         "type": "StringType",
         "label": "Fertigungssteuerer",
         "isRequired": false
