@@ -12,7 +12,9 @@ export class CreateManufacturingUnitUseCase {
     }
 
     public createManufacturingUnit(callbacks: CreateManufacturingUnitCallbacks) {
-        const manufacturingUnit = new ManufacturingUnit(this.repository.getSchema(), new SystemPropertyValue);
+       var systemPropertyValues = new Map<string, string>();
+       systemPropertyValues.set("name", "Neue Montageeinheit");
+        const manufacturingUnit = new ManufacturingUnit(this.repository.getSchema(), systemPropertyValues);
         this.repository.createManufacturingUnit(manufacturingUnit);
         callbacks.onCreateComplete();
     }
