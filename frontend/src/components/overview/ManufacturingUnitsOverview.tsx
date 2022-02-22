@@ -1,4 +1,4 @@
-import { AllManufacturingUnitsCallbacks, ManufacturingUnit, SystemProperty, DeleteManufacturingUnitCallbacks } from 'core';
+import { AllManufacturingUnitsCallbacks, ManufacturingUnit, SystemProperty, DeleteManufacturingUnitCallbacks, CreateManufacturingUnitCallbacks } from 'core';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useCases } from '../../providers/UseCaseProvider';
@@ -8,7 +8,7 @@ import SubSystemOverview from './SubSystemOverview';
 function ManufacturingUnitsOverview() {
     const history = useHistory();
 
-    const shownSystemPropertyIds = ["name", "location", "building"]
+    const shownSystemPropertyIds = ["name", "location", "products", "fertigungssteuerer", "size"]
 
     const allManufacturingUnitsUseCase = useCases.allManufacturingUnitsUseCase;
 
@@ -34,12 +34,25 @@ function ManufacturingUnitsOverview() {
         }
     }
 
+    const createCallback: CreateManufacturingUnitCallbacks = {
+        onDuplicateComplete: () => {
+            allManufacturingUnitsUseCase.getAllManufacturingUnits(callback);
+        },
+        onCreateComplete: () => {
+            allManufacturingUnitsUseCase.getAllManufacturingUnits(callback);
+        },
+    }
+
     const selectSubSystem = (id: string): void => {
         history.push(`manufacturingUnits/${id}`)
     }
 
     const deleteSubSystem = (id:string): void => {
         useCases.deleteManufacturingUnitUseCase.deleteManufacturingUnit(id,deleteCallback);
+    }
+
+    const duplicateSubSystem = (id: string): void => {
+        useCases.createManufacturingUnitUseCase.createDuplicateManufacturingUnit(id, createCallback);
     }
 
     useEffect(() => {
@@ -58,7 +71,7 @@ function ManufacturingUnitsOverview() {
             shownSubsystems={ manufacturingUnits }
             selectSubSystem={ selectSubSystem }
             deleteSubSystem={deleteSubSystem}
-            typeOfSubSystem={typeOfSubSystem}
+            duplicateSubSystem={duplicateSubSystem}
         />
     )
 

@@ -10,10 +10,10 @@ interface SubSystemOverviewProps<SubSystemType extends SubSystem> {
     shownSubsystems: SubSystemType[];
     selectSubSystem(id: string): void;
     deleteSubSystem(id: string): void;
-    typeOfSubSystem: String
+    duplicateSubSystem(id: string): void;
 }
 
-function SubSystemOverview<SubSystemType extends SubSystem>({ shownSubsystems, shownSystemProperties, selectSubSystem, deleteSubSystem, typeOfSubSystem }: SubSystemOverviewProps<SubSystemType>) {
+function SubSystemOverview<SubSystemType extends SubSystem>({ shownSubsystems, shownSystemProperties, selectSubSystem, deleteSubSystem, duplicateSubSystem }: SubSystemOverviewProps<SubSystemType>) {
 
     return (
         <Grid container spacing={2}>
@@ -26,7 +26,7 @@ function SubSystemOverview<SubSystemType extends SubSystem>({ shownSubsystems, s
                     shownSystemProperties={shownSystemProperties}
                     selectSubSystem={selectSubSystem}
                     deleteSubSystem={deleteSubSystem}
-                    typeOfSubSystem={typeOfSubSystem}
+                    duplicateSubSystem={duplicateSubSystem}
                 />
             </Grid>
             <Grid item xs={1}>
