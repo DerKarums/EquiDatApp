@@ -63,8 +63,6 @@ function ComponentsOverview() {
         allComponentsUseCase.getSystemPropertiesByIds(shownSystemPropertyIds, callback);
     }, [])
 
-    const typeOfSubSystem = "component_types_shared_schema"
-
     return (
         <SubSystemOverview
             shownSystemProperties={ shownSystemProperties }

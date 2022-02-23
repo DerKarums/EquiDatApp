@@ -2,121 +2,101 @@
     {
         "id": "name",
         "type": "StringType",
-        "label": "Name",
         "isRequired": true
     },
     {
         "id": "supplier",
         "type": "StringType",
-        "label": "Lieferant",
         "isRequired": true
     },
     {
         "id": "manufacturer",
         "type": "StringType",
-        "label": "Hersteller",
         "isRequired": true
     },
     {
         "id": "test_type",
         "type": "StringType",
-        "label": "Testertyp",
         "isRequired": true
     },
     {
         "id": "diagram_id",
         "type": "StringType",
-        "label": "Schaltplan",
         "isRequired": true
     },
     {
         "id": "diagram_url",
         "type": "StringType",
-        "label": "Link zum Schaltplan",
         "isRequired": true
     },
     {
         "id": "construction_year",
         "type": "StringType",
-        "label": "Baujahr",
         "isRequired": true
     },
     {
         "id": "locker_count",
         "type": "StringType",
-        "label": "Schränke",
         "isRequired": true
     },
     {
         "id": "terminal_box_count",
         "type": "StringType",
-        "label": "Klemmenkästen",
         "isRequired": true
     },
     {
         "id": "installation_date",
         "type": "StringType",
-        "label": "Inbetriebnahme",
         "isRequired": true
     },
     {
         "id": "decommissioning_date",
         "type": "StringType",
-        "label": "Außerbetriebnahme",
         "isRequired": true
     },
     {
         "id": "voltage",
         "type": "StringType",
-        "label": "Betriebsspannung",
         "isRequired": true
     },
     {
         "id": "rated_current",
         "type": "StringType",
-        "label": "Nennstrom",
         "isRequired": true
     },
     {
         "id": "backup_current",
         "type": "StringType",
-        "label": "Vorsicherung",
         "isRequired": true
     },
     {
         "id": "voltage_it",
         "type": "StringType",
-        "label": "Betriebsspannung IT",
         "isRequired": true
     },
     {
         "id": "rated_current_it",
         "type": "StringType",
-        "label": "Nennstrom IT",
         "isRequired": true
     },
     {
         "id": "backup_current_it",
         "type": "StringType",
-        "label": "Vorsicherung IT",
         "isRequired": true
     },
     {
         "id": "voltage_lighting",
         "type": "StringType",
-        "label": "Betriebsspannung Beleuchtung",
         "isRequired": true
     },
     {
         "id": "rated_current_lighting",
         "type": "StringType",
-        "label": "Nennstrom Beleuchtung",
         "isRequired": true
     },
     {
         "id": "backup_current_lighting",
         "type": "StringType",
-        "label": "Vorsicherung Beleuchtung",
         "isRequired": true
     }
 ]

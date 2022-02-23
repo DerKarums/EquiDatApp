@@ -63,8 +63,6 @@ function TestSystemsOverview() {
     useEffect(() => {
         allTestSystemsUseCase.getSystemPropertiesByIds(shownSystemPropertyIds, callback);
     }, [])
-    
-    const typeOfSubSystem = "test_systems_schema"
 
     return (
         <SubSystemOverview
