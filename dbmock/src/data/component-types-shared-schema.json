@@ -2,31 +2,26 @@
     {
         "id": "name",
         "type": "StringType",
-        "label": "Bezeichnung",
         "isRequired": true
     },
     {
         "id": "manufacturer",
         "type": "StringType",
-        "label": "Hersteller",
         "isRequired": true
     },
     {
         "id": "supplier",
         "type": "StringType",
-        "label": "Lieferant",
         "isRequired": true
     },
     {
         "id": "type_name_manufacturer",
         "type": "StringType",
-        "label": "Herstellertypbezeichnung",
         "isRequired": true
     },
     {
         "id": "order_no",
         "type": "StringType",
-        "label": "Bestell-Nr.",
         "isRequired": true
     }
 ]

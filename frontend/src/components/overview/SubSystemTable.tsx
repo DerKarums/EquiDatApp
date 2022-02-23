@@ -62,7 +62,7 @@ function SubSystemTable<SubSystemType extends SubSystem>({
             <TableHead>
               <TableRow>
                 {shownSystemProperties.map((systemProperty) => (
-                  <TableCell sx={tableHeaderCellStyle} key={systemProperty.id}>{systemProperty.label}</TableCell>
+                  <TableCell sx={tableHeaderCellStyle} key={systemProperty.id}>{t("subsystems." + systemProperty.id)}</TableCell>
                 ))}
                 <TableCell sx={tableHeaderCellStyle} />
               </TableRow>
@@ -100,7 +100,7 @@ function SubSystemTable<SubSystemType extends SubSystem>({
         selectedSubSystem={selectedSubsystem}
         anchorEl={anchorRef}
         menuEntries={[
-          {label: t("popUpMenu.dublicate"), onClick: (selectedSubSystem: SubSystemType) => handleDuplicate(selectedSubSystem)},
+          {label: t("popUpMenu.duplicate"), onClick: (selectedSubSystem: SubSystemType) => handleDuplicate(selectedSubSystem)},
           {label: t("popUpMenu.delete"), onClick: (selectedSubSystem: SubSystemType) => handleDelete(selectedSubSystem)},
           {label: t("popUpMenu.view"), onClick: (selectedSubSystem: SubSystemType) => handleShowDetails(selectedSubSystem)},
         ]}

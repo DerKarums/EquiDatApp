@@ -3,6 +3,7 @@ import TableRow from '@mui/material/TableRow';
 import Input from '@mui/material/Input';
 import { SystemProperty } from "core";
 import { Mode } from './SystemPropertyOverview';
+import { useTranslation } from "react-i18next";
 
 interface SystemPropertyDisplayRowProps {
     systemProperty: SystemProperty;
@@ -12,6 +13,7 @@ interface SystemPropertyDisplayRowProps {
 }
 
 const SystemPropertyDisplayRow = ({ systemProperty, value, mode, setValue }: SystemPropertyDisplayRowProps) => {
+    const { t } = useTranslation();
     const handleValueChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value)
     }
@@ -21,7 +23,7 @@ const SystemPropertyDisplayRow = ({ systemProperty, value, mode, setValue }: Sys
             sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
         >
             <TableCell component="th" scope="row">
-                {systemProperty.label}
+                {t("subsystems." + systemProperty.id)}
             </TableCell>
             <TableCell align="left">
                 <Input
