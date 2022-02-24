@@ -25,7 +25,7 @@ export class AllTestSystemsUseCase {
 
   getFilterOptions(callbacks: AllTestSystemsCallbacks) {
     let allSystemProperties = this.repository.getTestSystemSchema();
-    callbacks.setFilterOptions(allSystemProperties.map(prop => new SystemPropertyFilterModel(prop.id, prop.label)));
+    callbacks.setFilterOptions(allSystemProperties.map(prop => new SystemPropertyFilterModel(prop.id)));
   }
 
   /**
