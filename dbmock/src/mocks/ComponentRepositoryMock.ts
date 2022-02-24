@@ -1,15 +1,23 @@
 import { CreateComponentRepository, ShowComponentRepository, SystemProperty, SystemPropertyType, Component, ComponentType, AllComponentsRepository, EditComponentRepository, DeleteComponentRepository } from "core"
-import { components, sharedSystemProperties } from "../DataStore";
+import { components, componentTypes, sharedSystemProperties } from "../DataStore";
 export class ComponentRepositoryMock implements CreateComponentRepository, ShowComponentRepository, AllComponentsRepository, EditComponentRepository, DeleteComponentRepository {
 
+    getComponentType(componentTypeId: string): ComponentType | null{
+        return componentTypes.get(componentTypeId) ?? null;
+    }
 
     getComponents(): Component[] {
         return [...components.values()];
     }
 
-    createComponent(component: Component): void {
-        console.log("createComponent");
+    createComponent(componentTypeId: string, systemPropertyValues: Map<string, string>): Component {
+        const componentType = this.getComponentType(componentTypeId);
+        if (componentType === null) {
+            throw new Error(`ComponentType with ID ${componentTypeId} doesn't exist.`)
+        }
+        const component = new Component(componentType, systemPropertyValues);
         components.set(component.id, component);
+        return component;
     }
     
     deleteComponent(id: string): void {

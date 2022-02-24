@@ -1,6 +1,6 @@
 import { ComponentType } from "../..";
 import { Component } from "../../entities/Component";
-import { CreateManufacturingUnitCallbacks } from "../CreateManufacturingUnitUseCase/CreateManufacturingUnitCallbacks";
+import { CreateComponentCallbacks } from "./CreateComponentCallbacks";
 import { CreateComponentRepository } from "./CreateComponentRepository";
 
 
@@ -12,21 +12,19 @@ export class CreateComponentUseCase {
 
     }
 
-    public createComponent(type: ComponentType, callbacks: CreateManufacturingUnitCallbacks) {
-        const component = new Component(type);
-        this.repository.createComponent(component);
+    public createComponent(typeId: string, callbacks: CreateComponentCallbacks) {
+        this.repository.createComponent(typeId, new Map());
         callbacks.onCreateComplete();
     }
 
     public createDuplicateComponent(componentId: string, callbacks: CreateComponentCallbacks) {
         const duplicate = this.repository.getComponent(componentId);
-        const component = new Component(duplicate.componentType, duplicate.systemPropertyValues);
-        
-        const name = component.getSystemPropertyValue('name');
-        if (name != null) {
-            component.editSystemPropertyValue('name', this.createNewName(name))
-        }
-        this.repository.createComponent(component);
+
+        const systemPropertyValues = duplicate.systemPropertyValues;
+        const name = this.createNewName(systemPropertyValues.get('name') ?? 'New Component');
+        systemPropertyValues.set('name', name);
+
+        this.repository.createComponent(duplicate.componentType.id, systemPropertyValues);
         callbacks.onDuplicateComplete();
     }
 
