@@ -1,4 +1,3 @@
-import { SystemProperty } from "../..";
 import { SearchTestSystemCallbacks } from "./SearchTestSystemCallbacks";
 import { SearchTestSystemRepository } from "./SearchTestSystemRepository";
 import SystemPropertyFilterModel from "./SystemPropertyFilterModel";
@@ -13,14 +12,14 @@ export default class SearchTestSystemUseCase {
   }
 
   getFilterOptions(callbacks: SearchTestSystemCallbacks) {
-    let allSystemProperties = this.repository.getAllPossibleSystemProperties();
-    let groupedSystemProperties = allSystemProperties.reduce((properties: Array<SystemProperty>, systemProperty) => {
-      if (properties.filter(prop => prop.id === systemProperty.id).length === 0) {
-        properties.push(systemProperty);
-      }
-      return properties;
-    }, new Array<SystemProperty>())
-    callbacks.setFilterOptions(groupedSystemProperties.map(prop => new SystemPropertyFilterModel(prop.id, prop.label)));
+    let allSystemProperties = this.repository.getTestSystemSchema();
+    // let groupedSystemProperties = allSystemProperties.reduce((properties: Array<SystemProperty>, systemProperty) => {
+    //   if (properties.filter(prop => prop.id === systemProperty.id).length === 0) {
+    //     properties.push(systemProperty);
+    //   }
+    //   return properties;
+    // }, new Array<SystemProperty>())
+    callbacks.setFilterOptions(allSystemProperties.map(prop => new SystemPropertyFilterModel(prop.id, prop.label)));
   }
 
   /**

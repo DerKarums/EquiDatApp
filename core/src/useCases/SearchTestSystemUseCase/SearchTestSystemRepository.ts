@@ -5,6 +5,6 @@ export interface SearchTestSystemRepository {
   /**
    * Returns every available System Property of all Test Systems
    */
-  getAllPossibleSystemProperties(): SystemProperty[];
+  getTestSystemSchema(): SystemProperty[];
   getFilteredResults(filterOptions: Map<string, string>): TestSystem[];
 }
