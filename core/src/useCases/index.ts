@@ -10,4 +10,3 @@ export * from './ShowTestSystemUseCase';
 export * from './EditComponentUseCase';
 export * from './EditTestSystemUseCase';
 export * from './EditManufacturingUnitUseCase';
-export * from './SearchTestSystemUseCase';

@@ -1,8 +1,7 @@
-import { CreateTestSystemRepository, ShowTestSystemRepository, SearchTestSystemRepository, SystemPropertyType, SystemProperty, TestSystem, AllTestSystemsUseCase, AllTestSystemsCallbacks, EditTestSystemRepository, AllTestSystemsRepository, Component } from "core"
+import { CreateTestSystemRepository, ShowTestSystemRepository, SystemPropertyType, SystemProperty, TestSystem, AllTestSystemsUseCase, AllTestSystemsCallbacks, EditTestSystemRepository, AllTestSystemsRepository, Component } from "core"
 import { testSystems, testSystemSchema, components } from "../DataStore";
 
-export class TestSystemRepositoryMock implements CreateTestSystemRepository, ShowTestSystemRepository, AllTestSystemsRepository, EditTestSystemRepository,
-    SearchTestSystemRepository {
+export class TestSystemRepositoryMock implements CreateTestSystemRepository, ShowTestSystemRepository, AllTestSystemsRepository, EditTestSystemRepository {
 
 
     getTestSystemSchema(): SystemProperty[] {
