@@ -1,6 +1,5 @@
-import { ComponentType } from "../..";
+import { ComponentType, CreateComponentCallbacks } from "../..";
 import { Component } from "../../entities/Component";
-import { CreateManufacturingUnitCallbacks } from "../CreateManufacturingUnitUseCase/CreateManufacturingUnitCallbacks";
 import { CreateComponentRepository } from "./CreateComponentRepository";
 
 
@@ -12,7 +11,8 @@ export class CreateComponentUseCase {
 
     }
 
-    public createComponent(type: ComponentType, callbacks: CreateManufacturingUnitCallbacks) {
+    public createComponent(id: string, callbacks: CreateComponentCallbacks) {
+        var type = new ComponentType(id)
         const component = new Component(type);
         this.repository.createComponent(component);
         callbacks.onCreateComplete();
