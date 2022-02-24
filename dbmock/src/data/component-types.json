@@ -5,85 +5,71 @@
             {
                 "id": "name",
                 "type": "StringType",
-                "label": "Computername",
                 "isRequired": true
             },
             {
                 "id": "manufacturer",
                 "type": "StringType",
-                "label": "Hardware-Hersteller",
                 "isRequired": true
             },
             {
                 "id": "supplier",
                 "type": "StringType",
-                "label": "Lieferant",
                 "isRequired": true
             },
             {
                 "id": "operating_system",
                 "type": "StringType",
-                "label": "Betriebssystem",
                 "isRequired": true
             },
             {
                 "id": "leasing",
                 "type": "BooleanType",
-                "label": "Leasing",
                 "isRequired": true
             },
             {
                 "id": "expiration",
                 "type": "StringType",
-                "label": "Ablauf",
                 "isRequired": true
             },
             {
                 "id": "ip_lenze",
                 "type": "StringType",
-                "label": "IP-Adresse Lenze Netzwerk",
                 "isRequired": true
             },
             {
                 "id": "ip_test_system",
                 "type": "StringType",
-                "label": "IP-Adresse Testsystem",
                 "isRequired": true
             },
             {
                 "id": "interfaces",
                 "type": "StringType",
-                "label": "Schnittstellen",
                 "isRequired": true
             },
             {
                 "id": "user_name",
                 "type": "StringType",
-                "label": "Benutzername",
                 "isRequired": true
             },
             {
                 "id": "password",
                 "type": "StringType",
-                "label": "Passwort",
                 "isRequired": true
             },
             {
                 "id": "software_manufacturer",
                 "type": "StringType",
-                "label": "Software-Hersteller",
                 "isRequired": true
             },
             {
                 "id": "ide",
                 "type": "StringType",
-                "label": "Entwicklungsumgebung",
                 "isRequired": true
             },
             {
                 "id": "comments",
                 "type": "StringType",
-                "label": "Bemerkung",
                 "isRequired": true
             }
         ]
@@ -93,55 +79,46 @@
             {
                 "id": "name",
                 "type": "StringType",
-                "label": "Bezeichnung",
                 "isRequired": true
             },
             {
                 "id": "manufacturer",
                 "type": "StringType",
-                "label": "Hersteller",
                 "isRequired": true
             },
             {
                 "id": "supplier",
                 "type": "StringType",
-                "label": "Lieferant",
                 "isRequired": true
             },
             {
                 "id": "type_name_manufacturer",
                 "type": "StringType",
-                "label": "Herstellertypbezeichnung",
                 "isRequired": true
             },
             {
                 "id": "order_no",
                 "type": "StringType",
-                "label": "Bestell-Nr.",
                 "isRequired": true
             },
             {
                 "id": "supply_connection",
                 "type": "StringType",
-                "label": "Versorgungsanschluss",
                 "isRequired": true
             },
             {
                 "id": "safety_component",
                 "type": "BooleanType",
-                "label": "Sicherheitsbauteil",
                 "isRequired": true
             },
             {
                 "id": "duration",
                 "type": "StringType",
-                "label": "Laufzeit",
                 "isRequired": true
             },
             {
                 "id": "comments",
                 "type": "StringType",
-                "label": "Bemerkung",
                 "isRequired": true
             }
         ]
@@ -151,73 +128,61 @@
             {
                 "id": "name",
                 "type": "StringType",
-                "label": "Bezeichnung",
                 "isRequired": true
             },
             {
                 "id": "manufacturer",
                 "type": "StringType",
-                "label": "Hersteller",
                 "isRequired": true
             },
             {
                 "id": "supplier",
                 "type": "StringType",
-                "label": "Lieferant",
                 "isRequired": true
             },
             {
                 "id": "type_name_manufacturer",
                 "type": "StringType",
-                "label": "Herstellertypbezeichnung",
                 "isRequired": true
             },
             {
                 "id": "order_no",
                 "type": "StringType",
-                "label": "Bestell-Nr.",
                 "isRequired": true
             },
             {
                 "id": "supply_connection",
                 "type": "StringType",
-                "label": "Versorgungsanschluss",
                 "isRequired": true
             },
             {
                 "id": "measurement_type",
                 "type": "BooleanType",
-                "label": "Messtyp",
                 "isRequired": true
             },
             {
                 "id": "measurement_range",
                 "type": "StringType",
-                "label": "Messbereich",
                 "isRequired": true
             },
             {
                 "id": "serial_no",
                 "type": "StringType",
-                "label": "Seriennummer",
                 "isRequired": true
             },
             {
                 "id": "needs_calibration",
                 "type": "StringType",
-                "label": "Kalibrierpflichtig",
                 "isRequired": true
             },
             {
                 "id": "calibration_date",
                 "type": "StringType",
-                "label": "Kalibriermonat",
                 "isRequired": true
             },
             {
                 "id": "comments",
                 "type": "StringType",
-                "label": "Bemerkung",
                 "isRequired": true
             }
         ]
@@ -227,79 +192,66 @@
             {
                 "id": "name",
                 "type": "StringType",
-                "label": "Bezeichnung",
                 "isRequired": true
             },
             {
                 "id": "manufacturer",
                 "type": "StringType",
-                "label": "Hersteller",
                 "isRequired": true
             },
             {
                 "id": "supplier",
                 "type": "StringType",
-                "label": "Lieferant",
                 "isRequired": true
             },
             {
                 "id": "type_name_manufacturer",
                 "type": "StringType",
-                "label": "Herstellertypbezeichnung",
                 "isRequired": true
             },
             {
                 "id": "order_no",
                 "type": "StringType",
-                "label": "Bestell-Nr.",
                 "isRequired": true
             },
             {
                 "id": "supply_connection",
                 "type": "StringType",
-                "label": "Versorgungsanschluss",
                 "isRequired": true
             },
             {
                 "id": "outlet",
                 "type": "BooleanType",
-                "label": "Ausgangsdaten",
                 "isRequired": true
             },
             {
                 "id": "serial_no",
                 "type": "StringType",
-                "label": "Seriennummer",
                 "isRequired": true
             },
             {
                 "id": "safety_component",
                 "type": "BooleanType",
-                "label": "Sicherheitsbauteil",
                 "isRequired": true
             },
             {
                 "id": "duration",
                 "type": "BooleanType",
-                "label": "Laufzeit",
                 "isRequired": true
             },
             {
                 "id": "needs_calibration",
                 "type": "StringType",
-                "label": "Kalibrierpflichtig",
                 "isRequired": true
             },
             {
                 "id": "calibration_date",
                 "type": "StringType",
-                "label": "Kalibriermonat",
                 "isRequired": true
             },
             {
                 "id": "comments",
                 "type": "StringType",
-                "label": "Bemerkung",
                 "isRequired": true
             }
         ]

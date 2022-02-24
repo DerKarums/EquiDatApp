@@ -2,7 +2,6 @@ import { Component, ComponentType, ManufacturingUnit, SystemProperty, SystemProp
 
 export function mapSystemProperty(systemProperty: SystemPropertyJson): SystemProperty {
     return new SystemProperty(
-        systemProperty.label,
         SystemPropertyType[systemProperty.type as keyof typeof SystemPropertyType],
         systemProperty.isRequired,
         systemProperty.id);
@@ -68,7 +67,6 @@ export type ComponentTypeJson = {
 export type SystemPropertyJson = {
     id: string;
     type: string;
-    label: string;
     isRequired: boolean;
 }
 
