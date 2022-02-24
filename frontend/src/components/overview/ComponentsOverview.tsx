@@ -43,6 +43,7 @@ function ComponentsOverview() {
         onCreateComplete: () => {
             allComponentsUseCase.getAllComponents(callback);
         },
+        setComponentTypes: () => {},
     }
 
     const selectSubSystem = (id: string): void => {

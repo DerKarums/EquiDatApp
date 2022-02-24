@@ -6,6 +6,10 @@ export class ComponentRepositoryMock implements CreateComponentRepository, ShowC
         return componentTypes.get(componentTypeId) ?? null;
     }
 
+    getComponentTypes(): ComponentType[] {
+        return [...componentTypes.values()];
+    }
+
     getComponents(): Component[] {
         return [...components.values()];
     }

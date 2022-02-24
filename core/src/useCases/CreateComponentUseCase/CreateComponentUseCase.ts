@@ -12,6 +12,10 @@ export class CreateComponentUseCase {
 
     }
 
+    public getComponentTypes(callbacks: CreateComponentCallbacks) {
+        callbacks.setComponentTypes(this.repository.getComponentTypes());
+    }
+
     public createComponent(typeId: string, callbacks: CreateComponentCallbacks) {
         this.repository.createComponent(typeId, new Map());
         callbacks.onCreateComplete();
