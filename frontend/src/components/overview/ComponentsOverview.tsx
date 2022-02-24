@@ -2,8 +2,8 @@ import { AllComponentsCallbacks, Component, SubSystem, SystemProperty, DeleteCom
 import { ComponentType, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useCases } from '../../providers/UseCaseProvider';
+import ComponentTypeDialog from './ComponentTypeDialog';
 import SubSystemOverview from './SubSystemOverview';
-
 
 function ComponentsOverview() {
     const history = useHistory();
@@ -15,6 +15,7 @@ function ComponentsOverview() {
     const [components, setComponents] = useState<Component[]>([]);
     const [shownSystemProperties, setShownSystemProperties] = useState<SystemProperty[]>([]);
 
+    const [showDialog, setShowDialog]= useState<boolean>(false);
     const callback: AllComponentsCallbacks = {
         setComponents: setComponents,
         setRequestedSystemProperties: (systemPropertiesByIds: {
@@ -54,7 +55,9 @@ function ComponentsOverview() {
     const duplicateSubSystem = (id: string): void => {
         useCases.createComponentUseCase.createDuplicateComponent(id, createCallback);
     }
+    
     const createSubSystem = (): void => {
+        setShowDialog(true);
         useCases.createComponentUseCase.createComponent(type, createCallback);
     }
 
@@ -75,6 +78,7 @@ function ComponentsOverview() {
             duplicateSubSystem={duplicateSubSystem}
             createSubSystem={createSubSystem}
         />
+        {showDialog && <ComponentTypeDialog />}
     )
 
 }
