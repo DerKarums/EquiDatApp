@@ -1,5 +1,7 @@
 import { AllTestSystemsCallbacks } from "./AllTestSystemsCallbacks";
 import { AllTestSystemsRepository } from "./AllTestSystemsRepository";
+import { TestSystemModel } from "./TestSystemModel";
+import { ComponentModel } from "../AllComponentsUseCase/ComponentModel";
 import SystemPropertyFilterModel from "./SystemPropertyFilterModel";
 import TestSystemResultModel from "./TestSystemResultModel";
 
@@ -9,14 +11,14 @@ export class AllTestSystemsUseCase {
     private repository: AllTestSystemsRepository,
   ) { }
 
-  // public getAllTestSystems(callbacks: AllTestSystemsCallbacks) {
-  //   const testSystems = this.repository.getTestSystems();
-  //   const testSystemModels = testSystems.map(testSystem => {
-  //     const componentModels = testSystem.components.map(component => new ComponentModel(component.getRelevantSystemProperties()));
-  //     return new TestSystemModel(testSystem.getRelevantSystemProperties(), componentModels);
-  //   });
-  //   callbacks.setTestSystems(testSystems);
-  // }
+  public getAllTestSystems(callbacks: AllTestSystemsCallbacks) {
+    const testSystems = this.repository.getTestSystems();
+    const testSystemModels = testSystems.map(testSystem => {
+      const componentModels = testSystem.components.map(component => new ComponentModel(component.getRelevantSystemProperties()));
+      return new TestSystemModel(testSystem.getRelevantSystemProperties(), componentModels);
+    });
+    callbacks.setTestSystems(testSystems);
+  }
 
   public getSystemPropertiesByIds(ids: string[], callbacks: AllTestSystemsCallbacks) {
     const systemProperties = this.repository.getSystemPropertiesByIds(ids);
@@ -37,7 +39,7 @@ export class AllTestSystemsUseCase {
     let foundTestSystemModels = foundTestSystems.map(testSystem => {
       let systemPropertyValues: Map<string, string | null> = new Map();
       testSystem.getRelevantSystemProperties().forEach((value, key) => {
-        systemPropertyValues.set(key.label, value);
+        systemPropertyValues.set(key.id, value);
       });
       return new TestSystemResultModel(testSystem.id, systemPropertyValues);
     });
