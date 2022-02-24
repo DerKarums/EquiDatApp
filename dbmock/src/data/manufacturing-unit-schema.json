@@ -2,91 +2,76 @@
     {
         "id": "country",
         "type": "StringType",
-        "label": "Land",
         "isRequired": false
     },
     {
         "id": "location",
         "type": "StringType",
-        "label": "Standort",
         "isRequired": false
     },
     {
         "id": "building",
         "type": "SystemPropertyType",
-        "label": "Gebäude / Werk",
         "isRequired": false
     },
     {
         "id": "street",
         "type": "StringType",
-        "label": "Straße",
         "isRequired": false
     },
     {
         "id": "city",
         "type": "StringType",
-        "label": "PLZ / Ort",
         "isRequired": false
     },
     {
         "id": "name",
         "type": "StringType",
-        "label": "Name",
         "isRequired": false
     },
     {
-        "id": "fertigungssteuerer",
+        "id": "manufacturing_controller",
         "type": "StringType",
-        "label": "Fertigungssteuerer",
         "isRequired": false
     },
     {
         "id": "region",
         "type": "StringType",
-        "label": "Bereich",
         "isRequired": false
     },
     {
         "id": "products",
         "type": "StringType",
-        "label": "Produkte",
         "isRequired": false
     },
     {
         "id": "power",
         "type": "StringType",
-        "label": "Leistung",
         "isRequired": false
     },
     {
         "id": "size",
         "type": "StringType",
-        "label": "Bauform / Baugröße",
         "isRequired": false
     },
     {
         "id": "mes",
         "type": "StringType",
-        "label": "MES",
         "isRequired": false
     },
     {
         "id": "trace_system",
         "type": "StringType",
-        "label": "Trace-System",
         "isRequired": false
     },
     {
         "id": "function",
         "type": "StringType",
-        "label": "Funktion",
         "isRequired": false
     },
     {
         "id": "comments",
         "type": "StringType",
-        "label": "Bemerkungen",
         "isRequired": false
     }
 ]

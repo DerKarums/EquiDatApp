@@ -14,6 +14,7 @@ import {
 import { SystemProperty } from "core";
 import { useState } from "react";
 import SystemPropertyDisplayRow from "./SystemPropertyDisplayRow";
+import { useTranslation } from "react-i18next";
 
 interface SystemPropertyOverviewProps {
   systemPropertyValues: Map<SystemProperty, string | null>;
@@ -24,6 +25,7 @@ function SystemPropertyOverview({
   systemPropertyValues,
   saveValues,
 }: SystemPropertyOverviewProps) {
+  const { t } = useTranslation();
 
   const [mode, setMode] = useState<Mode>("display");
   const [values, setValues] = useState(Array.from(systemPropertyValues));
@@ -52,8 +54,8 @@ function SystemPropertyOverview({
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Bezeichnung</TableCell>
-                <TableCell align="left">Wert</TableCell>
+                <TableCell>{t("systemPropertyOverview.title")}</TableCell>
+                <TableCell align="left">{t("systemPropertyOverview.value")}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

@@ -1,4 +1,4 @@
-import { AllComponentsCallbacks, Component, SystemProperty } from 'core';
+import { AllComponentsCallbacks, Component, SubSystem, SystemProperty, DeleteComponentCallbacks, CreateComponentCallbacks } from 'core';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useCases } from '../../providers/UseCaseProvider';
@@ -28,8 +28,31 @@ function ComponentsOverview() {
         }
     }
 
+    const deleteCallback: DeleteComponentCallbacks = {
+        onComplete:()=>{
+            allComponentsUseCase.getAllComponents(callback);
+        }
+    }
+
+    const createCallback: CreateComponentCallbacks = {
+        onDuplicateComplete: () => {
+            allComponentsUseCase.getAllComponents(callback);
+        },
+        onCreateComplete: () => {
+            allComponentsUseCase.getAllComponents(callback);
+        },
+    }
+
     const selectSubSystem = (id: string): void => {
         history.push(`components/${id}`)
+    }
+
+    const deleteSubSystem = (id: string): void => {
+        useCases.deleteComponentUseCase.deleteComponent(id,deleteCallback);
+    }
+
+    const duplicateSubSystem = (id: string): void => {
+        useCases.createComponentUseCase.createDuplicateComponent(id, createCallback);
     }
 
     useEffect(() => {
@@ -45,6 +68,8 @@ function ComponentsOverview() {
             shownSystemProperties={ shownSystemProperties }
             shownSubsystems={ components }
             selectSubSystem={ selectSubSystem }
+            deleteSubSystem={ deleteSubSystem}
+            duplicateSubSystem={duplicateSubSystem}
         />
     )
 

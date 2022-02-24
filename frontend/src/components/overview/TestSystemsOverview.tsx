@@ -1,4 +1,4 @@
-import { AllTestSystemsCallbacks, SystemProperty, TestSystem } from 'core';
+import { AllTestSystemsCallbacks, SystemProperty, TestSystem, DeleteTestSystemCallbacks, CreateTestSystemCallbacks } from 'core';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useCases } from '../../providers/UseCaseProvider';
@@ -8,7 +8,7 @@ import SubSystemOverview from './SubSystemOverview';
 function TestSystemsOverview() {
     const history = useHistory();
 
-    const shownSystemPropertyIds = ["name", "test_type", "installation_date", "decommissioning_date"]
+    const shownSystemPropertyIds = ["name", "diagram_id", "installation_date", "test_type"]
 
     const allTestSystemsUseCase = useCases.allTestSystemsUseCase;
 
@@ -28,8 +28,32 @@ function TestSystemsOverview() {
         }
     }
 
+    const deleteCallback: DeleteTestSystemCallbacks = {
+        onComplete:()=>{
+            allTestSystemsUseCase.getAllTestSystems(callback);
+        }
+    }
+
+    const createCallback: CreateTestSystemCallbacks = {
+        onDuplicateComplete: () => {
+            allTestSystemsUseCase.getAllTestSystems(callback);
+        },
+        onCreateComplete: () => {
+            allTestSystemsUseCase.getAllTestSystems(callback);
+        },
+    }
+
+
     const selectSubSystem = (id: string): void => {
         history.push(`testSystems/${id}`)
+    }
+    
+    const deleteSubSystem = (id: string): void => {
+        useCases.deleteTestSystemUseCase.deleteTestSystem(id,deleteCallback);
+    }
+
+    const duplicateSubSystem = (id: string): void => {
+        useCases.createTestSystemUseCase.createDuplicateTestSystem(id, createCallback);
     }
 
     useEffect(() => {
@@ -45,6 +69,8 @@ function TestSystemsOverview() {
             shownSystemProperties={ shownSystemProperties }
             shownSubsystems={ testSystems }
             selectSubSystem={ selectSubSystem }
+            deleteSubSystem={ deleteSubSystem }
+            duplicateSubSystem={duplicateSubSystem}
         />
     )
 

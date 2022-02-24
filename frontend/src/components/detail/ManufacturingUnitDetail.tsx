@@ -1,20 +1,20 @@
-import { Edit } from "@mui/icons-material";
-import { Breadcrumbs, Grid, IconButton, Link, Stack } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
 import {
   AllComponentsCallbacks,
   AllTestSystemsCallbacks,
   Component,
   ManufacturingUnit,
   SystemProperty,
-  TestSystem,
+  TestSystem
 } from "core";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
 import {
   allComponentsUseCase,
   allTestSystemsUseCase,
   editManufacturingUnitUseCase,
-  showManufacturingUnitsUseCase,
+  showManufacturingUnitsUseCase
 } from "../../providers/UseCaseProvider";
 import SubSystemBreadCrumbs from "../shared/breadcrumbs/SubSystemBreadCrumbs";
 import TableToolbar from "../shared/TableToolbar";
@@ -22,6 +22,7 @@ import InnerSubSystemTable from "./InnerSubsystemTable";
 import SystemPropertyOverview from "./SystemPropertyOverview";
 
 function ManufacturingUnitDetail() {
+  const { t } = useTranslation();
   const history = useHistory();
   const { manufacturingUnitId } = useParams() as {
     manufacturingUnitId: string;
@@ -145,7 +146,7 @@ function ManufacturingUnitDetail() {
             <Grid item xs={11}>
               {manufacturingUnit && (
                 <>
-                  <TableToolbar title="Testsysteme"></TableToolbar>
+                  <TableToolbar title={t("manufacturingUnitDetail.testSystems")}></TableToolbar>
                   <InnerSubSystemTable
                     subSystems={manufacturingUnit.testSystems}
                     shownSystemProperties={shownTestSystemSystemProperties}
@@ -160,7 +161,7 @@ function ManufacturingUnitDetail() {
             <Grid item xs={11}>
               {manufacturingUnit && (
                 <>
-                  <TableToolbar title="Komponenten"></TableToolbar>
+                  <TableToolbar title={t("manufacturingUnitDetail.components")}></TableToolbar>
                   <InnerSubSystemTable
                     subSystems={manufacturingUnit.components}
                     shownSystemProperties={shownComponentSystemProperties}

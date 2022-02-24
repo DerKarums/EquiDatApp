@@ -5,14 +5,14 @@ export abstract class SubSystem {
 
     constructor(
         private readonly _id: string = uuid(),
-        private systemPropertyValues = new Map<string, string>(),
+        private _systemPropertyValues = new Map<string, string>(),
     ) {
     }
 
     abstract getSchema(): SystemProperty[];
 
     editSystemPropertyValue(id: string, value: string): void {
-        this.systemPropertyValues.set(id, value);
+        this._systemPropertyValues.set(id, value);
     }
 
     getRelevantSystemProperties(): Map<SystemProperty, string | null> {
@@ -23,8 +23,12 @@ export abstract class SubSystem {
     }
 
     getSystemPropertyValue(id: string): string | null {
-        const value = this.systemPropertyValues.get(id);
+        const value = this._systemPropertyValues.get(id);
         return value === undefined ? null : value;
+    }
+
+    get systemPropertyValues(): Map<string, string> {
+        return new Map(this._systemPropertyValues);
     }
 
     get id() {

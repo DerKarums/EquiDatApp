@@ -1,4 +1,4 @@
-import { AllComponentsUseCase, AllManufacturingUnitsUseCase, AllTestSystemsUseCase, CreateComponentUseCase, CreateManufacturingUnitUseCase, EditManufacturingUnitUseCase, EditTestSystemUseCase, EditComponentUseCase, CreateTestSystemUseCase, ShowComponentUseCase, ShowManufacturingUnitUseCase, ShowTestSystemUseCase } from 'core'
+import { AllComponentsUseCase, AllManufacturingUnitsUseCase, AllTestSystemsUseCase, CreateComponentUseCase, CreateManufacturingUnitUseCase, EditManufacturingUnitUseCase, EditTestSystemUseCase, EditComponentUseCase, CreateTestSystemUseCase, DeleteComponentUseCase, DeleteManufacturingUnitUseCase, DeleteTestSystemUseCase, ShowComponentUseCase, ShowManufacturingUnitUseCase, ShowTestSystemUseCase  } from 'core'
 import { repositoryProvider } from './RepositoryProvider'
 
 export const allComponentsUseCase = new AllComponentsUseCase(repositoryProvider.componentRepository);
@@ -13,7 +13,9 @@ export const showTestSystemUseCase = new ShowTestSystemUseCase(repositoryProvide
 export const editManufacturingUnitUseCase = new EditManufacturingUnitUseCase(repositoryProvider.manufacturingUnitRepository);
 export const editTestSystemUseCase = new EditTestSystemUseCase(repositoryProvider.testSystemRepository);
 export const editComponentUseCase = new EditComponentUseCase(repositoryProvider.componentRepository);
-
+export const deleteManufacturingUnitUseCase = new DeleteManufacturingUnitUseCase(repositoryProvider.manufacturingUnitRepository);
+export const deleteTestSystemUseCase = new DeleteTestSystemUseCase(repositoryProvider.testSystemRepository);
+export const deleteComponentUseCase = new DeleteComponentUseCase(repositoryProvider.componentRepository);
 export const useCases = {
     allComponentsUseCase,
     allManufacturingUnitsUseCase,
@@ -27,4 +29,7 @@ export const useCases = {
     editManufacturingUnitUseCase,
     editTestSystemUseCase,
     editComponentUseCase,
+    deleteComponentUseCase,
+    deleteManufacturingUnitUseCase,
+    deleteTestSystemUseCase,
 }

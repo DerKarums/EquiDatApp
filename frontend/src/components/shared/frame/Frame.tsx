@@ -5,14 +5,12 @@ import HeaderBar from './HeaderBar';
 
 interface FrameProps {
     children?: React.ReactNode;
-    language: string;
-    setLanguage(language: string): void;
 }
 
-const Frame = ({ children, language, setLanguage }: FrameProps) => {
+const Frame = ({ children }: FrameProps) => {
     return (
         <>
-            <HeaderBar language={language} setLanguage={setLanguage} />
+            <HeaderBar />
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={1}>
                     <Grid item xs={1}>

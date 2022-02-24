@@ -1,7 +1,7 @@
-import { CreateTestSystemRepository, ShowTestSystemRepository, SystemPropertyType, SystemProperty, TestSystem, AllTestSystemsUseCase, AllTestSystemsCallbacks, EditTestSystemRepository, AllTestSystemsRepository, Component } from "core"
+import { CreateTestSystemRepository, ShowTestSystemRepository, SystemPropertyType, SystemProperty, TestSystem, AllTestSystemsUseCase, AllTestSystemsCallbacks, EditTestSystemRepository, AllTestSystemsRepository, DeleteTestSystemRepository, Component } from "core"
 import { testSystems, testSystemSchema, components } from "../DataStore";
 
-export class TestSystemRepositoryMock implements CreateTestSystemRepository, ShowTestSystemRepository, AllTestSystemsRepository, EditTestSystemRepository {
+export class TestSystemRepositoryMock implements CreateTestSystemRepository, ShowTestSystemRepository, AllTestSystemsRepository, EditTestSystemRepository, DeleteTestSystemRepository {
 
 
     getTestSystemSchema(): SystemProperty[] {
@@ -35,6 +35,11 @@ export class TestSystemRepositoryMock implements CreateTestSystemRepository, Sho
     createTestSystem(testSystem: TestSystem): void {
         console.log("createTestSystem");
         testSystems.set(testSystem.id, testSystem);
+    }
+
+    deleteTestSystem(id: string): void {
+        console.log("deleteTestSystem");
+        testSystems.delete(id);
     }
 
     getTestSystem(id: string): TestSystem {
