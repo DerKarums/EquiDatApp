@@ -63,6 +63,8 @@ function ManufacturingUnitDetail() {
           ) as SystemProperty[]
       );
     },
+    setFilterOptions: () => {},
+    setSearchResults: () => {},
   };
   useEffect(() => {
     allTestSystemsUseCase.getSystemPropertiesByIds(

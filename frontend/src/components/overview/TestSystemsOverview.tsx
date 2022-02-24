@@ -25,7 +25,9 @@ function TestSystemsOverview() {
                 .map(systemPropertiesByIds => systemPropertiesByIds.systemProperty)
                 .filter(systemProperty => systemProperty !== null) as SystemProperty[]
             )
-        }
+        },
+        setFilterOptions: () => {},
+        setSearchResults: () => {},    
     }
 
     const deleteCallback: DeleteTestSystemCallbacks = {
