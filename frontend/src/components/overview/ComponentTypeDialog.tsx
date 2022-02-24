@@ -13,7 +13,7 @@ import Radio from '@mui/material/Radio';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 const options = [
-  'Computer',
+  'None',
   'Atria',
   'Callisto',
   'Dione',
@@ -74,12 +74,12 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
       open={open}
       {...other}
     >
-      <DialogTitle>Componententypen</DialogTitle>
+      <DialogTitle>Phone Ringtone</DialogTitle>
       <DialogContent dividers>
         <RadioGroup
           ref={radioGroupRef}
-          aria-label="componentType"
-          name="componentType"
+          aria-label="ringtone"
+          name="ringtone"
           value={value}
           onChange={handleChange}
         >
@@ -129,17 +129,17 @@ export default function ConfirmationDialog() {
           button
           divider
           aria-haspopup="true"
-          aria-controls="componentType-menu"
-          aria-label="componentType"
+          aria-controls="ringtone-menu"
+          aria-label="phone ringtone"
           onClick={handleClickListItem}
         >
-          <ListItemText primary="componentType" secondary={value} />
+          <ListItemText primary="Phone ringtone" secondary={value} />
         </ListItem>
         <ListItem button divider disabled>
-          <ListItemText primary="Default componentType" secondary="Tethys" />
+          <ListItemText primary="Default notification ringtone" secondary="Tethys" />
         </ListItem>
         <ConfirmationDialogRaw
-          id="componentType-menu"
+          id="ringtone-menu"
           keepMounted
           open={open}
           onClose={handleClose}
