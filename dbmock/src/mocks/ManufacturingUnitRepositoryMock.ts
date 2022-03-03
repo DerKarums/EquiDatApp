@@ -8,9 +8,10 @@ export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitR
         return [...manufacturingUnits.values()];
     }
 
-    createManufacturingUnit(manufacturingUnit: ManufacturingUnit): void {
+    createManufacturingUnit(manufacturingUnit: ManufacturingUnit): ManufacturingUnit {
         console.log("createManufacturingUnit");
         manufacturingUnits.set(manufacturingUnit.id, manufacturingUnit);
+        return manufacturingUnit;
     }
 
     deleteManufacturingUnit(id: string): void {

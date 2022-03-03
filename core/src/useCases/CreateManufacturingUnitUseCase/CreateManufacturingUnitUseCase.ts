@@ -1,7 +1,6 @@
 import { ManufacturingUnit } from "../../entities/ManufacturingUnit";
 import { CreateManufacturingUnitCallbacks } from "./CreateManufacturingUnitCallbacks";
 import { CreateManufacturingUnitRepository } from "./CreateManufacturingUnitRepository";
-import { ManufacturingUnitModel } from "./ManufacturingUnitModel";
 
 
 export class CreateManufacturingUnitUseCase {
@@ -12,10 +11,13 @@ export class CreateManufacturingUnitUseCase {
 
     }
 
-    public createManufacturingUnit(manufacturingUnitModel: ManufacturingUnitModel, callbacks: CreateManufacturingUnitCallbacks) {
-        const manufacturingUnit = new ManufacturingUnit(this.repository.getSchema(), manufacturingUnitModel.systemPropertyValues);
-        this.repository.createManufacturingUnit(manufacturingUnit);
+    public createManufacturingUnit(callbacks: CreateManufacturingUnitCallbacks): ManufacturingUnit{
+       var systemPropertyValues = new Map<string, string>();
+       systemPropertyValues.set("name", "Neue Montageeinheit");
+        const manufacturingUnit = new ManufacturingUnit(this.repository.getSchema(), systemPropertyValues);
+        const newUnit = this.repository.createManufacturingUnit(manufacturingUnit);
         callbacks.onCreateComplete();
+        return newUnit;
     }
 
     public createDuplicateManufacturingUnit(manufacturingUnitId: string, callbacks: CreateManufacturingUnitCallbacks) {

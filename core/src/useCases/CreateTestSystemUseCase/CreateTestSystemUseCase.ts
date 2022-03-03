@@ -1,7 +1,6 @@
 import { TestSystem } from "../../entities/TestSystem";
 import { CreateTestSystemCallbacks } from "./CreateTestSystemCallbacks";
 import { CreateTestSystemRepository } from "./CreateTestSystemRepository";
-import { TestSystemModel } from "./TestSystemModel";
 
 
 export class CreateTestSystemUseCase {
@@ -12,11 +11,14 @@ export class CreateTestSystemUseCase {
 
     }
 
-    public createTestSystem(testSystemModel: TestSystemModel, callbacks: CreateTestSystemCallbacks) {
+    public createTestSystem(callbacks: CreateTestSystemCallbacks): TestSystem {
+        var systemPropertyValues = new Map<string, string>();
+        systemPropertyValues.set("name", "Neues Testsystem");
         const schema = this.repository.getSchema()
-        const testSystem = new TestSystem(schema, testSystemModel.systemPropertyValues);
-        this.repository.createTestSystem(testSystem);
+        const testSystem = new TestSystem(schema, systemPropertyValues);
+        const newTestSystem = this.repository.createTestSystem(testSystem);
         callbacks.onCreateComplete();
+        return newTestSystem;
     }
 
     public createDuplicateTestSystem(testSystemId: string, callbacks: CreateTestSystemCallbacks) {

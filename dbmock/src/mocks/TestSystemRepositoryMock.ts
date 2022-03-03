@@ -36,9 +36,10 @@ export class TestSystemRepositoryMock implements CreateTestSystemRepository, Sho
         return [...testSystems.values()];
     }
 
-    createTestSystem(testSystem: TestSystem): void {
+    createTestSystem(testSystem: TestSystem): TestSystem {
         console.log("createTestSystem");
         testSystems.set(testSystem.id, testSystem);
+        return testSystem;
     }
 
     deleteTestSystem(id: string): void {

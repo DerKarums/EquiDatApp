@@ -11,9 +11,11 @@ interface SubSystemOverviewProps<SubSystemType extends SubSystem> {
     selectSubSystem(id: string): void;
     deleteSubSystem(id: string): void;
     duplicateSubSystem(id: string): void;
+    createSubSystem(): void;
 }
 
-function SubSystemOverview<SubSystemType extends SubSystem>({ shownSubsystems, shownSystemProperties, selectSubSystem, deleteSubSystem, duplicateSubSystem }: SubSystemOverviewProps<SubSystemType>) {
+
+function SubSystemOverview<SubSystemType extends SubSystem>({ shownSubsystems, shownSystemProperties, selectSubSystem, deleteSubSystem, duplicateSubSystem, createSubSystem }: SubSystemOverviewProps<SubSystemType>) {
 
     return (
         <Grid container spacing={2}>
@@ -30,7 +32,7 @@ function SubSystemOverview<SubSystemType extends SubSystem>({ shownSubsystems, s
                 />
             </Grid>
             <Grid item xs={1}>
-                <IconButton aria-label="add">
+                <IconButton aria-label="add" onClick={() => createSubSystem()}>
                     <AddToPhotosIcon fontSize="large"/>
                 </IconButton>
             </Grid>

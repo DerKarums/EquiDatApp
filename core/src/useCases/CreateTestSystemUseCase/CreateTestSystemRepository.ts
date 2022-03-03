@@ -3,6 +3,6 @@ import { TestSystem } from '../../entities/TestSystem';
 
 export interface CreateTestSystemRepository {
     getTestSystem(id: string): TestSystem;
-    createTestSystem(testSystem: TestSystem): void;
+    createTestSystem(testSystem: TestSystem): TestSystem;
     getSchema(): SystemProperty[];
 }

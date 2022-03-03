@@ -1,8 +1,10 @@
+import * as React from 'react';
 import { AllManufacturingUnitsCallbacks, ManufacturingUnit, SystemProperty, DeleteManufacturingUnitCallbacks, CreateManufacturingUnitCallbacks } from 'core';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useCases } from '../../providers/UseCaseProvider';
 import SubSystemOverview from './SubSystemOverview';
+
 
 
 function ManufacturingUnitsOverview() {
@@ -55,6 +57,11 @@ function ManufacturingUnitsOverview() {
         useCases.createManufacturingUnitUseCase.createDuplicateManufacturingUnit(id, createCallback);
     }
 
+    const createSubSystem = (): void => {
+        const unit =  useCases.createManufacturingUnitUseCase.createManufacturingUnit(createCallback)
+        selectSubSystem(unit.id);
+    }
+
     useEffect(() => {
         allManufacturingUnitsUseCase.getAllManufacturingUnits(callback);
     }, [])
@@ -70,6 +77,7 @@ function ManufacturingUnitsOverview() {
             selectSubSystem={ selectSubSystem }
             deleteSubSystem={deleteSubSystem}
             duplicateSubSystem={duplicateSubSystem}
+            createSubSystem={createSubSystem}
         />
     )
 
