@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { AllManufacturingUnitsCallbacks, ManufacturingUnit, SystemProperty, DeleteManufacturingUnitCallbacks, CreateManufacturingUnitCallbacks } from 'core';
+import { AllManufacturingUnitsCallbacks, ManufacturingUnit, ManufacturingUnitOverviewModel, SystemProperty, DeleteManufacturingUnitCallbacks, CreateManufacturingUnitCallbacks } from 'core';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useCases } from '../../providers/UseCaseProvider';
 import SubSystemOverview from './SubSystemOverview';
-
+import axiosInstance from '../../httpclient/axiosProvider';
 
 
 function ManufacturingUnitsOverview() {
@@ -14,11 +14,11 @@ function ManufacturingUnitsOverview() {
 
     const allManufacturingUnitsUseCase = useCases.allManufacturingUnitsUseCase;
 
-    const [manufacturingUnits, setManufacturingUnits] = useState<ManufacturingUnit[]>([]);
+    const [manufacturingUnits, setManufacturingUnits] = useState<ManufacturingUnitOverviewModel[]>([]);
     const [shownSystemProperties, setShownSystemProperties] = useState<SystemProperty[]>([]);
 
     const callback: AllManufacturingUnitsCallbacks = {
-        setManufacturingUnits: setManufacturingUnits,
+        setManufacturingUnits: () => {},
         setRequestedSystemProperties: (systemPropertiesByIds: {
             systemProperty: SystemProperty | null;
             id: string;
@@ -30,18 +30,26 @@ function ManufacturingUnitsOverview() {
         }
     }
 
+    const reloadManufacturingUnits = () => {
+        allManufacturingUnitsUseCase.getAllManufacturingUnits(callback);
+        axiosInstance.get('/manufacturingUnits')
+            .then(response => response.data)
+            .then(entries => entries.map((entry: any) => ({...entry, systemPropertyValues: new Map(Object.entries(entry.systemPropertyValues))})))
+            .then((manufacturingUnitModels: ManufacturingUnitOverviewModel[]) => setManufacturingUnits(manufacturingUnitModels))
+    }
+
     const deleteCallback: DeleteManufacturingUnitCallbacks = {
         onComplete:()=>{
-            allManufacturingUnitsUseCase.getAllManufacturingUnits(callback);
+            reloadManufacturingUnits()
         }
     }
 
     const createCallback: CreateManufacturingUnitCallbacks = {
         onDuplicateComplete: () => {
-            allManufacturingUnitsUseCase.getAllManufacturingUnits(callback);
+            reloadManufacturingUnits()
         },
         onCreateComplete: () => {
-            allManufacturingUnitsUseCase.getAllManufacturingUnits(callback);
+            reloadManufacturingUnits()
         },
     }
 
@@ -63,7 +71,7 @@ function ManufacturingUnitsOverview() {
     }
 
     useEffect(() => {
-        allManufacturingUnitsUseCase.getAllManufacturingUnits(callback);
+        reloadManufacturingUnits()
     }, [])
 
     useEffect(() => {
