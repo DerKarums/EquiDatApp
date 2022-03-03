@@ -13,7 +13,10 @@
     "lint": "eslint --ignore-path .gitignore --ext .ts src/",
     "lint:fix": "npm run lint -- --fix",
     "deploy:prod": "npm run build && pm2 start ecosystem.config.js --only prod",
-    "deploy:dev": "pm2 start ecosystem.config.js --only dev"
+    "deploy:dev": "pm2 start ecosystem.config.js --only dev",
+    "update:all": "npm run update:core && npm run update:dbmock",
+    "update:core": "cd ../core && npm run build && cd ../backend && npm install ../core",
+    "update:dbmock": "cd ../dbmock && npm install ../core && npm run build && cd ../backend && npm install ../dbmock"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -22,7 +25,9 @@
     "class-validator-jsonschema": "^3.0.2",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
+    "core": "file:../core",
     "cors": "^2.8.5",
+    "dbmock": "file:../dbmock",
     "dotenv": "^10.0.0",
     "envalid": "^7.1.0",
     "express": "^4.17.1",

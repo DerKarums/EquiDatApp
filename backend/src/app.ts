@@ -1,8 +1,6 @@
 import 'reflect-metadata';
-import { defaultMetadataStorage } from 'class-transformer';
 import { validationMetadatasToSchemas } from 'class-validator-jsonschema';
 import compression from 'compression';
-import cookieParser from 'cookie-parser';
 import express from 'express';
 import helmet from 'helmet';
 import hpp from 'hpp';
@@ -34,7 +32,7 @@ class App {
     this.app.listen(this.port, () => {
       logger.info(`=================================`);
       logger.info(`======= ENV: ${this.env} =======`);
-      logger.info(`🚀 App listening on the port ${this.port}`);
+      logger.info(` App listening on port ${this.port}`);
       logger.info(`=================================`);
     });
   }
@@ -50,7 +48,6 @@ class App {
     this.app.use(compression());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
-    this.app.use(cookieParser());
   }
 
   private initializeRoutes(controllers: Function[]) {
@@ -66,7 +63,6 @@ class App {
 
   private initializeSwagger(controllers: Function[]) {
     const schemas = validationMetadatasToSchemas({
-      classTransformerMetadataStorage: defaultMetadataStorage,
       refPointerPrefix: '#/components/schemas/',
     });
 

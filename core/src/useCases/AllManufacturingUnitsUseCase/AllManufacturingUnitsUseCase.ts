@@ -15,15 +15,12 @@ export class AllManufacturingUnitsUseCase {
     private repository: AllManufacturingUnitsRepository,
   ) { }
 
-  public getAllManufacturingUnits(callbacks: AllManufacturingUnitsCallbacks) {
+  public async getAllManufacturingUnits(callbacks?: AllManufacturingUnitsCallbacks): Promise<ManufacturingUnit[]> {
     const manufacturingUnits = this.repository.getManufacturingUnits();
-    const manufacturingUnitModels = manufacturingUnits.map(manufacturingUnit => {
-      const componentModels = this.getComponentModels(manufacturingUnit.components);
-      const testSystemModels = this.getTestSystemModels(manufacturingUnit.testSystems);
-      return new AllManufacturingUnitsManufacturingUnitModel(manufacturingUnit.getRelevantSystemProperties(),
-        testSystemModels, componentModels);
-    });
-    callbacks.setManufacturingUnits(manufacturingUnits);
+    if (callbacks) {
+      callbacks.setManufacturingUnits(manufacturingUnits);
+    }
+    return Promise.resolve(manufacturingUnits);
   }
 
   public getSystemPropertiesByIds(ids: string[], callbacks: AllManufacturingUnitsCallbacks) {
