@@ -31,11 +31,12 @@ function ManufacturingUnitsOverview() {
     }
 
     const deleteSubSystem = (id: string): void => {
-        useCases.deleteManufacturingUnitUseCase.deleteManufacturingUnit(id, deleteCallback);
+        axiosInstance.delete(`/manufacturingUnits/${id}`)
+            .then(() => reloadManufacturingUnits())
     }
 
     const duplicateSubSystem = (id: string): void => {
-        axiosInstance.post('/manufacturingUnits', null, {params: {duplicateManufacturingUnitId: id}})
+        axiosInstance.post('/manufacturingUnits', null, { params: { duplicateManufacturingUnitId: id } })
             .then(() => reloadManufacturingUnits())
     }
 

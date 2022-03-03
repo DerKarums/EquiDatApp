@@ -32,7 +32,8 @@ function TestSystemsOverview() {
     }
 
     const deleteSubSystem = (id: string): void => {
-        useCases.deleteTestSystemUseCase.deleteTestSystem(id, deleteCallback);
+        axiosInstance.post('/testSystems', null, { params: { duplicateManufacturingUnitId: id } })
+            .then(() => reloadTestSystems())
     }
 
     const createSubSystem = (): void => {

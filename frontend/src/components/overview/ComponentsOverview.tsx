@@ -30,18 +30,13 @@ function ComponentsOverview() {
             .then((componentModels: ComponentOverviewModel[]) => setComponents(componentModels))
     }
 
-    const deleteCallback: DeleteComponentCallbacks = {
-        onComplete: () => {
-            reloadComponents();
-        }
-    }
-
     const selectSubSystem = (id: string): void => {
         history.push(`components/${id}`)
     }
 
     const deleteSubSystem = (id: string): void => {
-        useCases.deleteComponentUseCase.deleteComponent(id, deleteCallback);
+        axiosInstance.delete(`/components/${id}`)
+            .then(() => reloadComponents())
     }
 
     const duplicateSubSystem = (id: string): void => {
