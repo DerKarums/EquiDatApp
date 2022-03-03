@@ -11,12 +11,13 @@ export class CreateManufacturingUnitUseCase {
 
     }
 
-    public createManufacturingUnit(callbacks: CreateManufacturingUnitCallbacks) {
+    public createManufacturingUnit(callbacks: CreateManufacturingUnitCallbacks): ManufacturingUnit{
        var systemPropertyValues = new Map<string, string>();
        systemPropertyValues.set("name", "Neue Montageeinheit");
         const manufacturingUnit = new ManufacturingUnit(this.repository.getSchema(), systemPropertyValues);
-        this.repository.createManufacturingUnit(manufacturingUnit);
+        const newUnit = this.repository.createManufacturingUnit(manufacturingUnit);
         callbacks.onCreateComplete();
+        return newUnit;
     }
 
     public createDuplicateManufacturingUnit(manufacturingUnitId: string, callbacks: CreateManufacturingUnitCallbacks) {

@@ -60,7 +60,8 @@ function ComponentsOverview() {
     
     const createSubSystem = (): void => {
         setShowDialog(true);
-        useCases.createComponentUseCase.createComponent(value, createCallback);
+        const newComponent = useCases.createComponentUseCase.createComponent(value, createCallback);
+        selectSubSystem(newComponent.id);
     }
 
     const handleCloseDialog = (value: string): void => {

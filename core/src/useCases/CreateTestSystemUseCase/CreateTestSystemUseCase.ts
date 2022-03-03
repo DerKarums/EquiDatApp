@@ -11,13 +11,14 @@ export class CreateTestSystemUseCase {
 
     }
 
-    public createTestSystem(callbacks: CreateTestSystemCallbacks) {
+    public createTestSystem(callbacks: CreateTestSystemCallbacks): TestSystem {
         var systemPropertyValues = new Map<string, string>();
         systemPropertyValues.set("name", "Neues Testsystem");
         const schema = this.repository.getSchema()
         const testSystem = new TestSystem(schema, systemPropertyValues);
-        this.repository.createTestSystem(testSystem);
+        const newTestSystem = this.repository.createTestSystem(testSystem);
         callbacks.onCreateComplete();
+        return newTestSystem;
     }
 
     public createDuplicateTestSystem(testSystemId: string, callbacks: CreateTestSystemCallbacks) {

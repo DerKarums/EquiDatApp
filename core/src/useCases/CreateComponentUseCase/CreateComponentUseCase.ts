@@ -16,9 +16,10 @@ export class CreateComponentUseCase {
         callbacks.setComponentTypes(this.repository.getComponentTypes());
     }
 
-    public createComponent(typeId: string, callbacks: CreateComponentCallbacks) {
-        this.repository.createComponent(typeId, new Map());
+    public createComponent(typeId: string, callbacks: CreateComponentCallbacks): Component {
+       const newComponent = this.repository.createComponent(typeId, new Map());
         callbacks.onCreateComplete();
+        return newComponent;
     }
 
     public createDuplicateComponent(componentId: string, callbacks: CreateComponentCallbacks) {
