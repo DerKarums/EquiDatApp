@@ -1,7 +1,7 @@
 import { TestSystem } from '@/../../core/dist';
 import { mapToTestSystemDetailModel, mapToTestSystemOverviewModel } from '@/mapping/testSystems.mapper';
 import TestSystemsService from '@/services/testSystems.service';
-import { Controller, Get, Param } from 'routing-controllers';
+import { Controller, Get, Param, Post } from 'routing-controllers';
 import { OpenAPI } from 'routing-controllers-openapi';
 
 @Controller()
@@ -20,6 +20,14 @@ export class TestSystemsController {
   async getTestSystem(@Param('testSystemId') testSystemId: string) {
 
     const testSystem: TestSystem = await this.testSystemsService.getTestSystem(testSystemId);
+    return mapToTestSystemDetailModel(testSystem)
+  }
+
+  @Post('/testSystems/')
+  @OpenAPI({ summary: 'Create a new empty test system' })
+  async createTestSystem() {
+
+    const testSystem: TestSystem = await this.testSystemsService.createTestSystem();
     return mapToTestSystemDetailModel(testSystem)
   }
 

@@ -24,4 +24,13 @@ export class ManufacturingUnitsController {
     return mapToManufacturingUnitDetailModel(manufacturingUnit)
   }
 
+  
+  @Post('/manufacturingUnits/')
+  @OpenAPI({ summary: 'Create a new empty manufacturing unit' })
+  async createTestSystem() {
+
+    const manufacturingUnit: ManufacturingUnit = await this.manufacturingUnitsService.createManufacturingUnit();
+    return mapToManufacturingUnitDetailModel(manufacturingUnit)
+  }
+
 }
