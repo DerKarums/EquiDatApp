@@ -1,4 +1,5 @@
 import { ManufacturingUnit, SystemProperty } from "../../entities";
+import ManufacturingUnitResultModel from "./ManufacturingUnitResultModel";
 
 export interface AllManufacturingUnitsCallbacks {
   setManufacturingUnits(manufacturingUnits: ManufacturingUnit[]): void;

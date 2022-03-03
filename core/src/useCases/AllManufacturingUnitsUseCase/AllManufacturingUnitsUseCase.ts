@@ -6,7 +6,7 @@ import { TestSystemModel } from "../AllTestSystemsUseCase/TestSystemModel";
 import { AllManufacturingUnitsCallbacks } from "./AllManufacturingUnitsCallbacks";
 import { AllManufacturingUnitsRepository } from "./AllManufacturingUnitsRepository";
 import { AllManufacturingUnitsManufacturingUnitModel } from "./AllManufacturingUnitsManufacturingUnitModel";
-import { SystemProperty } from "../../entities";
+import ManufacturingUnitResultModel from "./ManufacturingUnitResultModel";
 
 
 
@@ -41,6 +41,28 @@ export class AllManufacturingUnitsUseCase {
       const componentModels = this.getComponentModels(testSystem.components);
       return new TestSystemModel(testSystem.getRelevantSystemProperties(), componentModels);
     });
+  }
+
+  getFilterOptions() {
+    let allSystemProperties = this.repository.getManufacturingUnitSchema();
+    const systemPropertyIDs = allSystemProperties.map(prop => prop.id);
+    return systemPropertyIDs;
+  }
+
+  /**
+   * Takes filter options and returns TestSystems to callbacks
+   * @param filterOptions Map of <SystemPropertyID, Value>
+   */
+  search(filterOptions?: Map<string, string>) {
+    let foundManufacturingUnits = filterOptions ? this.repository.getFilteredManufacturingUnitResults(filterOptions) : this.repository.getManufacturingUnits();
+    let foundManufacturingUnitModels = foundManufacturingUnits.map(manufacturingUnit => {
+      let systemPropertyValues: Map<string, string | null> = new Map();
+      manufacturingUnit.getRelevantSystemProperties().forEach((value, key) => {
+        systemPropertyValues.set(key.id, value);
+      });
+      return new ManufacturingUnitResultModel(manufacturingUnit.id, systemPropertyValues);
+    });
+    return foundManufacturingUnitModels;
   }
 
 }
