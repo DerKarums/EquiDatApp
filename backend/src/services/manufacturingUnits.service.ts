@@ -1,4 +1,4 @@
-import { allManufacturingUnitsUseCase, createManufacturingUnitUseCase, showManufacturingUnitsUseCase } from '@/providers/UseCaseProvider';
+import { allManufacturingUnitsUseCase, createManufacturingUnitUseCase, deleteManufacturingUnitUseCase, showManufacturingUnitsUseCase } from '@/providers/UseCaseProvider';
 import { ManufacturingUnit } from 'core';
 
 class ManufacturingUnitsService {
@@ -17,6 +17,10 @@ class ManufacturingUnitsService {
 
   public async duplicateManufacturingUnit(duplicateManufacturingUnitId: string): Promise<ManufacturingUnit> {
     return await createManufacturingUnitUseCase.createDuplicateManufacturingUnit(duplicateManufacturingUnitId);
+  }
+
+  public async deleteManufacturingUnit(manufacturingUnitId: string): Promise<void> {
+    return deleteManufacturingUnitUseCase.deleteManufacturingUnit(manufacturingUnitId);
   }
 
 }

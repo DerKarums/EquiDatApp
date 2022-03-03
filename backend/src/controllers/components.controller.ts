@@ -1,7 +1,7 @@
-import { Component, ComponentType } from '@/../../core/dist';
+import { Component, ComponentDetailModel, ComponentOverviewModel, ComponentType, ComponentTypeModel } from '@/../../core/dist';
 import { mapToComponentDetailModel, mapToComponentOverviewModel, mapToComponentTypeModel } from '@/mapping/components.mapper';
 import ComponentsService from '@/services/components.service';
-import { Controller, Get, Param, Post, QueryParam } from 'routing-controllers';
+import { Controller, Delete, Get, Param, Post, QueryParam } from 'routing-controllers';
 import { OpenAPI } from 'routing-controllers-openapi';
 
 @Controller()
@@ -10,14 +10,14 @@ export class ComponentsController {
 
   @Get('/components')
   @OpenAPI({ summary: 'Return all components' })
-  async getComponents() {
+  async getComponents(): Promise<ComponentOverviewModel[]> {
     const components: Component[] = await this.componentsService.allComponents();
     return components.map(component => mapToComponentOverviewModel(component))
   }
 
   @Get('/components/:componentId')
   @OpenAPI({ summary: 'Return the component with the given ID' })
-  async getComponent(@Param('componentId') componentId: string) {
+  async getComponent(@Param('componentId') componentId: string): Promise<ComponentDetailModel> {
 
     const component: Component = await this.componentsService.getComponent(componentId);
     return mapToComponentDetailModel(component)
@@ -28,7 +28,7 @@ export class ComponentsController {
   async createComponent(
     @QueryParam("componentTypeId") componentTypeId: string,
     @QueryParam("duplicateComponentId") duplicateComponentId: string
-  ) {
+  ): Promise<ComponentDetailModel> {
     if (duplicateComponentId && componentTypeId) {
       throw new Error("You must not provide both duplicateComponentId and componentTypeId")
     }
@@ -45,9 +45,16 @@ export class ComponentsController {
 
   }
 
+  @Delete('/components/:componentId')
+  @OpenAPI({ summary: 'Delete the component with the given ID' })
+  async deleteComponent(@Param('componentId') componentId: string): Promise<string> {
+    await this.componentsService.deleteComponent(componentId);
+    return "success"
+  }
+
   @Get('/componentTypes')
   @OpenAPI({ summary: 'Return all component types' })
-  async getComponentTypes() {
+  async getComponentTypes(): Promise<ComponentTypeModel[]> {
     const componentTypes: ComponentType[] = await this.componentsService.getComponentTypes();
     return componentTypes.map(componentType => mapToComponentTypeModel(componentType))
   }

@@ -1,7 +1,7 @@
 import { TestSystem } from '@/../../core/dist';
 import { mapToTestSystemDetailModel, mapToTestSystemOverviewModel } from '@/mapping/testSystems.mapper';
 import TestSystemsService from '@/services/testSystems.service';
-import { Controller, Get, Param, Post, QueryParam } from 'routing-controllers';
+import { Controller, Delete, Get, Param, Post, QueryParam } from 'routing-controllers';
 import { OpenAPI } from 'routing-controllers-openapi';
 
 @Controller()
@@ -18,14 +18,20 @@ export class TestSystemsController {
   @Get('/testSystems/:testSystemId')
   @OpenAPI({ summary: 'Return the test system with the given ID' })
   async getTestSystem(@Param('testSystemId') testSystemId: string) {
-
     const testSystem: TestSystem = await this.testSystemsService.getTestSystem(testSystemId);
     return mapToTestSystemDetailModel(testSystem)
   }
 
+  @Delete('/testSystems/:testSystemId')
+  @OpenAPI({ summary: 'Delete the test system with the given ID' })
+  async deleteTestSystem(@Param('testSystemId') testSystemId: string): Promise<string> {
+    await this.testSystemsService.deleteTestSystem(testSystemId);
+    return "success"
+  }
+
   @Post('/testSystems/')
   @OpenAPI({ summary: 'Create a new empty test system or duplicate one via its ID' })
-  async createManufacturingUnit(
+  async createTestSystem(
     @QueryParam("duplicateTestSystemId") duplicateTestSystemId: string
   ) {
 
@@ -37,6 +43,8 @@ export class TestSystemsController {
     }
     return mapToTestSystemDetailModel(testSystem)
   }
+
+
 
 
 }

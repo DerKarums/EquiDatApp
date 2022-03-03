@@ -1,7 +1,7 @@
 import { ManufacturingUnit } from '@/../../core/dist';
 import { mapToManufacturingUnitDetailModel, mapToManufacturingUnitOverviewModel } from '@/mapping/manufacturingUnits.mapper';
 import ManufacturingUnitsService from '@/services/manufacturingUnits.service';
-import { Controller, Get, Param, Post, QueryParam } from 'routing-controllers';
+import { Controller, Delete, Get, Param, Post, QueryParam } from 'routing-controllers';
 import { OpenAPI } from 'routing-controllers-openapi';
 
 @Controller()
@@ -19,9 +19,15 @@ export class ManufacturingUnitsController {
   @Get('/manufacturingUnits/:manufacturingUnitId')
   @OpenAPI({ summary: 'Return the manufacturing unit with the given ID' })
   async getManufacturingUnit(@Param('manufacturingUnitId') manufacturingUnitId: string) {
-
     const manufacturingUnit: ManufacturingUnit = await this.manufacturingUnitsService.getManufacturingUnit(manufacturingUnitId);
     return mapToManufacturingUnitDetailModel(manufacturingUnit)
+  }
+
+  @Delete('/manufacturingUnits/:manufacturingUnitId')
+  @OpenAPI({ summary: 'Delete the manufacturing unit with the given ID' })
+  async deleteManufacturingUnit(@Param('manufacturingUnitId') manufacturingUnitId: string): Promise<string> {
+    await this.manufacturingUnitsService.deleteManufacturingUnit(manufacturingUnitId);
+    return "success";
   }
 
 

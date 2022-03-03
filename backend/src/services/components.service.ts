@@ -1,4 +1,4 @@
-import { allComponentsUseCase, createComponentUseCase, showComponentUseCase } from '@/providers/UseCaseProvider';
+import { allComponentsUseCase, createComponentUseCase, deleteComponentUseCase, showComponentUseCase } from '@/providers/UseCaseProvider';
 import { Component, ComponentType } from 'core';
 
 class ComponentsService {
@@ -20,7 +20,7 @@ class ComponentsService {
     return await createComponentUseCase.createComponent(componentTypeId);
   }
 
-  public async getComponentTypes():Promise<ComponentType[]> {
+  public async getComponentTypes(): Promise<ComponentType[]> {
     return await createComponentUseCase.getComponentTypes();
   }
 
@@ -28,6 +28,9 @@ class ComponentsService {
     return await createComponentUseCase.createDuplicateComponent(duplicateComponentId);
   }
 
+  public async deleteComponent(componentId: string): Promise<void> {
+    return deleteComponentUseCase.deleteComponent(componentId);
+  }
 }
 
 export default ComponentsService;
