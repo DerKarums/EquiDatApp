@@ -3,6 +3,29 @@ import { manufacturingUnits, manufacturingUnitSchema, components, testSystems } 
 
 export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitRepository, ShowManufacturingUnitRepository, AllManufacturingUnitsRepository, EditManufacturingUnitRepository, DeleteManufacturingUnitRepository {
 
+    getManufacturingUnitSchema(): SystemProperty[] {
+        return manufacturingUnitSchema;
+    }
+
+    getFilteredManufacturingUnitResults(filterOptions: Map<string, string>): ManufacturingUnit[] {
+        let results: ManufacturingUnit[] = [];
+        manufacturingUnits.forEach((manufacturingUnit) => {
+            filterOptions.forEach((value, id) => {
+                let systemPropertyValue = manufacturingUnit.getSystemPropertyValue(id);
+                if (systemPropertyValue === null) {
+                    results = results.filter(result => result.id !== id);
+                }
+                else if (systemPropertyValue.includes(value)) {
+                    results.push(manufacturingUnit);
+                }
+                else {
+                    results = results.filter(result => result.id !== id);
+                }
+            });
+        });
+        return results;
+    }
+
 
     getManufacturingUnits(): ManufacturingUnit[] {
         return [...manufacturingUnits.values()];
@@ -52,7 +75,7 @@ export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitR
         let testSystem = testSystems.get(testSystemId) as TestSystem
         testSystem.owningManufacturingUnit = manufacturingUnits.get(manufacturingUnitId) as ManufacturingUnit;
     }
-    
+
     addTestSystemToManufacturingUnit(manufacturingUnitId: string, testSystemId: string): void {
         let manufacturingUnit = manufacturingUnits.get(manufacturingUnitId) as ManufacturingUnit;
         manufacturingUnit.addTestSystem(testSystems.get(testSystemId) as TestSystem)
