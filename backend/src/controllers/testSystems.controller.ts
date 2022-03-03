@@ -1,7 +1,5 @@
-import { ManufacturingUnit, TestSystem } from '@/../../core/dist';
-import { mapToManufacturingUnitOverviewModel } from '@/mapping/manufacturingUnits.mapper';
+import { TestSystem } from '@/../../core/dist';
 import { mapToTestSystemOverviewModel } from '@/mapping/testSystems.mapper';
-import ManufacturingUnitsService from '@/services/manufacturingUnits.service';
 import TestSystemsService from '@/services/testSystems.service';
 import { Controller, Get } from 'routing-controllers';
 import { OpenAPI } from 'routing-controllers-openapi';

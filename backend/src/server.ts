@@ -1,7 +1,7 @@
 import App from '@/app';
 import { ManufacturingUnitsController } from '@/controllers/manufacturingUnits.controller';
 import validateEnv from '@utils/validateEnv';
-import { ComponentsController } from './controllers/components';
+import { ComponentsController } from './controllers/components.controller';
 import { TestSystemsController } from './controllers/testSystems.controller';
 
 validateEnv();

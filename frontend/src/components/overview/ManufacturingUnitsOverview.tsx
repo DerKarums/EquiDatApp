@@ -31,7 +31,6 @@ function ManufacturingUnitsOverview() {
     }
 
     const reloadManufacturingUnits = () => {
-        allManufacturingUnitsUseCase.getAllManufacturingUnits(callback);
         axiosInstance.get('/manufacturingUnits')
             .then(response => response.data)
             .then(entries => entries.map((entry: any) => ({...entry, systemPropertyValues: new Map(Object.entries(entry.systemPropertyValues))})))

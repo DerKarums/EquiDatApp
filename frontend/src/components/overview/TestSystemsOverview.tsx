@@ -1,6 +1,7 @@
-import { AllTestSystemsCallbacks, SystemProperty, TestSystem, DeleteTestSystemCallbacks, CreateTestSystemCallbacks } from 'core';
+import { AllTestSystemsCallbacks, SystemProperty, TestSystem, DeleteTestSystemCallbacks, CreateTestSystemCallbacks, TestSystemOverviewModel } from 'core';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import axiosInstance from '../../httpclient/axiosProvider';
 import { useCases } from '../../providers/UseCaseProvider';
 import SubSystemOverview from './SubSystemOverview';
 
@@ -12,11 +13,11 @@ function TestSystemsOverview() {
 
     const allTestSystemsUseCase = useCases.allTestSystemsUseCase;
 
-    const [testSystems, setTestSystems] = useState<TestSystem[]>([]);
+    const [testSystems, setTestSystems] = useState<TestSystemOverviewModel[]>([]);
     const [shownSystemProperties, setShownSystemProperties] = useState<SystemProperty[]>([]);
 
     const callback: AllTestSystemsCallbacks = {
-        setTestSystems: setTestSystems,
+        setTestSystems: () => {},
         setRequestedSystemProperties: (systemPropertiesByIds: {
             systemProperty: SystemProperty | null;
             id: string;
@@ -30,18 +31,25 @@ function TestSystemsOverview() {
         setSearchResults: () => {},    
     }
 
+    const reloadTestSystems = () => {
+        axiosInstance.get('/testSystems')
+            .then(response => response.data)
+            .then(entries => entries.map((entry: any) => ({...entry, systemPropertyValues: new Map(Object.entries(entry.systemPropertyValues))})))
+            .then((testSystemModels: TestSystemOverviewModel[]) => setTestSystems(testSystemModels))
+    }
+
     const deleteCallback: DeleteTestSystemCallbacks = {
         onComplete:()=>{
-            allTestSystemsUseCase.getAllTestSystems(callback);
+            reloadTestSystems();
         }
     }
 
     const createCallback: CreateTestSystemCallbacks = {
         onDuplicateComplete: () => {
-            allTestSystemsUseCase.getAllTestSystems(callback);
+            reloadTestSystems();
         },
         onCreateComplete: () => {
-            allTestSystemsUseCase.getAllTestSystems(callback);
+            reloadTestSystems();
         },
     }
 
@@ -64,7 +72,7 @@ function TestSystemsOverview() {
     }
 
     useEffect(() => {
-        allTestSystemsUseCase.getAllTestSystems(callback);
+        reloadTestSystems();
     }, [])
 
     useEffect(() => {
@@ -81,6 +89,8 @@ function TestSystemsOverview() {
             createSubSystem={createSubSystem}
         />
     )
+
+
 
 }
 

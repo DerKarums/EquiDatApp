@@ -1,6 +1,7 @@
-import { AllComponentsCallbacks, Component, SubSystem, SystemProperty, DeleteComponentCallbacks, ComponentType, CreateComponentCallbacks } from 'core';
+import { AllComponentsCallbacks, Component, SubSystem, SystemProperty, DeleteComponentCallbacks, ComponentType, CreateComponentCallbacks, ComponentOverviewModel } from 'core';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import axiosInstance from '../../httpclient/axiosProvider';
 import { createComponentUseCase, useCases } from '../../providers/UseCaseProvider';
 import ComponentTypeDialog from './ComponentTypeDialog';
 import SubSystemOverview from './SubSystemOverview';
@@ -13,7 +14,7 @@ function ComponentsOverview() {
 
     const allComponentsUseCase = useCases.allComponentsUseCase;
 
-    const [components, setComponents] = useState<Component[]>([]);
+    const [components, setComponents] = useState<ComponentOverviewModel[]>([]);
     const [shownSystemProperties, setShownSystemProperties] = useState<SystemProperty[]>([]);
 
     useEffect(() =>{
@@ -35,18 +36,25 @@ function ComponentsOverview() {
         }
     }
 
+    const reloadComponents = () => {
+        axiosInstance.get('/components')
+            .then(response => response.data)
+            .then(entries => entries.map((entry: any) => ({...entry, systemPropertyValues: new Map(Object.entries(entry.systemPropertyValues))})))
+            .then((componentModels: ComponentOverviewModel[]) => setComponents(componentModels))
+    }
+
     const deleteCallback: DeleteComponentCallbacks = {
         onComplete: () => {
-            allComponentsUseCase.getAllComponents(callback);
+            reloadComponents();
         }
     }
 
     const createCallback: CreateComponentCallbacks = {
         onDuplicateComplete: () => {
-            allComponentsUseCase.getAllComponents(callback);
+            reloadComponents();
         },
         onCreateComplete: () => {
-            allComponentsUseCase.getAllComponents(callback);
+            reloadComponents();
         },
         setComponentTypes: (pTypes: ComponentType[]) => { 
             
@@ -77,7 +85,7 @@ function ComponentsOverview() {
     }
 
     useEffect(() => {
-        allComponentsUseCase.getAllComponents(callback);
+        reloadComponents();
     }, [])
 
     useEffect(() => {
