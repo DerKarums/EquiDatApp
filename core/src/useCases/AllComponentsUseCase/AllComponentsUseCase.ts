@@ -1,6 +1,6 @@
+import { Component } from "../../entities";
 import { AllComponentsCallbacks } from "./AllComponentsCallbacks";
 import { AllComponentsRepository } from "./AllComponentsRepository";
-import { ComponentModel } from "./ComponentModel";
 
 
 export class AllComponentsUseCase {
@@ -8,10 +8,12 @@ export class AllComponentsUseCase {
     private readonly repository: AllComponentsRepository,
   ) { }
 
-  public getAllComponents(callbacks: AllComponentsCallbacks) {
+  public getAllComponents(callbacks?: AllComponentsCallbacks): Promise<Component[]> {
     const components = this.repository.getComponents();
-    const componentModels = components.map(component => new ComponentModel(component.getRelevantSystemProperties()));
-    callbacks.setComponents(components);
+    if (callbacks) {
+      callbacks.setComponents(components);
+    }
+    return Promise.resolve(components);
   }
 
   public getSystemPropertiesByIds(ids: string[], callbacks: AllComponentsCallbacks) {

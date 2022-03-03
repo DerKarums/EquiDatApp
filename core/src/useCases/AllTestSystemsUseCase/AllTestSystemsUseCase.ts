@@ -4,6 +4,7 @@ import { TestSystemModel } from "./TestSystemModel";
 import { ComponentModel } from "../AllComponentsUseCase/ComponentModel";
 import SystemPropertyFilterModel from "./SystemPropertyFilterModel";
 import TestSystemResultModel from "./TestSystemResultModel";
+import { TestSystem } from "../../entities";
 
 
 export class AllTestSystemsUseCase {
@@ -11,13 +12,16 @@ export class AllTestSystemsUseCase {
     private repository: AllTestSystemsRepository,
   ) { }
 
-  public getAllTestSystems(callbacks: AllTestSystemsCallbacks) {
+  public getAllTestSystems(callbacks?: AllTestSystemsCallbacks): Promise<TestSystem[]> {
     const testSystems = this.repository.getTestSystems();
     const testSystemModels = testSystems.map(testSystem => {
       const componentModels = testSystem.components.map(component => new ComponentModel(component.getRelevantSystemProperties()));
       return new TestSystemModel(testSystem.getRelevantSystemProperties(), componentModels);
     });
-    callbacks.setTestSystems(testSystems);
+    if (callbacks) {
+      callbacks.setTestSystems(testSystems);
+    }
+    return Promise.resolve(testSystems);
   }
 
   public getSystemPropertiesByIds(ids: string[], callbacks: AllTestSystemsCallbacks) {
