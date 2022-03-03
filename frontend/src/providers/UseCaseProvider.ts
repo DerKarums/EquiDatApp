@@ -1,9 +1,6 @@
-import { AllComponentsUseCase, AllManufacturingUnitsUseCase, AllTestSystemsUseCase, CreateComponentUseCase, CreateManufacturingUnitUseCase, EditManufacturingUnitUseCase, EditTestSystemUseCase, EditComponentUseCase, CreateTestSystemUseCase, DeleteComponentUseCase, DeleteManufacturingUnitUseCase, DeleteTestSystemUseCase, ShowComponentUseCase, ShowManufacturingUnitUseCase, ShowTestSystemUseCase  } from 'core'
-import { repositoryProvider } from './RepositoryProvider'
+import { CreateComponentUseCase, CreateManufacturingUnitUseCase, CreateTestSystemUseCase, DeleteComponentUseCase, DeleteManufacturingUnitUseCase, DeleteTestSystemUseCase, EditComponentUseCase, EditManufacturingUnitUseCase, EditTestSystemUseCase, ShowComponentUseCase, ShowManufacturingUnitUseCase, ShowTestSystemUseCase } from 'core';
+import { repositoryProvider } from './RepositoryProvider';
 
-export const allComponentsUseCase = new AllComponentsUseCase(repositoryProvider.componentRepository);
-export const allManufacturingUnitsUseCase = new AllManufacturingUnitsUseCase(repositoryProvider.manufacturingUnitRepository);
-export const allTestSystemsUseCase = new AllTestSystemsUseCase(repositoryProvider.testSystemRepository);
 export const createComponentUseCase = new CreateComponentUseCase(repositoryProvider.componentRepository);
 export const createManufacturingUnitUseCase = new CreateManufacturingUnitUseCase(repositoryProvider.manufacturingUnitRepository);
 export const createTestSystemUseCase = new CreateTestSystemUseCase(repositoryProvider.testSystemRepository);
@@ -17,9 +14,6 @@ export const deleteManufacturingUnitUseCase = new DeleteManufacturingUnitUseCase
 export const deleteTestSystemUseCase = new DeleteTestSystemUseCase(repositoryProvider.testSystemRepository);
 export const deleteComponentUseCase = new DeleteComponentUseCase(repositoryProvider.componentRepository);
 export const useCases = {
-    allComponentsUseCase,
-    allManufacturingUnitsUseCase,
-    allTestSystemsUseCase,
     createComponentUseCase,
     createManufacturingUnitUseCase,
     createTestSystemUseCase,

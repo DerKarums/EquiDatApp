@@ -1,18 +1,11 @@
 import { Grid, Stack } from "@mui/material";
-import {
-  AllComponentsCallbacks,
-  AllTestSystemsCallbacks,
-  Component, ManufacturingUnitDetailModel, SystemProperty,
-  TestSystem
-} from "core";
+import { ManufacturingUnitDetailModel } from "core";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
 import axiosInstance from "../../httpclient/axiosProvider";
 import { mapToManufacturingUnitDetailModel } from "../../mappers/viewmapper";
 import {
-  allComponentsUseCase,
-  allTestSystemsUseCase,
   editManufacturingUnitUseCase
 } from "../../providers/UseCaseProvider";
 import { SystemPropertyRow } from "../../types/types";
@@ -43,52 +36,8 @@ function ManufacturingUnitDetail() {
     "installation_date",
     "decommissioning_date",
   ];
-  const [shownTestSystemSystemProperties, setShownTestSystemSystemProperties] = useState<SystemProperty[]>([]);
-  const testSystemCallback: AllTestSystemsCallbacks = {
-    setTestSystems: (_: TestSystem[]) => { },
-    setRequestedSystemProperties: (
-      systemPropertiesByIds: {
-        systemProperty: SystemProperty | null;
-        id: string;
-      }[]
-    ) => {
-      setShownTestSystemSystemProperties(systemPropertiesByIds
-        .map((systemPropertiesByIds) => systemPropertiesByIds.systemProperty)
-        .filter(
-          (systemProperty) => systemProperty !== null
-        ) as SystemProperty[]
-      );
-    },
-    setFilterOptions: () => { },
-    setSearchResults: () => { },
-  };
-  useEffect(() => {
-    allTestSystemsUseCase.getSystemPropertiesByIds(shownTestSystemSystemPropertyIds, testSystemCallback);
-  }, []);
-
   
   const shownComponentSystemPropertyIds = ["name", "manufacturer", "type_name_manufacturer"];
-  const [shownComponentSystemProperties, setShownComponentSystemProperties] = useState<SystemProperty[]>([]);
-  const componentsCallback: AllComponentsCallbacks = {
-    setComponents: (_: Component[]) => { },
-    setRequestedSystemProperties: (
-      systemPropertiesByIds: {
-        systemProperty: SystemProperty | null;
-        id: string;
-      }[]
-      ) => {
-        setShownComponentSystemProperties(
-          systemPropertiesByIds
-          .map((systemPropertiesByIds) => systemPropertiesByIds.systemProperty)
-          .filter(
-            (systemProperty) => systemProperty !== null
-            ) as SystemProperty[]
-            );
-          },
-        };
-        useEffect(() => {
-          allComponentsUseCase.getSystemPropertiesByIds(shownComponentSystemPropertyIds, componentsCallback);
-        }, []);
         
   const selectTestSystem = (id: string) => history.push(`/testSystems/${id}`);
   const selectComponent = (id: string) => history.push(`/components/${id}`);
@@ -135,7 +84,7 @@ function ManufacturingUnitDetail() {
                   <TableToolbar title={t("manufacturingUnitDetail.testSystems")}></TableToolbar>
                   <InnerSubSystemTable
                     subSystems={manufacturingUnit.testSystems}
-                    shownSystemProperties={shownTestSystemSystemProperties}
+                    shownSystemPropertyIds={shownTestSystemSystemPropertyIds}
                     selectSubSystem={selectTestSystem}
                   />
                 </>
@@ -150,7 +99,7 @@ function ManufacturingUnitDetail() {
                   <TableToolbar title={t("manufacturingUnitDetail.components")}></TableToolbar>
                   <InnerSubSystemTable
                     subSystems={manufacturingUnit.components}
-                    shownSystemProperties={shownComponentSystemProperties}
+                    shownSystemPropertyIds={shownComponentSystemPropertyIds}
                     selectSubSystem={selectComponent}
                   />
                 </>

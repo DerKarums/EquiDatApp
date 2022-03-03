@@ -1,5 +1,5 @@
-import { AllComponentsCallbacks, Component, SubSystem, SystemProperty, DeleteComponentCallbacks, ComponentType, CreateComponentCallbacks, ComponentOverviewModel } from 'core';
-import React, { useEffect, useState } from 'react';
+import { ComponentOverviewModel, ComponentType, CreateComponentCallbacks, DeleteComponentCallbacks } from 'core';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axiosInstance from '../../httpclient/axiosProvider';
 import { mapToComponentOverviewModel } from '../../mappers/viewmapper';
@@ -12,8 +12,6 @@ function ComponentsOverview() {
 
     const shownSystemPropertyIds = ["name", "manufacturer", "type_name_manufacturer"];
     const [value, setValue] = useState('');
-
-    const allComponentsUseCase = useCases.allComponentsUseCase;
 
     const [components, setComponents] = useState<ComponentOverviewModel[]>([]);
 

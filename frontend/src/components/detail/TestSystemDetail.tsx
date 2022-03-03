@@ -1,11 +1,6 @@
 import { Grid, Stack } from "@mui/material";
 import {
-  AllComponentsCallbacks,
-  Component,
-  SystemProperty,
-  TestSystem,
-  TestSystemDetailModel,
-  TestSystemOverviewModel
+  TestSystemDetailModel
 } from "core";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -13,9 +8,7 @@ import { useHistory, useParams } from "react-router-dom";
 import axiosInstance from "../../httpclient/axiosProvider";
 import { mapToTestSystemDetailModel } from "../../mappers/viewmapper";
 import {
-  allComponentsUseCase,
-  editTestSystemUseCase,
-  showTestSystemUseCase
+  editTestSystemUseCase
 } from "../../providers/UseCaseProvider";
 import { SystemPropertyRow } from "../../types/types";
 import SubSystemBreadCrumbs from "../shared/breadcrumbs/SubSystemBreadCrumbs";
@@ -37,33 +30,6 @@ function TestSystemDetail() {
   }, [testSystemId]);
 
   const shownSystemPropertyIds = ["name", "manufacturer", "type_name_manufacturer"];
-  const [shownSystemProperties, setShownSystemProperties] = useState<
-    SystemProperty[]
-  >([]);
-  const callback: AllComponentsCallbacks = {
-    setComponents: (_: Component[]) => { },
-    setRequestedSystemProperties: (
-      systemPropertiesByIds: {
-        systemProperty: SystemProperty | null;
-        id: string;
-      }[]
-    ) => {
-      setShownSystemProperties(
-        systemPropertiesByIds
-          .map((systemPropertiesByIds) => systemPropertiesByIds.systemProperty)
-          .filter(
-            (systemProperty) => systemProperty !== null
-          ) as SystemProperty[]
-      );
-    },
-  };
-
-  useEffect(() => {
-    allComponentsUseCase.getSystemPropertiesByIds(
-      shownSystemPropertyIds,
-      callback
-    );
-  }, []);
 
   const selectComponent = (id: string) => {
     history.push(`/components/${id}`);
@@ -113,7 +79,7 @@ function TestSystemDetail() {
                   </TableToolbar>
                   <InnerSubSystemTable
                     subSystems={testSystem.components}
-                    shownSystemProperties={shownSystemProperties}
+                    shownSystemPropertyIds={shownSystemPropertyIds}
                     selectSubSystem={selectComponent}
                   />
                 </>

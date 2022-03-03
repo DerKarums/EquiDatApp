@@ -1,9 +1,5 @@
-import {
-    CreateTestSystemRepository, ShowTestSystemRepository, SystemPropertyType,
-    SystemProperty, TestSystem, AllTestSystemsUseCase, AllTestSystemsCallbacks,
-    EditTestSystemRepository, AllTestSystemsRepository, DeleteTestSystemRepository, Component
-} from "core"
-import { testSystems, testSystemSchema, components } from "../DataStore";
+import { AllTestSystemsRepository, Component, CreateTestSystemRepository, DeleteTestSystemRepository, EditTestSystemRepository, ShowTestSystemRepository, SystemProperty, TestSystem } from "core";
+import { components, testSystems, testSystemSchema } from "../DataStore";
 
 export class TestSystemRepositoryMock implements CreateTestSystemRepository, ShowTestSystemRepository, AllTestSystemsRepository, EditTestSystemRepository, DeleteTestSystemRepository {
 
