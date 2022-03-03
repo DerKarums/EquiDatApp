@@ -1,8 +1,8 @@
-import { CreateTestSystemCallbacks, DeleteTestSystemCallbacks, TestSystemOverviewModel } from 'core';
+import { DeleteTestSystemCallbacks, TestSystemOverviewModel } from 'core';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axiosInstance from '../../httpclient/axiosProvider';
-import { mapToTestSystemOverviewModel } from '../../mappers/viewmapper';
+import { mapToTestSystemDetailModel, mapToTestSystemOverviewModel } from '../../mappers/viewmapper';
 import { useCases } from '../../providers/UseCaseProvider';
 import SubSystemOverview from './SubSystemOverview';
 
@@ -26,15 +26,6 @@ function TestSystemsOverview() {
         }
     }
 
-    const createCallback: CreateTestSystemCallbacks = {
-        onDuplicateComplete: () => {
-            reloadTestSystems();
-        },
-        onCreateComplete: () => {
-            reloadTestSystems();
-        },
-    }
-
 
     const selectSubSystem = (id: string): void => {
         history.push(`testSystems/${id}`)
@@ -45,12 +36,15 @@ function TestSystemsOverview() {
     }
 
     const createSubSystem = (): void => {
-        useCases.createTestSystemUseCase.createTestSystem(createCallback)
-            .then(newTestSystem => selectSubSystem(newTestSystem.id));
+        axiosInstance.post('/testSystems')
+            .then(response => response.data)
+            .then(testSystem => mapToTestSystemDetailModel(testSystem))
+            .then((TestSystemDetailModel) => selectSubSystem(TestSystemDetailModel.id))
     }
 
     const duplicateSubSystem = (id: string): void => {
-        useCases.createTestSystemUseCase.createDuplicateTestSystem(id, createCallback);
+        axiosInstance.post('/testSystems', null, {params: {duplicateTestSystemId: id}})
+            .then(() => reloadTestSystems())
     }
 
     useEffect(() => {

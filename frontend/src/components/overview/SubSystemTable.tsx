@@ -41,6 +41,7 @@ function SubSystemTable<SubSystemOverviewModelType extends SubSystemOverviewMode
     deleteSubSystem(selectedSubSystem.id);
   };
   const handleDuplicate = (selectedSubSystem: SubSystemOverviewModelType) => {
+    console.log("ddup")
     duplicateSubSystem(selectedSubSystem.id);
   };
 

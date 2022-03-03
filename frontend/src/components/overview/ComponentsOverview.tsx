@@ -1,9 +1,9 @@
-import { ComponentOverviewModel, ComponentType, CreateComponentCallbacks, DeleteComponentCallbacks } from 'core';
+import { ComponentDetailModel, ComponentOverviewModel, ComponentType, ComponentTypeModel, CreateComponentCallbacks, DeleteComponentCallbacks } from 'core';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axiosInstance from '../../httpclient/axiosProvider';
 import { mapToComponentOverviewModel } from '../../mappers/viewmapper';
-import { createComponentUseCase, useCases } from '../../providers/UseCaseProvider';
+import { useCases } from '../../providers/UseCaseProvider';
 import ComponentTypeDialog from './ComponentTypeDialog';
 import SubSystemOverview from './SubSystemOverview';
 
@@ -16,7 +16,9 @@ function ComponentsOverview() {
     const [components, setComponents] = useState<ComponentOverviewModel[]>([]);
 
     useEffect(() => {
-        createComponentUseCase.getComponentTypes(createCallback);
+        axiosInstance.get('/componentTypes')
+            .then(response => response.data)
+            .then(componentTypes => setTypes(componentTypes.map((componentType: ComponentTypeModel) => componentType.id)));
     }, [])
 
     const [showDialog, setShowDialog] = useState<boolean>(false);
@@ -34,19 +36,6 @@ function ComponentsOverview() {
         }
     }
 
-    const createCallback: CreateComponentCallbacks = {
-        onDuplicateComplete: () => {
-            reloadComponents();
-        },
-        onCreateComplete: () => {
-            reloadComponents();
-        },
-        setComponentTypes: (pTypes: ComponentType[]) => {
-
-            setTypes(pTypes.map(componentType => componentType.id));
-        },
-    }
-
     const selectSubSystem = (id: string): void => {
         history.push(`components/${id}`)
     }
@@ -56,24 +45,26 @@ function ComponentsOverview() {
     }
 
     const duplicateSubSystem = (id: string): void => {
-        useCases.createComponentUseCase.createDuplicateComponent(id, createCallback);
+        axiosInstance.post('/components', null, {params: {duplicateComponentId: id}})
+            .then(() => reloadComponents())
     }
 
     const createSubSystem = (): void => {
         setShowDialog(true);
     }
 
-    const handleCloseDialog = (value: string): void => {
-        setValue(value);
-        useCases.createComponentUseCase.createComponent(value, createCallback)
-            .then(component => selectSubSystem(component.id));
+    const handleCloseDialog = (componentTypeId: string): void => {
+        setValue(componentTypeId);
+
+        axiosInstance.post('/components', null, {params: {componentTypeId}})
+            .then(response => response.data)
+            .then(component => mapToComponentOverviewModel(component))
+            .then((componentModel: ComponentDetailModel) => selectSubSystem(componentModel.id))
     }
 
     useEffect(() => {
         reloadComponents();
     }, [])
-
-
 
     return (
         <div>

@@ -1,8 +1,8 @@
-import { CreateManufacturingUnitCallbacks, DeleteManufacturingUnitCallbacks, ManufacturingUnitOverviewModel } from 'core';
+import { DeleteManufacturingUnitCallbacks, ManufacturingUnitOverviewModel } from 'core';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axiosInstance from '../../httpclient/axiosProvider';
-import { mapToManufacturingUnitOverviewModel } from '../../mappers/viewmapper';
+import { mapToManufacturingUnitDetailModel, mapToManufacturingUnitOverviewModel } from '../../mappers/viewmapper';
 import { useCases } from '../../providers/UseCaseProvider';
 import SubSystemOverview from './SubSystemOverview';
 
@@ -13,7 +13,6 @@ function ManufacturingUnitsOverview() {
     const shownSystemPropertyIds = ["name", "location", "products", "manufacturing_controller", "size"]
 
     const [manufacturingUnits, setManufacturingUnits] = useState<ManufacturingUnitOverviewModel[]>([]);
-
 
     const reloadManufacturingUnits = () => {
         axiosInstance.get('/manufacturingUnits')
@@ -27,15 +26,6 @@ function ManufacturingUnitsOverview() {
         }
     }
 
-    const createCallback: CreateManufacturingUnitCallbacks = {
-        onDuplicateComplete: () => {
-            reloadManufacturingUnits()
-        },
-        onCreateComplete: () => {
-            reloadManufacturingUnits()
-        },
-    }
-
     const selectSubSystem = (id: string): void => {
         history.push(`manufacturingUnits/${id}`)
     }
@@ -45,13 +35,15 @@ function ManufacturingUnitsOverview() {
     }
 
     const duplicateSubSystem = (id: string): void => {
-        useCases.createManufacturingUnitUseCase.createDuplicateManufacturingUnit(id, createCallback);
+        axiosInstance.post('/manufacturingUnits', null, {params: {duplicateManufacturingUnitId: id}})
+            .then(() => reloadManufacturingUnits())
     }
 
     const createSubSystem = (): void => {
-        useCases.createManufacturingUnitUseCase.createManufacturingUnit(createCallback)
-            .then(manufacturingUnit => selectSubSystem(manufacturingUnit.id));
-
+        axiosInstance.post('/manufacturingUnits')
+            .then(response => response.data)
+            .then(manufacturingUnit => mapToManufacturingUnitDetailModel(manufacturingUnit))
+            .then((manufacturingUnitDetailModel) => selectSubSystem(manufacturingUnitDetailModel.id))
     }
 
     useEffect(() => {

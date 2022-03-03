@@ -39,7 +39,7 @@ export function mapToTestSystemDetailModel(testSystem: any): TestSystemDetailMod
     const testSystemDetailModel: TestSystemDetailModel = {
         ...testSystem,
         systemPropertyValues: new Map(Object.entries(testSystem.systemPropertyValues)),
-        owningManufacturingUnit: mapToManufacturingUnitOverviewModel(testSystem.owningManufacturingUnit),
+        owningManufacturingUnit: testSystem.owningManufacturingUnit && mapToManufacturingUnitOverviewModel(testSystem.owningManufacturingUnit),
         components: testSystem.components.map((component: any) => mapToComponentOverviewModel(component)),
     }
 
@@ -50,8 +50,8 @@ export function mapToComponentDetailModel(component: any): ComponentDetailModel 
     const componentDetailModel: ComponentDetailModel = {
         ...component,
         systemPropertyValues: new Map(Object.entries(component.systemPropertyValues)),
-        owningManufacturingUnit: mapToManufacturingUnitOverviewModel(component.owningManufacturingUnit),
-        owningTestSystem: mapToTestSystemOverviewModel(component.owningTestSystem),
+        owningManufacturingUnit: component.owningManufacturingUnit && mapToManufacturingUnitOverviewModel(component.owningManufacturingUnit),
+        owningTestSystem: component.owningTestSystem && mapToTestSystemOverviewModel(component.owningTestSystem),
     }
 
     return componentDetailModel;
