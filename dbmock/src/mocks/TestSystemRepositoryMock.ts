@@ -1,11 +1,39 @@
-import { CreateTestSystemRepository, ShowTestSystemRepository, SystemPropertyType, SystemProperty, TestSystem, AllTestSystemsUseCase, AllTestSystemsCallbacks, EditTestSystemRepository, AllTestSystemsRepository, DeleteTestSystemRepository, Component } from "core"
+import {
+    CreateTestSystemRepository, ShowTestSystemRepository, SystemPropertyType,
+    SystemProperty, TestSystem, AllTestSystemsUseCase, AllTestSystemsCallbacks,
+    EditTestSystemRepository, AllTestSystemsRepository, DeleteTestSystemRepository, Component
+} from "core"
 import { testSystems, testSystemSchema, components } from "../DataStore";
 
 export class TestSystemRepositoryMock implements CreateTestSystemRepository, ShowTestSystemRepository, AllTestSystemsRepository, EditTestSystemRepository, DeleteTestSystemRepository {
 
 
+    getTestSystemSchema(): SystemProperty[] {
+        return testSystemSchema;
+    }
+
+    getFilteredResults(filterOptions: Map<string, string>): TestSystem[] {
+        let results: TestSystem[] = [];
+        testSystems.forEach((testSystem) => {
+            filterOptions.forEach((value, id) => {
+                let systemPropertyValue = testSystem.getSystemPropertyValue(id);
+                if (systemPropertyValue === null) {
+                    results = results.filter(result => result.id !== id);
+                }
+                else if (systemPropertyValue.includes(value)) {
+                    results.push(testSystem);
+                }
+                else {
+                    results = results.filter(result => result.id !== id);
+                }
+            });
+        });
+        return results;
+    }
+
+
     getTestSystems(): TestSystem[] {
-        return [... testSystems.values()];
+        return [...testSystems.values()];
     }
 
     createTestSystem(testSystem: TestSystem): TestSystem {

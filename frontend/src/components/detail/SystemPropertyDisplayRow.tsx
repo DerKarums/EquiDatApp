@@ -1,15 +1,15 @@
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import Input from '@mui/material/Input';
 import { SystemProperty } from "core";
 import { Mode } from './SystemPropertyOverview';
 import { useTranslation } from "react-i18next";
+import SystemPropertyValueComponent from '../shared/systemPropertyValues/SystemPropertyValueComponent';
 
 interface SystemPropertyDisplayRowProps {
     systemProperty: SystemProperty;
     value: string | null;
-    mode?: Mode;
-    setValue(value: string): void;
+    mode: Mode;
+    setValue(value: string | null): void;
 }
 
 const SystemPropertyDisplayRow = ({ systemProperty, value, mode, setValue }: SystemPropertyDisplayRowProps) => {
@@ -26,12 +26,11 @@ const SystemPropertyDisplayRow = ({ systemProperty, value, mode, setValue }: Sys
                 {t("subsystems." + systemProperty.id)}
             </TableCell>
             <TableCell align="left">
-                <Input
-                    fullWidth
-                    type="text"
-                    disabled={mode !== "edit"}
-                    value={mode !== "edit" && !value ? "#" : value}
-                    onChange={handleValueChanged}
+                <SystemPropertyValueComponent
+                    systemPropertyType={systemProperty.type}
+                    mode={mode}
+                    value={value}
+                    setValue={setValue}
                 />
             </TableCell>
         </TableRow>)
