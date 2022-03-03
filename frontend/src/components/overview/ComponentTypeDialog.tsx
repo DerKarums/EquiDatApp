@@ -11,42 +11,20 @@ import Dialog from '@mui/material/Dialog';
 import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import {ComponentType, CreateComponentCallbacks } from 'core';
 
-const options = [
-  'None',
-  'Atria',
-  'Callisto',
-  'Dione',
-  'Ganymede',
-  'Hangouts Call',
-  'Luna',
-  'Oberon',
-  'Phobos',
-  'Pyxis',
-  'Sedna',
-  'Titania',
-  'Triton',
-  'Umbriel',
-];
 
-export interface ConfirmationDialogRawProps {
-  id: string;
-  keepMounted: boolean;
-  value: string;
+export interface ConfirmationDialogProps {
   open: boolean;
-  onClose: (value?: string) => void;
+  onClose: (value: string) => void;
+  setOpen(b: boolean):void;
+  options: string[];
 }
 
-function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
-  const { onClose, value: valueProp, open, ...other } = props;
-  const [value, setValue] = React.useState(valueProp);
+function ComponentTypeDialog(props: ConfirmationDialogProps) {
+  const { onClose, open, setOpen, options, ...other } = props;
+  const [value, setValue] = React.useState<string|null>(null);
   const radioGroupRef = React.useRef<HTMLElement>(null);
-
-  React.useEffect(() => {
-    if (!open) {
-      setValue(valueProp);
-    }
-  }, [valueProp, open]);
 
   const handleEntering = () => {
     if (radioGroupRef.current != null) {
@@ -55,15 +33,20 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
   };
 
   const handleCancel = () => {
-    onClose();
+    setOpen(false);
   };
 
   const handleOk = () => {
-    onClose(value);
+    setOpen(false);
+
+    if (value) {
+      onClose(value);
+    }
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
+    
   };
 
   return (
@@ -74,12 +57,12 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
       open={open}
       {...other}
     >
-      <DialogTitle>Phone Ringtone</DialogTitle>
+      <DialogTitle>Component Types</DialogTitle>
       <DialogContent dividers>
         <RadioGroup
           ref={radioGroupRef}
-          aria-label="ringtone"
-          name="ringtone"
+          aria-label="type"
+          name="type"
           value={value}
           onChange={handleChange}
         >
@@ -102,50 +85,4 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
     </Dialog>
   );
 }
-
-export default function ConfirmationDialog() {
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState('Dione');
-
-  const handleClickListItem = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (newValue?: string) => {
-    setOpen(false);
-
-    if (newValue) {
-      setValue(newValue);
-    }
-  };
-
-  return (
-    <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      <List component="div" role="group">
-        <ListItem button divider disabled>
-          <ListItemText primary="Interruptions" />
-        </ListItem>
-        <ListItem
-          button
-          divider
-          aria-haspopup="true"
-          aria-controls="ringtone-menu"
-          aria-label="phone ringtone"
-          onClick={handleClickListItem}
-        >
-          <ListItemText primary="Phone ringtone" secondary={value} />
-        </ListItem>
-        <ListItem button divider disabled>
-          <ListItemText primary="Default notification ringtone" secondary="Tethys" />
-        </ListItem>
-        <ConfirmationDialogRaw
-          id="ringtone-menu"
-          keepMounted
-          open={open}
-          onClose={handleClose}
-          value={value}
-        />
-      </List>
-    </Box>
-  );
-}
+export default ComponentTypeDialog

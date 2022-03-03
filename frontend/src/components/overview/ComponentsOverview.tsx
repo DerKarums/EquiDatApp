@@ -1,7 +1,7 @@
-import { AllComponentsCallbacks, Component, SubSystem, SystemProperty, DeleteComponentCallbacks, CreateComponentCallbacks } from 'core';
-import React, { ComponentType, useEffect, useState } from 'react';
+import { AllComponentsCallbacks, Component, SubSystem, SystemProperty, DeleteComponentCallbacks, ComponentType, CreateComponentCallbacks } from 'core';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useCases } from '../../providers/UseCaseProvider';
+import { createComponentUseCase, useCases } from '../../providers/UseCaseProvider';
 import ComponentTypeDialog from './ComponentTypeDialog';
 import SubSystemOverview from './SubSystemOverview';
 
@@ -16,7 +16,12 @@ function ComponentsOverview() {
     const [components, setComponents] = useState<Component[]>([]);
     const [shownSystemProperties, setShownSystemProperties] = useState<SystemProperty[]>([]);
 
-    const [showDialog, setShowDialog]= useState<boolean>(false);
+    useEffect(() =>{
+        createComponentUseCase.getComponentTypes(createCallback);
+    },[])
+
+    const [showDialog, setShowDialog] = useState<boolean>(false);
+    const [types, setTypes] = useState<string[]>([]);
     const callback: AllComponentsCallbacks = {
         setComponents: setComponents,
         setRequestedSystemProperties: (systemPropertiesByIds: {
@@ -31,7 +36,7 @@ function ComponentsOverview() {
     }
 
     const deleteCallback: DeleteComponentCallbacks = {
-        onComplete:()=>{
+        onComplete: () => {
             allComponentsUseCase.getAllComponents(callback);
         }
     }
@@ -43,7 +48,10 @@ function ComponentsOverview() {
         onCreateComplete: () => {
             allComponentsUseCase.getAllComponents(callback);
         },
-        setComponentTypes: () => {},
+        setComponentTypes: (pTypes: ComponentType[]) => { 
+            
+            setTypes(pTypes.map(componentType => componentType.id));
+        },
     }
 
     const selectSubSystem = (id: string): void => {
@@ -51,22 +59,21 @@ function ComponentsOverview() {
     }
 
     const deleteSubSystem = (id: string): void => {
-        useCases.deleteComponentUseCase.deleteComponent(id,deleteCallback);
+        useCases.deleteComponentUseCase.deleteComponent(id, deleteCallback);
     }
 
     const duplicateSubSystem = (id: string): void => {
         useCases.createComponentUseCase.createDuplicateComponent(id, createCallback);
     }
-    
+
     const createSubSystem = (): void => {
         setShowDialog(true);
-        const newComponent = useCases.createComponentUseCase.createComponent(value, createCallback);
-        selectSubSystem(newComponent.id);
     }
 
     const handleCloseDialog = (value: string): void => {
         setValue(value);
-        createSubSystem();
+        const newComponent = useCases.createComponentUseCase.createComponent(value, createCallback);
+        selectSubSystem(newComponent.id);
     }
 
     useEffect(() => {
@@ -76,20 +83,19 @@ function ComponentsOverview() {
     useEffect(() => {
         allComponentsUseCase.getSystemPropertiesByIds(shownSystemPropertyIds, callback);
     }, [])
-   
+
     return (
         <div>
-        <SubSystemOverview
-            shownSystemProperties={ shownSystemProperties }
-            shownSubsystems={ components }
-            selectSubSystem={ selectSubSystem }
-            deleteSubSystem={ deleteSubSystem}
-            duplicateSubSystem={duplicateSubSystem}
-            createSubSystem={createSubSystem}
-        />
-        {showDialog && <ComponentTypeDialog
-        {...handleCloseDialog}
-        />}
+            <SubSystemOverview
+                shownSystemProperties={shownSystemProperties}
+                shownSubsystems={components}
+                selectSubSystem={selectSubSystem}
+                deleteSubSystem={deleteSubSystem}
+                duplicateSubSystem={duplicateSubSystem}
+                createSubSystem={createSubSystem}
+            />
+            {showDialog && <ComponentTypeDialog
+                onClose={handleCloseDialog} open={showDialog} setOpen={setShowDialog} options={types}  />}
         </div>
     )
 
