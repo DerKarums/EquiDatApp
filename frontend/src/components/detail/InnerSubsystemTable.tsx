@@ -12,28 +12,29 @@ import { SubSystem, SystemProperty } from "core";
 import React, { useState } from "react";
 import SubSystemPopupMenu from "../shared/abstract/SubSystemTable/SubSystemPopupMenu";
 import { useTranslation } from "react-i18next";
+import { SubSystemOverviewModel } from "../../types/types";
 
-interface InnerSubSystemTableProps<SubSystemType extends SubSystem> {
-  subSystems: SubSystemType[];
+interface InnerSubSystemTableProps<SubSystemOverviewModelType extends SubSystemOverviewModel> {
+  subSystems: SubSystemOverviewModelType[];
   shownSystemProperties: SystemProperty[];
   selectSubSystem(id: string): void;
 }
 
-function InnerSubSystemTable<SubSystemType extends SubSystem>({
+function InnerSubSystemTable<SubSystemOverviewModelType extends SubSystemOverviewModel>({
   subSystems,
   shownSystemProperties,
   selectSubSystem,
-}: InnerSubSystemTableProps<SubSystemType>) {
+}: InnerSubSystemTableProps<SubSystemOverviewModelType>) {
   const { t } = useTranslation();
   const [selectedSubsystem, setSelectedSubsystem] =
-    useState<SubSystemType | null>(null);
+    useState<SubSystemOverviewModelType | null>(null);
   const [anchorRef, setAnchorRef] = useState<HTMLButtonElement | null>(null);
 
-  const handleShowDetails = (selectedSubSystem: SubSystemType) => {
+  const handleShowDetails = (selectedSubSystem: SubSystemOverviewModelType) => {
     selectSubSystem(selectedSubSystem.id);
   };
 
-  function openMenu(subsystem: SubSystemType, event: React.MouseEvent<HTMLElement>) {
+  function openMenu(subsystem: SubSystemOverviewModelType, event: React.MouseEvent<HTMLElement>) {
     setAnchorRef(event.currentTarget as HTMLButtonElement);
     setSelectedSubsystem(subsystem);
   }
@@ -64,7 +65,7 @@ function InnerSubSystemTable<SubSystemType extends SubSystem>({
                 {shownSystemProperties.map((systemProperty) => (
                   <TableCell key={systemProperty.id}>
                     <Typography>
-                      {subSystem.getSystemPropertyValue(systemProperty.id)}
+                      {subSystem.systemPropertyValues.get(systemProperty.id)}
                     </Typography>
                   </TableCell>
                 ))}
@@ -86,12 +87,12 @@ function InnerSubSystemTable<SubSystemType extends SubSystem>({
           </TableBody>
         </Table>
       </TableContainer>
-      <SubSystemPopupMenu<SubSystemType>
+      <SubSystemPopupMenu<SubSystemOverviewModelType>
         selectedSubSystem={selectedSubsystem}
         anchorEl={anchorRef}
         menuEntries={[
-          {label: t("popUpMenu.duplicate"), onClick: (_: SubSystemType) => {}},
-          {label: t("popUpMenu.delete"), onClick: (_: SubSystemType) => {}},
+          {label: t("popUpMenu.duplicate"), onClick: (_: SubSystemOverviewModelType) => {}},
+          {label: t("popUpMenu.delete"), onClick: (_: SubSystemOverviewModelType) => {}},
           {label: t("popUpMenu.view"), onClick: handleShowDetails},
         ]}
         setSelectedSubSystem={setSelectedSubsystem}

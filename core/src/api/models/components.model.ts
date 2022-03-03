@@ -6,6 +6,12 @@ export interface ComponentOverviewModel {
     systemPropertyValues: Map<string, string>;
 }
 
+export interface ComponentDetailModel {
+    id: string;
+    type: ComponentTypeModel;
+    systemPropertyValues: Map<string, string>;
+}
+
 
 export interface ComponentTypeModel {
     id: string;

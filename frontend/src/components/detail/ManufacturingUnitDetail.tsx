@@ -5,7 +5,8 @@ import {
   Component,
   ManufacturingUnit,
   SystemProperty,
-  TestSystem
+  TestSystem,
+  ManufacturingUnitDetailModel
 } from "core";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -28,7 +29,7 @@ function ManufacturingUnitDetail() {
     manufacturingUnitId: string;
   };
   const [manufacturingUnit, setManufacturingUnit] =
-    useState<ManufacturingUnit | null>(null);
+    useState<ManufacturingUnitDetailModel | null>(null);
 
   useEffect(() => {
     showManufacturingUnitsUseCase.getManufacturingUnit(manufacturingUnitId, {

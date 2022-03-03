@@ -1,7 +1,7 @@
 import { ManufacturingUnit } from '@/../../core/dist';
-import { mapToManufacturingUnitOverviewModel } from '@/mapping/manufacturingUnits.mapper';
+import { mapToManufacturingUnitDetailModel, mapToManufacturingUnitOverviewModel } from '@/mapping/manufacturingUnits.mapper';
 import ManufacturingUnitsService from '@/services/manufacturingUnits.service';
-import { Controller, Get } from 'routing-controllers';
+import { Controller, Get, Param, Post } from 'routing-controllers';
 import { OpenAPI } from 'routing-controllers-openapi';
 
 @Controller()
@@ -14,6 +14,14 @@ export class ManufacturingUnitsController {
     const manufacturinUnits: ManufacturingUnit[] = await this.manufacturingUnitsService.allManufacturingUnits();
     const dtos = manufacturinUnits.map(manufacturinUnit => mapToManufacturingUnitOverviewModel(manufacturinUnit))
     return dtos;
+  }
+
+  @Get('/manufacturingUnits/:manufacturingUnitId')
+  @OpenAPI({ summary: 'Return the manufacturing unit with the given ID' })
+  async getManufacturingUnit(@Param('manufacturingUnitId') manufacturingUnitId: string) {
+
+    const manufacturingUnit: ManufacturingUnit = await this.manufacturingUnitsService.getManufacturingUnit(manufacturingUnitId);
+    return mapToManufacturingUnitDetailModel(manufacturingUnit)
   }
 
 }
