@@ -2,21 +2,18 @@ import { Grid, Stack } from "@mui/material";
 import {
   AllComponentsCallbacks,
   AllTestSystemsCallbacks,
-  Component,
-  ManufacturingUnit,
-  SystemProperty,
-  TestSystem,
-  ManufacturingUnitDetailModel
+  Component, ManufacturingUnitDetailModel, SystemProperty,
+  TestSystem
 } from "core";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
 import axiosInstance from "../../httpclient/axiosProvider";
+import { mapToManufacturingUnitDetailModel } from "../../mappers/viewmapper";
 import {
   allComponentsUseCase,
   allTestSystemsUseCase,
-  editManufacturingUnitUseCase,
-  showManufacturingUnitsUseCase
+  editManufacturingUnitUseCase
 } from "../../providers/UseCaseProvider";
 import { SystemPropertyRow } from "../../types/types";
 import SubSystemBreadCrumbs from "../shared/breadcrumbs/SubSystemBreadCrumbs";
@@ -36,7 +33,7 @@ function ManufacturingUnitDetail() {
   useEffect(() => {
     axiosInstance.get(`/manufacturingUnits/${manufacturingUnitId}`)
       .then(response => response.data)
-      .then(entry => ({ ...entry, systemPropertyValues: new Map(Object.entries(entry.systemPropertyValues)) }))
+      .then((manufacturingUnit: any) => mapToManufacturingUnitDetailModel(manufacturingUnit))
       .then((manufacturingUnitModel: ManufacturingUnitDetailModel) => setManufacturingUnit(manufacturingUnitModel))
   }, [manufacturingUnitId]);
 

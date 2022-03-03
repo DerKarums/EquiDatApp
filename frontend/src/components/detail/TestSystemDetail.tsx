@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
 import axiosInstance from "../../httpclient/axiosProvider";
+import { mapToTestSystemDetailModel } from "../../mappers/viewmapper";
 import {
   allComponentsUseCase,
   editTestSystemUseCase,
@@ -31,7 +32,7 @@ function TestSystemDetail() {
   useEffect(() => {
     axiosInstance.get(`/testSystems/${testSystemId}`)
       .then(response => response.data)
-      .then(entry => ({ ...entry, systemPropertyValues: new Map(Object.entries(entry.systemPropertyValues)) }))
+      .then(entry => mapToTestSystemDetailModel(entry))
       .then((testSystemModel: TestSystemDetailModel) => setTestSystem(testSystemModel))
   }, [testSystemId]);
 
@@ -91,8 +92,8 @@ function TestSystemDetail() {
           <Grid container spacing={1}>
             <Grid item xs={10}>
               <SubSystemBreadCrumbs
-                manufacturingUnit={testSystem?.owningManufacturingUnit}
-                testSystem={testSystem}
+                manufacturingUnit={testSystem?.owningManufacturingUnit && { id: testSystem.owningManufacturingUnit.id, name: testSystem.owningManufacturingUnit.systemPropertyValues.get("name") }}
+                testSystem={testSystem && { id: testSystem.id, name: testSystem.systemPropertyValues.get("name") }}
               />
             </Grid>
             <Grid item xs={1}></Grid>

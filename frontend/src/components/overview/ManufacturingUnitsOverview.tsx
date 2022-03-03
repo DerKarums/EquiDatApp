@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { AllManufacturingUnitsCallbacks, ManufacturingUnit, ManufacturingUnitOverviewModel, SystemProperty, DeleteManufacturingUnitCallbacks, CreateManufacturingUnitCallbacks } from 'core';
+import { CreateManufacturingUnitCallbacks, DeleteManufacturingUnitCallbacks, ManufacturingUnitOverviewModel } from 'core';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import axiosInstance from '../../httpclient/axiosProvider';
+import { mapToManufacturingUnitOverviewModel } from '../../mappers/viewmapper';
 import { useCases } from '../../providers/UseCaseProvider';
 import SubSystemOverview from './SubSystemOverview';
-import axiosInstance from '../../httpclient/axiosProvider';
 
 
 function ManufacturingUnitsOverview() {
@@ -17,8 +17,7 @@ function ManufacturingUnitsOverview() {
 
     const reloadManufacturingUnits = () => {
         axiosInstance.get('/manufacturingUnits')
-            .then(response => response.data)
-            .then(entries => entries.map((entry: any) => ({ ...entry, systemPropertyValues: new Map(Object.entries(entry.systemPropertyValues)) })))
+            .then(response => response.data.map((manufacturingUnit: any) => mapToManufacturingUnitOverviewModel(manufacturingUnit)))
             .then((manufacturingUnitModels: ManufacturingUnitOverviewModel[]) => setManufacturingUnits(manufacturingUnitModels))
     }
 

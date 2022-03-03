@@ -2,6 +2,7 @@ import { AllComponentsCallbacks, Component, SubSystem, SystemProperty, DeleteCom
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axiosInstance from '../../httpclient/axiosProvider';
+import { mapToComponentOverviewModel } from '../../mappers/viewmapper';
 import { createComponentUseCase, useCases } from '../../providers/UseCaseProvider';
 import ComponentTypeDialog from './ComponentTypeDialog';
 import SubSystemOverview from './SubSystemOverview';
@@ -16,17 +17,16 @@ function ComponentsOverview() {
 
     const [components, setComponents] = useState<ComponentOverviewModel[]>([]);
 
-    useEffect(() =>{
+    useEffect(() => {
         createComponentUseCase.getComponentTypes(createCallback);
-    },[])
+    }, [])
 
     const [showDialog, setShowDialog] = useState<boolean>(false);
     const [types, setTypes] = useState<string[]>([]);
 
     const reloadComponents = () => {
         axiosInstance.get('/components')
-            .then(response => response.data)
-            .then(entries => entries.map((entry: any) => ({...entry, systemPropertyValues: new Map(Object.entries(entry.systemPropertyValues))})))
+            .then(response => response.data.map((component: any) => mapToComponentOverviewModel(component)))
             .then((componentModels: ComponentOverviewModel[]) => setComponents(componentModels))
     }
 
@@ -43,8 +43,8 @@ function ComponentsOverview() {
         onCreateComplete: () => {
             reloadComponents();
         },
-        setComponentTypes: (pTypes: ComponentType[]) => { 
-            
+        setComponentTypes: (pTypes: ComponentType[]) => {
+
             setTypes(pTypes.map(componentType => componentType.id));
         },
     }
@@ -88,7 +88,7 @@ function ComponentsOverview() {
                 createSubSystem={createSubSystem}
             />
             {showDialog && <ComponentTypeDialog
-                onClose={handleCloseDialog} open={showDialog} setOpen={setShowDialog} options={types}  />}
+                onClose={handleCloseDialog} open={showDialog} setOpen={setShowDialog} options={types} />}
         </div>
     )
 

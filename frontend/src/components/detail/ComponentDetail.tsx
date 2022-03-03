@@ -1,9 +1,10 @@
 import { Grid, Stack } from "@mui/material";
-import { Component, ComponentDetailModel, SystemProperty } from "core";
+import { ComponentDetailModel } from "core";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axiosInstance from "../../httpclient/axiosProvider";
-import { editComponentUseCase, showComponentUseCase } from "../../providers/UseCaseProvider";
+import { mapToComponentDetailModel } from "../../mappers/viewmapper";
+import { editComponentUseCase } from "../../providers/UseCaseProvider";
 import { SystemPropertyRow } from "../../types/types";
 import SubSystemBreadCrumbs from "../shared/breadcrumbs/SubSystemBreadCrumbs";
 import SystemPropertyOverview from "./SystemPropertyOverview";
@@ -15,7 +16,7 @@ function ComponentDetail() {
   useEffect(() => {
     axiosInstance.get(`/components/${componentId}`)
       .then(response => response.data)
-      .then(entry => ({ ...entry, systemPropertyValues: new Map(Object.entries(entry.systemPropertyValues)) }))
+      .then(entry => mapToComponentDetailModel(entry))
       .then((componentDetailModel: ComponentDetailModel) => setComponent(componentDetailModel))
   }, [componentId]);
 
@@ -30,7 +31,7 @@ function ComponentDetail() {
   }
 
   const schema = component?.type.systemProperties;
-  const systemPropertyRows: SystemPropertyRow[] = schema?.map(systemPropertyModel => ({...systemPropertyModel, value: component!.systemPropertyValues.get(systemPropertyModel.id) ?? null}) ) ?? [];
+  const systemPropertyRows: SystemPropertyRow[] = schema?.map(systemPropertyModel => ({ ...systemPropertyModel, value: component!.systemPropertyValues.get(systemPropertyModel.id) ?? null })) ?? [];
 
 
   return (
@@ -40,9 +41,9 @@ function ComponentDetail() {
           <Grid container spacing={1}>
             <Grid item xs={10}>
               <SubSystemBreadCrumbs
-                manufacturingUnit={component?.owningManufacturingUnit}
-                testSystem={component?.owningTestSystem}
-                component={component}
+                manufacturingUnit={component?.owningManufacturingUnit && { id: component.owningManufacturingUnit.id, name: component.owningManufacturingUnit.systemPropertyValues.get("name") }}
+                testSystem={component?.owningTestSystem && { id: component.owningTestSystem.id, name: component.owningTestSystem.systemPropertyValues.get("name") }}
+                component={component && { id: component.id, name: component.systemPropertyValues.get("name") }}
               />
             </Grid>
             <Grid item xs={1}></Grid>

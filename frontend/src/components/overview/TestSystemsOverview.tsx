@@ -2,6 +2,7 @@ import { CreateTestSystemCallbacks, DeleteTestSystemCallbacks, TestSystemOvervie
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axiosInstance from '../../httpclient/axiosProvider';
+import { mapToTestSystemOverviewModel } from '../../mappers/viewmapper';
 import { useCases } from '../../providers/UseCaseProvider';
 import SubSystemOverview from './SubSystemOverview';
 
@@ -15,8 +16,7 @@ function TestSystemsOverview() {
 
     const reloadTestSystems = () => {
         axiosInstance.get('/testSystems')
-            .then(response => response.data)
-            .then(entries => entries.map((entry: any) => ({ ...entry, systemPropertyValues: new Map(Object.entries(entry.systemPropertyValues)) })))
+            .then(response => response.data.map((testSystem: any) => mapToTestSystemOverviewModel(testSystem)))
             .then((testSystemModels: TestSystemOverviewModel[]) => setTestSystems(testSystemModels))
     }
 
