@@ -12,33 +12,18 @@ function ManufacturingUnitsOverview() {
 
     const shownSystemPropertyIds = ["name", "location", "products", "manufacturing_controller", "size"]
 
-    const allManufacturingUnitsUseCase = useCases.allManufacturingUnitsUseCase;
-
     const [manufacturingUnits, setManufacturingUnits] = useState<ManufacturingUnitOverviewModel[]>([]);
-    const [shownSystemProperties, setShownSystemProperties] = useState<SystemProperty[]>([]);
 
-    const callback: AllManufacturingUnitsCallbacks = {
-        setManufacturingUnits: () => {},
-        setRequestedSystemProperties: (systemPropertiesByIds: {
-            systemProperty: SystemProperty | null;
-            id: string;
-        }[]) => {
-            setShownSystemProperties(systemPropertiesByIds
-                .map(systemPropertiesByIds => systemPropertiesByIds.systemProperty)
-                .filter(systemProperty => systemProperty !== null) as SystemProperty[]
-            )
-        }
-    }
 
     const reloadManufacturingUnits = () => {
         axiosInstance.get('/manufacturingUnits')
             .then(response => response.data)
-            .then(entries => entries.map((entry: any) => ({...entry, systemPropertyValues: new Map(Object.entries(entry.systemPropertyValues))})))
+            .then(entries => entries.map((entry: any) => ({ ...entry, systemPropertyValues: new Map(Object.entries(entry.systemPropertyValues)) })))
             .then((manufacturingUnitModels: ManufacturingUnitOverviewModel[]) => setManufacturingUnits(manufacturingUnitModels))
     }
 
     const deleteCallback: DeleteManufacturingUnitCallbacks = {
-        onComplete:()=>{
+        onComplete: () => {
             reloadManufacturingUnits()
         }
     }
@@ -56,8 +41,8 @@ function ManufacturingUnitsOverview() {
         history.push(`manufacturingUnits/${id}`)
     }
 
-    const deleteSubSystem = (id:string): void => {
-        useCases.deleteManufacturingUnitUseCase.deleteManufacturingUnit(id,deleteCallback);
+    const deleteSubSystem = (id: string): void => {
+        useCases.deleteManufacturingUnitUseCase.deleteManufacturingUnit(id, deleteCallback);
     }
 
     const duplicateSubSystem = (id: string): void => {
@@ -67,22 +52,18 @@ function ManufacturingUnitsOverview() {
     const createSubSystem = (): void => {
         useCases.createManufacturingUnitUseCase.createManufacturingUnit(createCallback)
             .then(manufacturingUnit => selectSubSystem(manufacturingUnit.id));
-       
+
     }
 
     useEffect(() => {
         reloadManufacturingUnits()
     }, [])
 
-    useEffect(() => {
-        allManufacturingUnitsUseCase.getSystemPropertiesByIds(shownSystemPropertyIds, callback);
-    }, [])
-
     return (
         <SubSystemOverview
-            shownSystemProperties={ shownSystemProperties }
-            shownSubsystems={ manufacturingUnits }
-            selectSubSystem={ selectSubSystem }
+            shownSystemPropertyIds={shownSystemPropertyIds}
+            shownSubsystems={manufacturingUnits}
+            selectSubSystem={selectSubSystem}
             deleteSubSystem={deleteSubSystem}
             duplicateSubSystem={duplicateSubSystem}
             createSubSystem={createSubSystem}

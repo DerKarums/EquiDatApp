@@ -12,8 +12,8 @@ export interface ManufacturingUnitDetailModel {
     id: string;
     schema: SystemPropertyModel[];
     systemPropertyValues: Map<string, string>;
-    testSystems: TestSystemOverviewModel;
-    components: ComponentOverviewModel;
+    testSystems: TestSystemOverviewModel[];
+    components: ComponentOverviewModel[];
 }
 
 

@@ -1,5 +1,6 @@
 import { TestSystem, TestSystemOverviewModel, TestSystemDetailModel } from "core";
 import { mapToComponentOverviewModel } from "./components.mapper";
+import { mapToManufacturingUnitOverviewModel } from "./manufacturingUnits.mapper";
 import { mapToSystemPropertyModel } from "./shared.mapper";
 
 export function mapToTestSystemOverviewModel(testSystem: TestSystem): TestSystemOverviewModel {
@@ -16,6 +17,7 @@ export function mapToTestSystemOverviewModel(testSystem: TestSystem): TestSystem
 export function mapToTestSystemDetailModel(testSystem: TestSystem): TestSystemOverviewModel {
 
     const components = testSystem.components.map(component => mapToComponentOverviewModel(component));
+    const owningManufacturingUnit = testSystem.owningManufacturingUnit ? mapToManufacturingUnitOverviewModel(testSystem.owningManufacturingUnit) : null;
 
     const schemaModel = testSystem.getSchema().map(sp => mapToSystemPropertyModel(sp));
     const testSystemOverviewModel: TestSystemDetailModel = {
@@ -23,6 +25,7 @@ export function mapToTestSystemDetailModel(testSystem: TestSystem): TestSystemOv
         schema: schemaModel,
         systemPropertyValues: testSystem.systemPropertyValues,
         components: components,
+        owningManufacturingUnit: owningManufacturingUnit,
     }
     return testSystemOverviewModel;
 }

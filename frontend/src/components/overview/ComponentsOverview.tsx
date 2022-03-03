@@ -15,7 +15,6 @@ function ComponentsOverview() {
     const allComponentsUseCase = useCases.allComponentsUseCase;
 
     const [components, setComponents] = useState<ComponentOverviewModel[]>([]);
-    const [shownSystemProperties, setShownSystemProperties] = useState<SystemProperty[]>([]);
 
     useEffect(() =>{
         createComponentUseCase.getComponentTypes(createCallback);
@@ -23,18 +22,6 @@ function ComponentsOverview() {
 
     const [showDialog, setShowDialog] = useState<boolean>(false);
     const [types, setTypes] = useState<string[]>([]);
-    const callback: AllComponentsCallbacks = {
-        setComponents: setComponents,
-        setRequestedSystemProperties: (systemPropertiesByIds: {
-            systemProperty: SystemProperty | null;
-            id: string;
-        }[]) => {
-            setShownSystemProperties(systemPropertiesByIds
-                .map(systemPropertiesByIds => systemPropertiesByIds.systemProperty)
-                .filter(systemProperty => systemProperty !== null) as SystemProperty[]
-            )
-        }
-    }
 
     const reloadComponents = () => {
         axiosInstance.get('/components')
@@ -88,14 +75,12 @@ function ComponentsOverview() {
         reloadComponents();
     }, [])
 
-    useEffect(() => {
-        allComponentsUseCase.getSystemPropertiesByIds(shownSystemPropertyIds, callback);
-    }, [])
+
 
     return (
         <div>
             <SubSystemOverview
-                shownSystemProperties={shownSystemProperties}
+                shownSystemPropertyIds={shownSystemPropertyIds}
                 shownSubsystems={components}
                 selectSubSystem={selectSubSystem}
                 deleteSubSystem={deleteSubSystem}

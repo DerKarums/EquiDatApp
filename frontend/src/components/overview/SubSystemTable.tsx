@@ -16,7 +16,7 @@ import { SubSystemOverviewModel } from "../../types/types";
 
 interface OverviewTableProps<SubSystemOverviewModelType extends SubSystemOverviewModel> {
   subSystems: SubSystemOverviewModelType[];
-  shownSystemProperties: SystemProperty[];
+  shownSystemPropertyIds: string[];
   selectSubSystem(id: string): void;
   deleteSubSystem(id: string): void;
   duplicateSubSystem(id: string): void;
@@ -24,7 +24,7 @@ interface OverviewTableProps<SubSystemOverviewModelType extends SubSystemOvervie
 
 function SubSystemTable<SubSystemOverviewModelType extends SubSystemOverviewModel>({
   subSystems,
-  shownSystemProperties,
+  shownSystemPropertyIds,
   selectSubSystem,
   deleteSubSystem,
   duplicateSubSystem,
@@ -62,8 +62,8 @@ function SubSystemTable<SubSystemOverviewModelType extends SubSystemOverviewMode
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                {shownSystemProperties.map((systemProperty) => (
-                  <TableCell sx={tableHeaderCellStyle} key={systemProperty.id}>{t("subsystems." + systemProperty.id)}</TableCell>
+                {shownSystemPropertyIds.map((systemPropertyId) => (
+                  <TableCell sx={tableHeaderCellStyle} key={systemPropertyId}>{t("subsystems." + systemPropertyId)}</TableCell>
                 ))}
                 <TableCell sx={tableHeaderCellStyle} />
               </TableRow>
@@ -71,10 +71,10 @@ function SubSystemTable<SubSystemOverviewModelType extends SubSystemOverviewMode
             <TableBody>
               {subSystems.map((subSystem) => (
                 <TableRow key={subSystem.id}>
-                  {shownSystemProperties.map((systemProperty) => (
-                    <TableCell key={systemProperty.id}>
+                  {shownSystemPropertyIds.map((systemPropertyId) => (
+                    <TableCell key={systemPropertyId}>
                       <Typography>
-                        {subSystem.systemPropertyValues.get(systemProperty.id)}
+                        {subSystem.systemPropertyValues.get(systemPropertyId)}
                       </Typography>
                     </TableCell>
                   ))}

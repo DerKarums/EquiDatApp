@@ -1,4 +1,5 @@
 import { ComponentOverviewModel } from "./components.model";
+import { ManufacturingUnitOverviewModel } from "./manufacturingUnits.model";
 import { SystemPropertyModel } from "./shared.model";
 
 export interface TestSystemOverviewModel {
@@ -11,7 +12,8 @@ export interface TestSystemDetailModel {
     id: string;
     schema: SystemPropertyModel[];
     systemPropertyValues: Map<string, string>;
-    components: ComponentOverviewModel;
+    components: ComponentOverviewModel[];
+    owningManufacturingUnit?: ManufacturingUnitOverviewModel;
 }
 
 

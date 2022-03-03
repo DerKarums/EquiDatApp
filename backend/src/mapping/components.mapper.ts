@@ -1,5 +1,7 @@
 import { Component, ComponentOverviewModel, ComponentType, ComponentTypeModel, ComponentDetailModel } from "core";
+import { mapToManufacturingUnitOverviewModel } from "./manufacturingUnits.mapper";
 import { mapToSystemPropertyModel } from "./shared.mapper";
+import { mapToTestSystemOverviewModel } from "./testSystems.mapper";
 
 export function mapToComponentOverviewModel(component: Component): ComponentOverviewModel {
 
@@ -15,12 +17,18 @@ export function mapToComponentOverviewModel(component: Component): ComponentOver
 export function mapToComponentDetailModel(component: Component): ComponentDetailModel {
     
     const componentType = mapToComponentTypeModel(component.componentType);
-    const componentOverviewModel: ComponentDetailModel = {
+
+    const owningManufacturingUnit = component.owningManufacturingUnit ? mapToManufacturingUnitOverviewModel(component.owningManufacturingUnit) : null;
+    const owningTestSystem = component.owningTestSystem ? mapToTestSystemOverviewModel(component.owningTestSystem) : null;
+    
+    const componentDetailModel: ComponentDetailModel = {
         id: component.id,
         type: componentType,
         systemPropertyValues: component.systemPropertyValues,
+        owningManufacturingUnit: owningManufacturingUnit,
+        owningTestSystem: owningTestSystem,
     }
-    return componentOverviewModel;
+    return componentDetailModel;
 }
 
 export function mapToComponentTypeModel(componentType: ComponentType): ComponentTypeModel {

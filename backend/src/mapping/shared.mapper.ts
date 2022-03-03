@@ -4,7 +4,7 @@ export function mapToSystemPropertyModel(systemProperty: SystemProperty): System
 
     const systemPropertyModel: SystemPropertyModel = {
         id: systemProperty.id,
-        type: SystemPropertyType[systemProperty.type],
+        type: systemProperty.type,
         isRequired: systemProperty.isRequired,
     }
     return systemPropertyModel;

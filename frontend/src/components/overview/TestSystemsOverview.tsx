@@ -1,4 +1,4 @@
-import { AllTestSystemsCallbacks, SystemProperty, TestSystem, DeleteTestSystemCallbacks, CreateTestSystemCallbacks, TestSystemOverviewModel } from 'core';
+import { CreateTestSystemCallbacks, DeleteTestSystemCallbacks, TestSystemOverviewModel } from 'core';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axiosInstance from '../../httpclient/axiosProvider';
@@ -11,35 +11,17 @@ function TestSystemsOverview() {
 
     const shownSystemPropertyIds = ["name", "diagram_id", "installation_date", "test_type"]
 
-    const allTestSystemsUseCase = useCases.allTestSystemsUseCase;
-
     const [testSystems, setTestSystems] = useState<TestSystemOverviewModel[]>([]);
-    const [shownSystemProperties, setShownSystemProperties] = useState<SystemProperty[]>([]);
-
-    const callback: AllTestSystemsCallbacks = {
-        setTestSystems: () => {},
-        setRequestedSystemProperties: (systemPropertiesByIds: {
-            systemProperty: SystemProperty | null;
-            id: string;
-        }[]) => {
-            setShownSystemProperties(systemPropertiesByIds
-                .map(systemPropertiesByIds => systemPropertiesByIds.systemProperty)
-                .filter(systemProperty => systemProperty !== null) as SystemProperty[]
-            )
-        },
-        setFilterOptions: () => {},
-        setSearchResults: () => {},    
-    }
 
     const reloadTestSystems = () => {
         axiosInstance.get('/testSystems')
             .then(response => response.data)
-            .then(entries => entries.map((entry: any) => ({...entry, systemPropertyValues: new Map(Object.entries(entry.systemPropertyValues))})))
+            .then(entries => entries.map((entry: any) => ({ ...entry, systemPropertyValues: new Map(Object.entries(entry.systemPropertyValues)) })))
             .then((testSystemModels: TestSystemOverviewModel[]) => setTestSystems(testSystemModels))
     }
 
     const deleteCallback: DeleteTestSystemCallbacks = {
-        onComplete:()=>{
+        onComplete: () => {
             reloadTestSystems();
         }
     }
@@ -57,9 +39,9 @@ function TestSystemsOverview() {
     const selectSubSystem = (id: string): void => {
         history.push(`testSystems/${id}`)
     }
-    
+
     const deleteSubSystem = (id: string): void => {
-        useCases.deleteTestSystemUseCase.deleteTestSystem(id,deleteCallback);
+        useCases.deleteTestSystemUseCase.deleteTestSystem(id, deleteCallback);
     }
 
     const createSubSystem = (): void => {
@@ -75,23 +57,16 @@ function TestSystemsOverview() {
         reloadTestSystems();
     }, [])
 
-    useEffect(() => {
-        allTestSystemsUseCase.getSystemPropertiesByIds(shownSystemPropertyIds, callback);
-    }, [])
-
     return (
         <SubSystemOverview
-            shownSystemProperties={ shownSystemProperties }
-            shownSubsystems={ testSystems }
-            selectSubSystem={ selectSubSystem }
-            deleteSubSystem={ deleteSubSystem }
+            shownSystemPropertyIds={shownSystemPropertyIds}
+            shownSubsystems={testSystems}
+            selectSubSystem={selectSubSystem}
+            deleteSubSystem={deleteSubSystem}
             duplicateSubSystem={duplicateSubSystem}
             createSubSystem={createSubSystem}
         />
     )
-
-
-
 }
 
 export default TestSystemsOverview;
