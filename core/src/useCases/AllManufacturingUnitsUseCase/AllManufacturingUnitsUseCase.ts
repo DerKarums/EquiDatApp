@@ -50,7 +50,7 @@ export class AllManufacturingUnitsUseCase {
   }
 
   /**
-   * Takes filter options and returns TestSystems to callbacks
+   * Takes filter options and returns ManufacturingUnits
    * @param filterOptions Map of <SystemPropertyID, Value>
    */
   search(filterOptions?: Map<string, string>) {
