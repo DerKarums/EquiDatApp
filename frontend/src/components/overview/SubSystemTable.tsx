@@ -8,42 +8,43 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { SubSystem, SystemProperty } from "core";
+import { SystemProperty } from "core";
 import React, { useState } from "react";
 import SubSystemPopupMenu from "../shared/abstract/SubSystemTable/SubSystemPopupMenu";
 import { useTranslation } from "react-i18next";
+import { SubSystemOverviewModel } from "../../types/types";
 
-interface OverviewTableProps<SubSystemType extends SubSystem> {
-  subSystems: SubSystemType[];
+interface OverviewTableProps<SubSystemOverviewModelType extends SubSystemOverviewModel> {
+  subSystems: SubSystemOverviewModelType[];
   shownSystemProperties: SystemProperty[];
   selectSubSystem(id: string): void;
   deleteSubSystem(id: string): void;
   duplicateSubSystem(id: string): void;
 }
 
-function SubSystemTable<SubSystemType extends SubSystem>({
+function SubSystemTable<SubSystemOverviewModelType extends SubSystemOverviewModel>({
   subSystems,
   shownSystemProperties,
   selectSubSystem,
   deleteSubSystem,
   duplicateSubSystem,
-}: OverviewTableProps<SubSystemType>) {
+}: OverviewTableProps<SubSystemOverviewModelType>) {
   const { t } = useTranslation();
   const [selectedSubsystem, setSelectedSubsystem] =
-    useState<SubSystemType | null>(null);
+    useState<SubSystemOverviewModelType | null>(null);
     const [anchorRef, setAnchorRef] = useState<HTMLButtonElement | null>(null);
 
-  const handleShowDetails = (selectedSubSystem: SubSystemType) => {
+  const handleShowDetails = (selectedSubSystem: SubSystemOverviewModelType) => {
     selectSubSystem(selectedSubSystem.id);
   };
-  const handleDelete = (selectedSubSystem: SubSystemType) => {
+  const handleDelete = (selectedSubSystem: SubSystemOverviewModelType) => {
     deleteSubSystem(selectedSubSystem.id);
   };
-  const handleDuplicate = (selectedSubSystem: SubSystemType) => {
+  const handleDuplicate = (selectedSubSystem: SubSystemOverviewModelType) => {
     duplicateSubSystem(selectedSubSystem.id);
   };
 
-  function openMenu(subsystem: SubSystemType, event: React.MouseEvent<HTMLElement>) {
+  function openMenu(subsystem: SubSystemOverviewModelType, event: React.MouseEvent<HTMLElement>) {
     setAnchorRef(event.currentTarget as HTMLButtonElement);
     setSelectedSubsystem(subsystem);
   }
@@ -73,7 +74,7 @@ function SubSystemTable<SubSystemType extends SubSystem>({
                   {shownSystemProperties.map((systemProperty) => (
                     <TableCell key={systemProperty.id}>
                       <Typography>
-                        {subSystem.getSystemPropertyValue(systemProperty.id)}
+                        {subSystem.systemPropertyValues.get(systemProperty.id)}
                       </Typography>
                     </TableCell>
                   ))}
@@ -96,13 +97,13 @@ function SubSystemTable<SubSystemType extends SubSystem>({
           </Table>
         </TableContainer>
       </div>
-      <SubSystemPopupMenu<SubSystemType>
+      <SubSystemPopupMenu<SubSystemOverviewModelType>
         selectedSubSystem={selectedSubsystem}
         anchorEl={anchorRef}
         menuEntries={[
-          {label: t("popUpMenu.duplicate"), onClick: (selectedSubSystem: SubSystemType) => handleDuplicate(selectedSubSystem)},
-          {label: t("popUpMenu.delete"), onClick: (selectedSubSystem: SubSystemType) => handleDelete(selectedSubSystem)},
-          {label: t("popUpMenu.view"), onClick: (selectedSubSystem: SubSystemType) => handleShowDetails(selectedSubSystem)},
+          {label: t("popUpMenu.duplicate"), onClick: (selectedSubSystem: SubSystemOverviewModelType) => handleDuplicate(selectedSubSystem)},
+          {label: t("popUpMenu.delete"), onClick: (selectedSubSystem: SubSystemOverviewModelType) => handleDelete(selectedSubSystem)},
+          {label: t("popUpMenu.view"), onClick: (selectedSubSystem: SubSystemOverviewModelType) => handleShowDetails(selectedSubSystem)},
         ]}
         setSelectedSubSystem={setSelectedSubsystem}
       />

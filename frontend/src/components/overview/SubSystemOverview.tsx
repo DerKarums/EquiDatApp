@@ -3,11 +3,13 @@ import SubSystemTable from './SubSystemTable'
 import { Grid } from '@material-ui/core';
 import IconButton from '@mui/material/IconButton';
 import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
-import { SubSystem, SystemProperty } from 'core';
+import { SystemProperty } from 'core';
+import { SubSystemOverviewModel } from '../../types/types';
 
-interface SubSystemOverviewProps<SubSystemType extends SubSystem> {
+
+interface SubSystemOverviewProps<SubSystemOverviewModelType extends SubSystemOverviewModel> {
     shownSystemProperties: SystemProperty[];
-    shownSubsystems: SubSystemType[];
+    shownSubsystems: SubSystemOverviewModelType[];
     selectSubSystem(id: string): void;
     deleteSubSystem(id: string): void;
     duplicateSubSystem(id: string): void;
@@ -15,7 +17,8 @@ interface SubSystemOverviewProps<SubSystemType extends SubSystem> {
 }
 
 
-function SubSystemOverview<SubSystemType extends SubSystem>({ shownSubsystems, shownSystemProperties, selectSubSystem, deleteSubSystem, duplicateSubSystem, createSubSystem }: SubSystemOverviewProps<SubSystemType>) {
+function SubSystemOverview<SubSystemOverviewModelType extends SubSystemOverviewModel>(
+    { shownSubsystems, shownSystemProperties, selectSubSystem, deleteSubSystem, duplicateSubSystem, createSubSystem }: SubSystemOverviewProps<SubSystemOverviewModelType>) {
 
     return (
         <Grid container spacing={2}>
@@ -33,7 +36,7 @@ function SubSystemOverview<SubSystemType extends SubSystem>({ shownSubsystems, s
             </Grid>
             <Grid item xs={1}>
                 <IconButton aria-label="add" onClick={() => createSubSystem()}>
-                    <AddToPhotosIcon fontSize="large"/>
+                    <AddToPhotosIcon fontSize="large" />
                 </IconButton>
             </Grid>
         </Grid>

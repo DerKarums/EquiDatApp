@@ -1,32 +1,32 @@
-import { ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper } from "@mui/material";
-import { SubSystem } from "core/dist";
+import { ClickAwayListener, MenuItem, MenuList, Paper, Popper } from "@mui/material";
 import { useEffect, useRef } from "react";
+import { SubSystemOverviewModel } from "../../../../types/types";
 
-interface SubSystemPopupMenuEntry<SubSystemType extends SubSystem> {
+interface SubSystemPopupMenuEntry<SubSystemOverviewModelType extends SubSystemOverviewModel> {
     label: string,
-    onClick(selectedSubSystem: SubSystemType): void,
+    onClick(selectedSubSystem: SubSystemOverviewModelType): void,
 }
 
-interface SubSystemPopupMenuProps<SubSystemType extends SubSystem> {
-    selectedSubSystem: SubSystemType | null,
+interface SubSystemPopupMenuProps<SubSystemOverviewModelType extends SubSystemOverviewModel> {
+    selectedSubSystem: SubSystemOverviewModelType | null,
     anchorEl: HTMLButtonElement | null,
-    menuEntries: SubSystemPopupMenuEntry<SubSystemType>[],
-    setSelectedSubSystem(selectedSubSystem: SubSystemType | null): void,
+    menuEntries: SubSystemPopupMenuEntry<SubSystemOverviewModelType>[],
+    setSelectedSubSystem(selectedSubSystem: SubSystemOverviewModelType | null): void,
 
 }
 
-function SubSystemPopupMenu<SubSystemType extends SubSystem>({
+function SubSystemPopupMenu<SubSystemOverviewModelType extends SubSystemOverviewModel>({
     selectedSubSystem,
     anchorEl,
     menuEntries,
     setSelectedSubSystem,
-}: SubSystemPopupMenuProps<SubSystemType>) {
+}: SubSystemPopupMenuProps<SubSystemOverviewModelType>) {
 
     const handleClose = () => {
         setSelectedSubSystem(null);
     };
 
-    const handleClick = (onClick: (selectedSubSystem: SubSystemType) => void) => {
+    const handleClick = (onClick: (selectedSubSystem: SubSystemOverviewModelType) => void) => {
         handleClose();
         onClick(selectedSubSystem!);
     }
