@@ -1,7 +1,7 @@
-import { ManufacturingUnit } from '@/../../core/dist';
+import { ManufacturingUnit, ManufacturingUnitDetailModel } from '@/../../core/dist';
 import { mapToManufacturingUnitDetailModel, mapToManufacturingUnitOverviewModel } from '@/mapping/manufacturingUnits.mapper';
 import ManufacturingUnitsService from '@/services/manufacturingUnits.service';
-import { Controller, Delete, Get, Param, Post, QueryParam } from 'routing-controllers';
+import { Body, Controller, Delete, Get, Param, Post, Put, QueryParam } from 'routing-controllers';
 import { OpenAPI } from 'routing-controllers-openapi';
 
 @Controller()
@@ -46,5 +46,14 @@ export class ManufacturingUnitsController {
     return mapToManufacturingUnitDetailModel(manufacturingUnit)
   }
 
+  @Put('/manufacturingUnits/:manufacturingUnitId')
+  @OpenAPI({ summary: 'Edit the manufacturing unit by providing a new array of system properties' })
+  async editManufacturingUnit(
+    @Param('manufacturingUnitId') manufacturingUnitId: string,
+    @Body() newValues: Map<string, string>,
+  ): Promise<ManufacturingUnitDetailModel> {
+    const manufacturingUnit = await this.manufacturingUnitsService.editManufacturingUnit(manufacturingUnitId, newValues);
+    return mapToManufacturingUnitDetailModel(manufacturingUnit);
+  }
 
 }

@@ -49,7 +49,7 @@ export class ComponentRepositoryMock implements CreateComponentRepository, ShowC
         if (!component) {
             return Promise.reject("Component doesn't exist");
         }
-        Array.from(newValues).forEach(([systemPropertyId, value]) => components.get(id)?.editSystemPropertyValue(systemPropertyId, value))
+        component.systemPropertyValues = newValues;
         return Promise.resolve(component);
 
     }

@@ -44,7 +44,7 @@ export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitR
         if (!manufacturingUnit) {
             return Promise.reject("ManufacturingUnit doesn't exist");
         }
-        Array.from(newValues).forEach(([systemPropertyId, value]) => manufacturingUnits.get(id)?.editSystemPropertyValue(systemPropertyId, value))
+        manufacturingUnit.systemPropertyValues = newValues;
         return Promise.resolve(manufacturingUnit);
 
     }

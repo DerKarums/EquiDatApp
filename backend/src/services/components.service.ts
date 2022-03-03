@@ -1,7 +1,8 @@
-import { allComponentsUseCase, createComponentUseCase, deleteComponentUseCase, showComponentUseCase } from '@/providers/UseCaseProvider';
+import { allComponentsUseCase, createComponentUseCase, deleteComponentUseCase, editComponentUseCase, showComponentUseCase } from '@/providers/UseCaseProvider';
 import { Component, ComponentType } from 'core';
 
 class ComponentsService {
+
 
 
 
@@ -29,7 +30,11 @@ class ComponentsService {
   }
 
   public async deleteComponent(componentId: string): Promise<void> {
-    return deleteComponentUseCase.deleteComponent(componentId);
+    return await deleteComponentUseCase.deleteComponent(componentId);
+  }
+
+  public async editComponent(componentId: string, newValues: Map<string, string>): Promise<Component> {
+    return await editComponentUseCase.edit(componentId, newValues);
   }
 }
 

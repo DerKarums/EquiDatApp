@@ -1,7 +1,7 @@
 import { Component, ComponentDetailModel, ComponentOverviewModel, ComponentType, ComponentTypeModel } from '@/../../core/dist';
 import { mapToComponentDetailModel, mapToComponentOverviewModel, mapToComponentTypeModel } from '@/mapping/components.mapper';
 import ComponentsService from '@/services/components.service';
-import { Controller, Delete, Get, Param, Post, QueryParam } from 'routing-controllers';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, QueryParam } from 'routing-controllers';
 import { OpenAPI } from 'routing-controllers-openapi';
 
 @Controller()
@@ -57,6 +57,16 @@ export class ComponentsController {
   async getComponentTypes(): Promise<ComponentTypeModel[]> {
     const componentTypes: ComponentType[] = await this.componentsService.getComponentTypes();
     return componentTypes.map(componentType => mapToComponentTypeModel(componentType))
+  }
+
+  @Put('/components/:componentId')
+  @OpenAPI({ summary: 'Edit the component by providing a new array of system properties' })
+  async editComponent(
+    @Param('componentId') componentId: string,
+    @Body() newValues: Map<string, string>,
+  ): Promise<ComponentDetailModel> {
+    const component = await this.componentsService.editComponent(componentId, newValues);
+    return mapToComponentDetailModel(component);
   }
 
 }

@@ -14,7 +14,7 @@ export function mapToTestSystemOverviewModel(testSystem: TestSystem): TestSystem
     return testSystemOverviewModel;
 }
 
-export function mapToTestSystemDetailModel(testSystem: TestSystem): TestSystemOverviewModel {
+export function mapToTestSystemDetailModel(testSystem: TestSystem): TestSystemDetailModel {
 
     const components = testSystem.components.map(component => mapToComponentOverviewModel(component));
     const owningManufacturingUnit = testSystem.owningManufacturingUnit ? mapToManufacturingUnitOverviewModel(testSystem.owningManufacturingUnit) : null;

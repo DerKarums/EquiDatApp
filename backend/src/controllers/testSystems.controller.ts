@@ -1,7 +1,7 @@
-import { TestSystem } from '@/../../core/dist';
+import { TestSystem, TestSystemDetailModel } from '@/../../core/dist';
 import { mapToTestSystemDetailModel, mapToTestSystemOverviewModel } from '@/mapping/testSystems.mapper';
 import TestSystemsService from '@/services/testSystems.service';
-import { Controller, Delete, Get, Param, Post, QueryParam } from 'routing-controllers';
+import { Body, Controller, Delete, Get, Param, Post, Put, QueryParam } from 'routing-controllers';
 import { OpenAPI } from 'routing-controllers-openapi';
 
 @Controller()
@@ -44,7 +44,15 @@ export class TestSystemsController {
     return mapToTestSystemDetailModel(testSystem)
   }
 
-
+  @Put('/testSystems/:testSystemId')
+  @OpenAPI({ summary: 'Edit the test system by providing a new array of system properties' })
+  async editTestSystem(
+    @Param('testSystemId') testSystemId: string,
+    @Body() newValues: Map<string, string>,
+  ): Promise<TestSystemDetailModel> {
+    const testSystem = await this.testSystemsService.editTestSystem(testSystemId, newValues);
+    return mapToTestSystemDetailModel(testSystem);
+  }
 
 
 }

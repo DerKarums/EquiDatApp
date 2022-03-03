@@ -1,4 +1,4 @@
-import { allTestSystemsUseCase, createTestSystemUseCase, deleteTestSystemUseCase, showTestSystemUseCase } from '@/providers/UseCaseProvider';
+import { allTestSystemsUseCase, createTestSystemUseCase, deleteTestSystemUseCase, editTestSystemUseCase, showTestSystemUseCase } from '@/providers/UseCaseProvider';
 import { TestSystem } from 'core';
 
 class TestSystemsService {
@@ -24,6 +24,9 @@ class TestSystemsService {
     return deleteTestSystemUseCase.deleteTestSystem(testSystemId);
   }
 
+  public async editTestSystem(testSystemId: string, newValues: Map<string, string>): Promise<TestSystem> {
+    return await editTestSystemUseCase.edit(testSystemId, newValues);
+  }
 }
 
 export default TestSystemsService;

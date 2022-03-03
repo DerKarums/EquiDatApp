@@ -70,7 +70,7 @@ export class TestSystemRepositoryMock implements CreateTestSystemRepository, Sho
         if (!testSystem) {
             return Promise.reject("TestSystem doesn't exist");
         }
-        Array.from(newValues).forEach(([systemPropertyId, value]) => testSystem.editSystemPropertyValue(systemPropertyId, value))
+        testSystem.systemPropertyValues = newValues;
         return Promise.resolve(testSystem);
     }
 

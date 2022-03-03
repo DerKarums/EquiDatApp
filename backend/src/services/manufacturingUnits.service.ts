@@ -1,4 +1,4 @@
-import { allManufacturingUnitsUseCase, createManufacturingUnitUseCase, deleteManufacturingUnitUseCase, showManufacturingUnitsUseCase } from '@/providers/UseCaseProvider';
+import { allManufacturingUnitsUseCase, createManufacturingUnitUseCase, deleteManufacturingUnitUseCase, editManufacturingUnitUseCase, showManufacturingUnitsUseCase } from '@/providers/UseCaseProvider';
 import { ManufacturingUnit } from 'core';
 
 class ManufacturingUnitsService {
@@ -23,6 +23,9 @@ class ManufacturingUnitsService {
     return deleteManufacturingUnitUseCase.deleteManufacturingUnit(manufacturingUnitId);
   }
 
+  public async editManufacturingUnit(manufacturingUnitId: string, newValues: Map<string, string>): Promise<ManufacturingUnit> {
+    return await editManufacturingUnitUseCase.edit(manufacturingUnitId, newValues);
+  }
 }
 
 export default ManufacturingUnitsService;
