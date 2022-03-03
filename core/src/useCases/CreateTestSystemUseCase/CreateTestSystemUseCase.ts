@@ -11,26 +11,27 @@ export class CreateTestSystemUseCase {
 
     }
 
-    public createTestSystem(callbacks: CreateTestSystemCallbacks): TestSystem {
+    public async createTestSystem(callbacks?: CreateTestSystemCallbacks): Promise<TestSystem> {
         var systemPropertyValues = new Map<string, string>();
         systemPropertyValues.set("name", "Neues Testsystem");
-        const schema = this.repository.getSchema()
+        const schema = await this.repository.getSchema()
         const testSystem = new TestSystem(schema, systemPropertyValues);
-        const newTestSystem = this.repository.createTestSystem(testSystem);
-        callbacks.onCreateComplete();
+        const newTestSystem = await this.repository.createTestSystem(testSystem);
+        if (callbacks) callbacks.onCreateComplete();
         return newTestSystem;
     }
 
-    public createDuplicateTestSystem(testSystemId: string, callbacks: CreateTestSystemCallbacks) {
-        const duplicate = this.repository.getTestSystem(testSystemId);
+    public async createDuplicateTestSystem(testSystemId: string, callbacks?: CreateTestSystemCallbacks): Promise<TestSystem> {
+        const duplicate = await this.repository.getTestSystem(testSystemId);
         const testSystem = new TestSystem(duplicate.getSchema(), duplicate.systemPropertyValues);
         
         const name = testSystem.getSystemPropertyValue('name');
         if (name != null) {
             testSystem.editSystemPropertyValue('name', this.createNewName(name))
         }
-        this.repository.createTestSystem(testSystem);
-        callbacks.onDuplicateComplete();
+        const newTestSystem = await this.repository.createTestSystem(testSystem);
+        if (callbacks)  callbacks.onDuplicateComplete();
+        return newTestSystem;
     }
 
     private createNewName(oldName: string): string {

@@ -1,3 +1,4 @@
+import { Component } from "../../entities";
 import { ShowComponentCallbacks } from "./ShowComponentCallbacks";
 import { ShowComponentRepository } from "./ShowComponentRepository";
 
@@ -10,8 +11,10 @@ export class ShowComponentUseCase {
 
     }
 
-    public getComponent(id: string, callbacks: ShowComponentCallbacks): void {
-        const component = this.repository.getComponent(id);
-        callbacks.setComponent(component);
+    public async getComponent(id: string, callbacks?: ShowComponentCallbacks): Promise<Component> {
+        const component = await this.repository.getComponent(id);
+        if (callbacks) callbacks.setComponent(component);
+        return component;
+
     }
 }

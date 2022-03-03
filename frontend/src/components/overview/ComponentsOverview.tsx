@@ -80,8 +80,8 @@ function ComponentsOverview() {
 
     const handleCloseDialog = (value: string): void => {
         setValue(value);
-        const newComponent = useCases.createComponentUseCase.createComponent(value, createCallback);
-        selectSubSystem(newComponent.id);
+        useCases.createComponentUseCase.createComponent(value, createCallback)
+            .then(component => selectSubSystem(component.id));
     }
 
     useEffect(() => {

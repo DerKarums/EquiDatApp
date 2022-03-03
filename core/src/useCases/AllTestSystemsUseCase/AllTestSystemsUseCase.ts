@@ -4,7 +4,7 @@ import { TestSystemModel } from "./TestSystemModel";
 import { ComponentModel } from "../AllComponentsUseCase/ComponentModel";
 import SystemPropertyFilterModel from "./SystemPropertyFilterModel";
 import TestSystemResultModel from "./TestSystemResultModel";
-import { TestSystem } from "../../entities";
+import { SystemProperty, TestSystem } from "../../entities";
 
 
 export class AllTestSystemsUseCase {
@@ -12,34 +12,33 @@ export class AllTestSystemsUseCase {
     private repository: AllTestSystemsRepository,
   ) { }
 
-  public getAllTestSystems(callbacks?: AllTestSystemsCallbacks): Promise<TestSystem[]> {
-    const testSystems = this.repository.getTestSystems();
-    const testSystemModels = testSystems.map(testSystem => {
-      const componentModels = testSystem.components.map(component => new ComponentModel(component.getRelevantSystemProperties()));
-      return new TestSystemModel(testSystem.getRelevantSystemProperties(), componentModels);
-    });
-    if (callbacks) {
-      callbacks.setTestSystems(testSystems);
-    }
-    return Promise.resolve(testSystems);
+  public async getAllTestSystems(callbacks?: AllTestSystemsCallbacks): Promise<TestSystem[]> {
+    const testSystems = await this.repository.getTestSystems();
+
+    if (callbacks) callbacks.setTestSystems(testSystems);
+
+    return testSystems;
   }
 
-  public getSystemPropertiesByIds(ids: string[], callbacks: AllTestSystemsCallbacks) {
-    const systemProperties = this.repository.getSystemPropertiesByIds(ids);
-    callbacks.setRequestedSystemProperties(systemProperties);
+  public async getSystemPropertiesByIds(ids: string[], callbacks?: AllTestSystemsCallbacks): Promise<{ systemProperty: SystemProperty | null, id: string }[]> {
+    const systemProperties = await this.repository.getSystemPropertiesByIds(ids);
+    if (callbacks) callbacks.setRequestedSystemProperties(systemProperties);
+    return systemProperties;
   }
 
-  getFilterOptions(callbacks: AllTestSystemsCallbacks) {
-    let allSystemProperties = this.repository.getTestSystemSchema();
-    callbacks.setFilterOptions(allSystemProperties.map(prop => new SystemPropertyFilterModel(prop.id)));
+  async getFilterOptions(callbacks: AllTestSystemsCallbacks): Promise<SystemPropertyFilterModel[]> {
+    let allSystemProperties = await this.repository.getTestSystemSchema();
+    const filterOptions = allSystemProperties.map(prop => new SystemPropertyFilterModel(prop.id));
+    callbacks.setFilterOptions(filterOptions);
+    return filterOptions;
   }
 
   /**
    * Takes filter options and returns TestSystems to callbacks
    * @param filterOptions Map of <SystemPropertyID, Value>
    */
-  search(callbacks: AllTestSystemsCallbacks, filterOptions?: Map<string, string>) {
-    let foundTestSystems = filterOptions ? this.repository.getFilteredResults(filterOptions) : this.repository.getTestSystems();
+  async search(callbacks?: AllTestSystemsCallbacks, filterOptions?: Map<string, string>): Promise<TestSystem[]> {
+    let foundTestSystems = filterOptions ? await this.repository.getFilteredResults(filterOptions) : await this.repository.getTestSystems();
     let foundTestSystemModels = foundTestSystems.map(testSystem => {
       let systemPropertyValues: Map<string, string | null> = new Map();
       testSystem.getRelevantSystemProperties().forEach((value, key) => {
@@ -47,6 +46,7 @@ export class AllTestSystemsUseCase {
       });
       return new TestSystemResultModel(testSystem.id, systemPropertyValues);
     });
-    callbacks.setSearchResults(foundTestSystemModels);
+    if (callbacks) callbacks.setSearchResults(foundTestSystemModels);
+    return foundTestSystems;
   }
 }

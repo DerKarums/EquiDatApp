@@ -63,8 +63,8 @@ function TestSystemsOverview() {
     }
 
     const createSubSystem = (): void => {
-        const newTestSystem = useCases.createTestSystemUseCase.createTestSystem(createCallback);
-        selectSubSystem(newTestSystem.id);
+        useCases.createTestSystemUseCase.createTestSystem(createCallback)
+            .then(newTestSystem => selectSubSystem(newTestSystem.id));
     }
 
     const duplicateSubSystem = (id: string): void => {

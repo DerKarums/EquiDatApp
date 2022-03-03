@@ -8,23 +8,26 @@ export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitR
         return [...manufacturingUnits.values()];
     }
 
-    createManufacturingUnit(manufacturingUnit: ManufacturingUnit): ManufacturingUnit {
-        console.log("createManufacturingUnit");
+    createManufacturingUnit(manufacturingUnit: ManufacturingUnit): Promise<ManufacturingUnit> {
         manufacturingUnits.set(manufacturingUnit.id, manufacturingUnit);
-        return manufacturingUnit;
+        return Promise.resolve(manufacturingUnit);
     }
 
     deleteManufacturingUnit(id: string): void {
-        console.log("deleteManufacturingUnit");
         manufacturingUnits.delete(id);
     }
 
-    getManufacturingUnit(id: string): ManufacturingUnit {
-        return manufacturingUnits.get(id) as ManufacturingUnit;
+    getManufacturingUnit(id: string): Promise<ManufacturingUnit> {
+        const manufacturingUnit = manufacturingUnits.get(id);
+        if (!manufacturingUnit) {
+            return Promise.reject("ManufacturingUnit does not exist");
+        } else {
+            return Promise.resolve(manufacturingUnit);
+        }
     }
 
-    getSchema(): SystemProperty[] {
-        return manufacturingUnitSchema;
+    getSchema(): Promise<SystemProperty[]> {
+        return Promise.resolve(manufacturingUnitSchema);
     }
 
     getSystemPropertiesByIds(ids: string[]): { systemProperty: SystemProperty | null; id: string; }[] {
@@ -32,11 +35,18 @@ export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitR
     }
 
     getSystemPropertyById(id: string): SystemProperty | null {
-        return this.getSchema().find(systemProperty => systemProperty.id === id) ?? null;
+        return manufacturingUnitSchema.find(systemProperty => systemProperty.id === id) ?? null;
     }
 
-    editManufacturingUnit(id: string, newValues: Map<string, string>): void {
+    editManufacturingUnit(id: string, newValues: Map<string, string>): Promise<ManufacturingUnit> {
+
+        const manufacturingUnit = manufacturingUnits.get(id);
+        if (!manufacturingUnit) {
+            return Promise.reject("ManufacturingUnit doesn't exist");
+        }
         Array.from(newValues).forEach(([systemPropertyId, value]) => manufacturingUnits.get(id)?.editSystemPropertyValue(systemPropertyId, value))
+        return Promise.resolve(manufacturingUnit);
+
     }
 
     setComponentParentManufacturingUnit(componentId: string, manufacturingUnitId: string): void {

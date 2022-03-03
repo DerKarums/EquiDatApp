@@ -65,8 +65,9 @@ function ManufacturingUnitsOverview() {
     }
 
     const createSubSystem = (): void => {
-        const unit =  useCases.createManufacturingUnitUseCase.createManufacturingUnit(createCallback)
-        selectSubSystem(unit.id);
+        useCases.createManufacturingUnitUseCase.createManufacturingUnit(createCallback)
+            .then(manufacturingUnit => selectSubSystem(manufacturingUnit.id));
+       
     }
 
     useEffect(() => {

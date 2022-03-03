@@ -4,7 +4,7 @@ import { SystemProperty } from "../../entities/SystemProperty";
 
 
 export interface CreateComponentRepository {
-    getComponentTypes(): ComponentType[];
-    getComponent(componentId: string): Component;
-    createComponent(componentTypeId: string, systemPropertyValues: Map<string, string>): Component;
+    getComponentTypes(): Promise<ComponentType[]>;
+    getComponent(componentId: string): Promise<Component>;
+    createComponent(componentTypeId: string, systemPropertyValues: Map<string, string>): Promise<Component>;
 }

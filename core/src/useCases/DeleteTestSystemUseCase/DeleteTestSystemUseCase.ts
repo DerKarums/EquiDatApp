@@ -10,8 +10,8 @@ export class DeleteTestSystemUseCase {
 
     }
 
-    public deleteTestSystem(testSystemId: String, callbacks: DeleteTestSystemCallbacks) {
+    public deleteTestSystem(testSystemId: String, callbacks?: DeleteTestSystemCallbacks) {
         this.repository.deleteTestSystem(testSystemId);
-        callbacks.onComplete();
+        if (callbacks) callbacks.onComplete();
     }
 }

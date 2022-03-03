@@ -10,8 +10,8 @@ export class DeleteManufacturingUnitUseCase {
 
     }
 
-    public deleteManufacturingUnit(manufacturingUnitId: String, callbacks: DeleteManufacturingUnitCallbacks) {
+    public deleteManufacturingUnit(manufacturingUnitId: String, callbacks?: DeleteManufacturingUnitCallbacks) {
         this.repository.deleteManufacturingUnit(manufacturingUnitId);
-        callbacks.onComplete();
+        if (callbacks) callbacks.onComplete();
     }
 }
