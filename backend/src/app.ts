@@ -8,7 +8,7 @@ import morgan from 'morgan';
 import { useExpressServer, getMetadataArgsStorage } from 'routing-controllers';
 import { routingControllersToSpec } from 'routing-controllers-openapi';
 import swaggerUi from 'swagger-ui-express';
-import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from '@config';
+import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN } from '@config';
 import errorMiddleware from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
 
@@ -54,7 +54,6 @@ class App {
     useExpressServer(this.app, {
       cors: {
         origin: ORIGIN,
-        credentials: CREDENTIALS,
       },
       controllers: controllers,
       defaultErrorHandler: false,
@@ -74,21 +73,15 @@ class App {
     const spec = routingControllersToSpec(storage, routingControllersOptions, {
       components: {
         schemas,
-        securitySchemes: {
-          basicAuth: {
-            scheme: 'basic',
-            type: 'http',
-          },
-        },
+        
       },
       info: {
-        description: 'Generated with `routing-controllers-openapi`',
-        title: 'A sample API',
+        title: 'Equidat',
         version: '1.0.0',
       },
     });
 
-    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(spec));
+    this.app.use('/api', swaggerUi.serve, swaggerUi.setup(spec));
   }
 
   private initializeErrorHandling() {

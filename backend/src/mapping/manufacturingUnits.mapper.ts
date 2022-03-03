@@ -1,5 +1,5 @@
-import { ManufacturingUnitOverviewDto } from "@/dtos/manufacturingUnits.dto"
-import { ManufacturingUnit } from "core"
+import { ManufacturingUnit } from "core";
+import { ManufacturingUnitOverviewDto } from "core";
 
 export function mapToManufacturingUnitOverviewDto(manufacturingUnit: ManufacturingUnit): ManufacturingUnitOverviewDto {
 
