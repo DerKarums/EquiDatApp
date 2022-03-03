@@ -1,7 +1,7 @@
 import { TestSystem } from '@/../../core/dist';
 import { mapToTestSystemDetailModel, mapToTestSystemOverviewModel } from '@/mapping/testSystems.mapper';
 import TestSystemsService from '@/services/testSystems.service';
-import { Controller, Get, Param, Post } from 'routing-controllers';
+import { Controller, Get, Param, Post, QueryParam } from 'routing-controllers';
 import { OpenAPI } from 'routing-controllers-openapi';
 
 @Controller()
@@ -24,10 +24,17 @@ export class TestSystemsController {
   }
 
   @Post('/testSystems/')
-  @OpenAPI({ summary: 'Create a new empty test system' })
-  async createTestSystem() {
+  @OpenAPI({ summary: 'Create a new empty test system or duplicate one via its ID' })
+  async createManufacturingUnit(
+    @QueryParam("duplicateTestSystemId") duplicateTestSystemId: string
+  ) {
 
-    const testSystem: TestSystem = await this.testSystemsService.createTestSystem();
+    let testSystem: TestSystem;
+    if (duplicateTestSystemId) {
+      testSystem = await this.testSystemsService.duplicateTestSystem(duplicateTestSystemId);
+    } else {
+      testSystem = await this.testSystemsService.createTestSystem();
+    }
     return mapToTestSystemDetailModel(testSystem)
   }
 

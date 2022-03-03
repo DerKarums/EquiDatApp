@@ -1,5 +1,5 @@
-import { Component } from '@/../../core/dist';
-import { mapToComponentDetailModel, mapToComponentOverviewModel } from '@/mapping/components.mapper';
+import { Component, ComponentType } from '@/../../core/dist';
+import { mapToComponentDetailModel, mapToComponentOverviewModel, mapToComponentTypeModel } from '@/mapping/components.mapper';
 import ComponentsService from '@/services/components.service';
 import { Controller, Get, Param, Post, QueryParam } from 'routing-controllers';
 import { OpenAPI } from 'routing-controllers-openapi';
@@ -24,10 +24,32 @@ export class ComponentsController {
   }
 
   @Post('/components')
-  @OpenAPI({ summary: 'Create a new empty component with the provided component type' })
-  async createComponent(@QueryParam("componentTypeId") componentTypeId: string) {
-    const component: Component = await this.componentsService.createComponent(componentTypeId);
+  @OpenAPI({ summary: 'Create a new empty component with the provided component type or duplicate an existing one via its ID' })
+  async createComponent(
+    @QueryParam("componentTypeId") componentTypeId: string,
+    @QueryParam("duplicateComponentId") duplicateComponentId: string
+  ) {
+    if (duplicateComponentId && componentTypeId) {
+      throw new Error("You must not provide both duplicateComponentId and componentTypeId")
+    }
+    let component: Component;
+    if (componentTypeId) {
+      component = await this.componentsService.createComponent(componentTypeId);
+    } else if (duplicateComponentId) {
+      component = await this.componentsService.duplicateComponent(duplicateComponentId);
+    } else {
+      throw new Error("You must either provide duplicateComponentId or componentTypeId")
+    }
+
     return mapToComponentDetailModel(component)
+
+  }
+
+  @Get('/componentTypes')
+  @OpenAPI({ summary: 'Return all component types' })
+  async getComponentTypes() {
+    const componentTypes: ComponentType[] = await this.componentsService.getComponentTypes();
+    return componentTypes.map(componentType => mapToComponentTypeModel(componentType))
   }
 
 }

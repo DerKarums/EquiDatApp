@@ -15,6 +15,10 @@ class TestSystemsService {
   public async createTestSystem(): Promise<TestSystem> {
     return await createTestSystemUseCase.createTestSystem();
   }
+
+  public async duplicateTestSystem(duplicateTestSystemId: string): Promise<TestSystem> {
+    return await createTestSystemUseCase.createDuplicateTestSystem(duplicateTestSystemId);
+  }
 }
 
 export default TestSystemsService;

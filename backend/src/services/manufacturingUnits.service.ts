@@ -15,6 +15,10 @@ class ManufacturingUnitsService {
     return await createManufacturingUnitUseCase.createManufacturingUnit();
   }
 
+  public async duplicateManufacturingUnit(duplicateManufacturingUnitId: string): Promise<ManufacturingUnit> {
+    return await createManufacturingUnitUseCase.createDuplicateManufacturingUnit(duplicateManufacturingUnitId);
+  }
+
 }
 
 export default ManufacturingUnitsService;
