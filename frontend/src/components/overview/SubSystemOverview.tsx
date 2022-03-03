@@ -18,7 +18,7 @@ function SubSystemOverview<SubSystemType extends SubSystem>({ shownSubsystems, s
     return (
         <Grid container spacing={2}>
             <Grid item xs={11}>
-                <Filter />
+                <Filter shownSystemProperties={shownSystemProperties}/>
             </Grid>
             <Grid item xs={11}>
                 <SubSystemTable
