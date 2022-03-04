@@ -9,7 +9,7 @@ export class DeleteTestSystemUseCase {
 
     }
 
-    public deleteTestSystem(testSystemId: String) {
+    public deleteTestSystem(testSystemId: string) {
         this.repository.deleteTestSystem(testSystemId);
     }
 }

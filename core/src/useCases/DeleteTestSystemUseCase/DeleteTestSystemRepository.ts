@@ -1,3 +1,3 @@
 export interface DeleteTestSystemRepository {
-    deleteTestSystem(testSystemId: String): void;
+    deleteTestSystem(testSystemId: string): void;
 }

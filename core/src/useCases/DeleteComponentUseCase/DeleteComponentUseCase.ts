@@ -9,7 +9,7 @@ export class DeleteComponentUseCase {
 
     }
 
-    public async deleteComponent(componentId: String): Promise<void> {
+    public async deleteComponent(componentId: string): Promise<void> {
         this.repository.deleteComponent(componentId);
         return Promise.resolve();
     }

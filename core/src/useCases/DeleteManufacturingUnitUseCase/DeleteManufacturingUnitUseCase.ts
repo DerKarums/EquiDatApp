@@ -9,7 +9,7 @@ export class DeleteManufacturingUnitUseCase {
 
     }
 
-    public deleteManufacturingUnit(manufacturingUnitId: String) {
+    public deleteManufacturingUnit(manufacturingUnitId: string) {
         this.repository.deleteManufacturingUnit(manufacturingUnitId);
     }
 }
