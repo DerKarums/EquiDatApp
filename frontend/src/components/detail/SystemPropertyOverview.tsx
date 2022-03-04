@@ -29,7 +29,6 @@ function SystemPropertyOverview({
   const { t } = useTranslation();
 
   const [mode, setMode] = useState<Mode>("display");
-  // TODO maybe useEffect to refresh
   const [values, setValues] = useState(systemPropertyValues);
 
   const [valueBackup, setValueBackup] = useState<SystemPropertyRow[]>([]);
