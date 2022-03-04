@@ -50,9 +50,14 @@ export class ManufacturingUnitsController {
   @OpenAPI({ summary: 'Edit the manufacturing unit by providing a new array of system properties' })
   async editManufacturingUnit(
     @Param('manufacturingUnitId') manufacturingUnitId: string,
-    @Body() newValues: Map<string, string>,
+    @Body() newValues: any,
   ): Promise<ManufacturingUnitDetailModel> {
-    const manufacturingUnit = await this.manufacturingUnitsService.editManufacturingUnit(manufacturingUnitId, newValues);
+    
+    // has to be manually converted to Map due to a limitation of class-transformer
+    // see https://github.com/typestack/class-transformer/issues/288
+    const newValuesMap = new Map<string, string>(Object.entries(newValues));
+
+    const manufacturingUnit = await this.manufacturingUnitsService.editManufacturingUnit(manufacturingUnitId, newValuesMap);
     return mapToManufacturingUnitDetailModel(manufacturingUnit);
   }
 
