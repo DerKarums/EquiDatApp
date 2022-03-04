@@ -1,3 +1,3 @@
 export interface DeleteComponentRepository {
-    deleteComponent(componentId: String): void;
+    deleteComponent(componentId: string): void;
 }

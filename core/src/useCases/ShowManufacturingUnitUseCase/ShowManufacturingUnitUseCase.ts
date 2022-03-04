@@ -1,4 +1,4 @@
-import { ShowManufacturingUnitCallbacks } from "./ShowManufacturingUnitCallbacks";
+import { ManufacturingUnit } from "../../entities";
 import { ShowManufacturingUnitRepository } from "./ShowManufacturingUnitRepository";
 
 
@@ -10,8 +10,7 @@ export class ShowManufacturingUnitUseCase {
 
     }
 
-    public getManufacturingUnit(id: string, callbacks: ShowManufacturingUnitCallbacks): void {
-        const manufacturingUnit = this.repository.getManufacturingUnit(id);
-        callbacks.setManufacturingUnit(manufacturingUnit);
+    public async getManufacturingUnit(id: string): Promise<ManufacturingUnit> {
+        return this.repository.getManufacturingUnit(id);
     }
 }

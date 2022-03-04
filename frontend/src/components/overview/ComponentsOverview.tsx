@@ -1,7 +1,8 @@
-import { AllComponentsCallbacks, Component, SubSystem, SystemProperty, DeleteComponentCallbacks, ComponentType, CreateComponentCallbacks } from 'core';
-import React, { useEffect, useState } from 'react';
+import { ComponentDetailModel, ComponentOverviewModel, ComponentTypeModel } from 'core';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { createComponentUseCase, useCases } from '../../providers/UseCaseProvider';
+import axiosInstance from '../../httpclient/axiosProvider';
+import { mapToComponentOverviewModel } from '../../mappers/viewmapper';
 import ComponentTypeDialog from './ComponentTypeDialog';
 import SubSystemOverview from './SubSystemOverview';
 
@@ -11,47 +12,21 @@ function ComponentsOverview() {
     const shownSystemPropertyIds = ["name", "manufacturer", "type_name_manufacturer"];
     const [value, setValue] = useState('');
 
-    const allComponentsUseCase = useCases.allComponentsUseCase;
+    const [components, setComponents] = useState<ComponentOverviewModel[]>([]);
 
-    const [components, setComponents] = useState<Component[]>([]);
-    const [shownSystemProperties, setShownSystemProperties] = useState<SystemProperty[]>([]);
-
-    useEffect(() =>{
-        createComponentUseCase.getComponentTypes(createCallback);
-    },[])
+    useEffect(() => {
+        axiosInstance.get('/componentTypes')
+            .then(response => response.data)
+            .then(componentTypes => setTypes(componentTypes.map((componentType: ComponentTypeModel) => componentType.id)));
+    }, [])
 
     const [showDialog, setShowDialog] = useState<boolean>(false);
     const [types, setTypes] = useState<string[]>([]);
-    const callback: AllComponentsCallbacks = {
-        setComponents: setComponents,
-        setRequestedSystemProperties: (systemPropertiesByIds: {
-            systemProperty: SystemProperty | null;
-            id: string;
-        }[]) => {
-            setShownSystemProperties(systemPropertiesByIds
-                .map(systemPropertiesByIds => systemPropertiesByIds.systemProperty)
-                .filter(systemProperty => systemProperty !== null) as SystemProperty[]
-            )
-        }
-    }
 
-    const deleteCallback: DeleteComponentCallbacks = {
-        onComplete: () => {
-            allComponentsUseCase.getAllComponents(callback);
-        }
-    }
-
-    const createCallback: CreateComponentCallbacks = {
-        onDuplicateComplete: () => {
-            allComponentsUseCase.getAllComponents(callback);
-        },
-        onCreateComplete: () => {
-            allComponentsUseCase.getAllComponents(callback);
-        },
-        setComponentTypes: (pTypes: ComponentType[]) => { 
-            
-            setTypes(pTypes.map(componentType => componentType.id));
-        },
+    const reloadComponents = () => {
+        axiosInstance.get('/components')
+            .then(response => response.data.map((component: any) => mapToComponentOverviewModel(component)))
+            .then((componentModels: ComponentOverviewModel[]) => setComponents(componentModels))
     }
 
     const selectSubSystem = (id: string): void => {
@@ -59,35 +34,36 @@ function ComponentsOverview() {
     }
 
     const deleteSubSystem = (id: string): void => {
-        useCases.deleteComponentUseCase.deleteComponent(id, deleteCallback);
+        axiosInstance.delete(`/components/${id}`)
+            .then(() => reloadComponents())
     }
 
     const duplicateSubSystem = (id: string): void => {
-        useCases.createComponentUseCase.createDuplicateComponent(id, createCallback);
+        axiosInstance.post('/components', null, {params: {duplicateComponentId: id}})
+            .then(() => reloadComponents())
     }
 
     const createSubSystem = (): void => {
         setShowDialog(true);
     }
 
-    const handleCloseDialog = (value: string): void => {
-        setValue(value);
-        const newComponent = useCases.createComponentUseCase.createComponent(value, createCallback);
-        selectSubSystem(newComponent.id);
+    const handleCloseDialog = (componentTypeId: string): void => {
+        setValue(componentTypeId);
+
+        axiosInstance.post('/components', null, {params: {componentTypeId}})
+            .then(response => response.data)
+            .then(component => mapToComponentOverviewModel(component))
+            .then((componentModel: ComponentDetailModel) => selectSubSystem(componentModel.id))
     }
 
     useEffect(() => {
-        allComponentsUseCase.getAllComponents(callback);
-    }, [])
-
-    useEffect(() => {
-        allComponentsUseCase.getSystemPropertiesByIds(shownSystemPropertyIds, callback);
+        reloadComponents();
     }, [])
 
     return (
         <div>
             <SubSystemOverview
-                shownSystemProperties={shownSystemProperties}
+                shownSystemPropertyIds={shownSystemPropertyIds}
                 shownSubsystems={components}
                 selectSubSystem={selectSubSystem}
                 deleteSubSystem={deleteSubSystem}
@@ -95,7 +71,7 @@ function ComponentsOverview() {
                 createSubSystem={createSubSystem}
             />
             {showDialog && <ComponentTypeDialog
-                onClose={handleCloseDialog} open={showDialog} setOpen={setShowDialog} options={types}  />}
+                onClose={handleCloseDialog} open={showDialog} setOpen={setShowDialog} options={types} />}
         </div>
     )
 

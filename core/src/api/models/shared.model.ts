@@ -5,4 +5,3 @@ export interface SystemPropertyModel {
     isRequired: boolean,
     id: string,
 }
-  

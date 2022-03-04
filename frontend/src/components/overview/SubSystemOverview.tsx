@@ -8,7 +8,7 @@ import { SubSystemOverviewModel } from '../../types/types';
 
 
 interface SubSystemOverviewProps<SubSystemOverviewModelType extends SubSystemOverviewModel> {
-    shownSystemProperties: SystemProperty[];
+    shownSystemPropertyIds: string[];
     shownSubsystems: SubSystemOverviewModelType[];
     selectSubSystem(id: string): void;
     deleteSubSystem(id: string): void;
@@ -18,7 +18,7 @@ interface SubSystemOverviewProps<SubSystemOverviewModelType extends SubSystemOve
 
 
 function SubSystemOverview<SubSystemOverviewModelType extends SubSystemOverviewModel>(
-    { shownSubsystems, shownSystemProperties, selectSubSystem, deleteSubSystem, duplicateSubSystem, createSubSystem }: SubSystemOverviewProps<SubSystemOverviewModelType>) {
+    { shownSubsystems, shownSystemPropertyIds, selectSubSystem, deleteSubSystem, duplicateSubSystem, createSubSystem }: SubSystemOverviewProps<SubSystemOverviewModelType>) {
 
     return (
         <Grid container spacing={2}>
@@ -28,7 +28,7 @@ function SubSystemOverview<SubSystemOverviewModelType extends SubSystemOverviewM
             <Grid item xs={11}>
                 <SubSystemTable
                     subSystems={shownSubsystems}
-                    shownSystemProperties={shownSystemProperties}
+                    shownSystemPropertyIds={shownSystemPropertyIds}
                     selectSubSystem={selectSubSystem}
                     deleteSubSystem={deleteSubSystem}
                     duplicateSubSystem={duplicateSubSystem}

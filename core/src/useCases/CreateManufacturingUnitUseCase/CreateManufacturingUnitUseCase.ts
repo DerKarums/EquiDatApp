@@ -1,5 +1,4 @@
 import { ManufacturingUnit } from "../../entities/ManufacturingUnit";
-import { CreateManufacturingUnitCallbacks } from "./CreateManufacturingUnitCallbacks";
 import { CreateManufacturingUnitRepository } from "./CreateManufacturingUnitRepository";
 
 
@@ -11,26 +10,24 @@ export class CreateManufacturingUnitUseCase {
 
     }
 
-    public createManufacturingUnit(callbacks: CreateManufacturingUnitCallbacks): ManufacturingUnit{
-       var systemPropertyValues = new Map<string, string>();
-       systemPropertyValues.set("name", "Neue Montageeinheit");
-        const manufacturingUnit = new ManufacturingUnit(this.repository.getSchema(), systemPropertyValues);
-        const newUnit = this.repository.createManufacturingUnit(manufacturingUnit);
-        callbacks.onCreateComplete();
+    public async createManufacturingUnit(): Promise<ManufacturingUnit> {
+        var systemPropertyValues = new Map<string, string>();
+        systemPropertyValues.set("name", "Neue Montageeinheit");
+        const schema = await this.repository.getSchema();
+        const manufacturingUnit = new ManufacturingUnit(schema, systemPropertyValues);
+        const newUnit = await this.repository.createManufacturingUnit(manufacturingUnit);
         return newUnit;
     }
 
-    public createDuplicateManufacturingUnit(manufacturingUnitId: string, callbacks: CreateManufacturingUnitCallbacks) {
-        const duplicate = this.repository.getManufacturingUnit(manufacturingUnitId);
-
+    public async createDuplicateManufacturingUnit(manufacturingUnitId: string): Promise<ManufacturingUnit> {
+        const duplicate = await this.repository.getManufacturingUnit(manufacturingUnitId);
         const manufacturingUnit = new ManufacturingUnit(duplicate.getSchema(), duplicate.systemPropertyValues);
-        
         const name = manufacturingUnit.getSystemPropertyValue('name');
         if (name != null) {
             manufacturingUnit.editSystemPropertyValue('name', this.createNewName(name))
         }
-        this.repository.createManufacturingUnit(manufacturingUnit);
-        callbacks.onDuplicateComplete();
+        const newUnit = await this.repository.createManufacturingUnit(manufacturingUnit);
+        return newUnit;
     }
 
     private createNewName(oldName: string): string {
@@ -41,6 +38,6 @@ export class CreateManufacturingUnitUseCase {
             return `${nameWithoutNumber} (${parseInt(number[0]) + 1})`
         } else {
             return `${oldName} (1)`
-        }   
+        }
     }
 }

@@ -1,6 +1,6 @@
 /**
  * @method isEmpty
- * @param {String | Number | Object} value
+ * @param {string | Number | Object} value
  * @returns {Boolean} true & false
  * @description this value is Empty Check
  */

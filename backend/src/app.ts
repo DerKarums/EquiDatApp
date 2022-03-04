@@ -51,6 +51,7 @@ class App {
   }
 
   private initializeRoutes(controllers: Function[]) {
+    console.log("cors origin is", ORIGIN)
     useExpressServer(this.app, {
       cors: {
         origin: ORIGIN,

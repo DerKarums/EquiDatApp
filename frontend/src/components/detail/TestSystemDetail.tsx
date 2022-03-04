@@ -1,18 +1,13 @@
 import { Grid, Stack } from "@mui/material";
 import {
-  AllComponentsCallbacks,
-  Component,
-  SystemProperty,
-  TestSystem
+  TestSystemDetailModel
 } from "core";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
-import {
-  allComponentsUseCase,
-  editTestSystemUseCase,
-  showTestSystemUseCase
-} from "../../providers/UseCaseProvider";
+import axiosInstance from "../../httpclient/axiosProvider";
+import { mapToTestSystemDetailModel } from "../../mappers/viewmapper";
+import { SystemPropertyRow } from "../../types/types";
 import SubSystemBreadCrumbs from "../shared/breadcrumbs/SubSystemBreadCrumbs";
 import TableToolbar from "../shared/TableToolbar";
 import InnerSubSystemTable from "./InnerSubsystemTable";
@@ -22,59 +17,33 @@ function TestSystemDetail() {
   const { t } = useTranslation();
   const history = useHistory();
   const { testSystemId } = useParams() as { testSystemId: string };
-  const [testSystem, setTestSystem] = useState<TestSystem | null>(null);
+  const [testSystem, setTestSystem] = useState<TestSystemDetailModel | null>(null);
 
   useEffect(() => {
-    showTestSystemUseCase.getTestSystem(testSystemId, {
-      setTestSystem: (testSystem: TestSystem) => setTestSystem(testSystem),
-    });
-  }, []);
+    axiosInstance.get(`/testSystems/${testSystemId}`)
+      .then(response => response.data)
+      .then(entry => mapToTestSystemDetailModel(entry))
+      .then((testSystemModel: TestSystemDetailModel) => setTestSystem(testSystemModel))
+  }, [testSystemId]);
 
   const shownSystemPropertyIds = ["name", "manufacturer", "type_name_manufacturer"];
-  const [shownSystemProperties, setShownSystemProperties] = useState<
-    SystemProperty[]
-  >([]);
-  const callback: AllComponentsCallbacks = {
-    setComponents: (_: Component[]) => { },
-    setRequestedSystemProperties: (
-      systemPropertiesByIds: {
-        systemProperty: SystemProperty | null;
-        id: string;
-      }[]
-    ) => {
-      setShownSystemProperties(
-        systemPropertiesByIds
-          .map((systemPropertiesByIds) => systemPropertiesByIds.systemProperty)
-          .filter(
-            (systemProperty) => systemProperty !== null
-          ) as SystemProperty[]
-      );
-    },
-  };
-
-  useEffect(() => {
-    allComponentsUseCase.getSystemPropertiesByIds(
-      shownSystemPropertyIds,
-      callback
-    );
-  }, []);
 
   const selectComponent = (id: string) => {
     history.push(`/components/${id}`);
   };
 
-  const saveValues = (values: [SystemProperty, string | null][]) => {
-    editTestSystemUseCase.edit(testSystemId,
-      new Map<string, string>(
-        values.filter(([_, value]) => value !== null)
-          .map(
-            ([systemProperty, value]: [SystemProperty, string | null]) =>
-              [systemProperty.id, value] as [string, string])),
-      {
-        onSuccess: () => console.log("saved successfully"),
-        onComponentAdded: () => console.log("TestSystem added")
-      });
+  const saveValues = (values: SystemPropertyRow[]) => {
+    const nonNullRows = values.filter(({ value }) => value !== null)
+    const entryArray = nonNullRows.map((systemPropertyRow: SystemPropertyRow) =>
+      [systemPropertyRow.id, systemPropertyRow.value] as [string, string]);
+    const editMap = new Map<string, string>(entryArray);
+
+    axiosInstance.put(`/testSystems/${testSystemId}`, Object.fromEntries(editMap))
+      .then(() => console.log("saved successfully."));
   }
+
+  const schema = testSystem?.schema;
+  const systemPropertyRows: SystemPropertyRow[] = schema?.map(systemPropertyModel => ({ ...systemPropertyModel, value: testSystem!.systemPropertyValues.get(systemPropertyModel.id) ?? null })) ?? [];
 
 
   return (
@@ -84,15 +53,15 @@ function TestSystemDetail() {
           <Grid container spacing={1}>
             <Grid item xs={10}>
               <SubSystemBreadCrumbs
-                manufacturingUnit={testSystem?.owningManufacturingUnit}
-                testSystem={testSystem}
+                manufacturingUnit={testSystem?.owningManufacturingUnit && { id: testSystem.owningManufacturingUnit.id, name: testSystem.owningManufacturingUnit.systemPropertyValues.get("name") }}
+                testSystem={testSystem && { id: testSystem.id, name: testSystem.systemPropertyValues.get("name") }}
               />
             </Grid>
             <Grid item xs={1}></Grid>
           </Grid>
           {testSystem && (
             <SystemPropertyOverview
-              systemPropertyValues={testSystem?.getRelevantSystemProperties()}
+              systemPropertyValues={systemPropertyRows}
               saveValues={saveValues}
             />
           )}
@@ -105,7 +74,7 @@ function TestSystemDetail() {
                   </TableToolbar>
                   <InnerSubSystemTable
                     subSystems={testSystem.components}
-                    shownSystemProperties={shownSystemProperties}
+                    shownSystemPropertyIds={shownSystemPropertyIds}
                     selectSubSystem={selectComponent}
                   />
                 </>

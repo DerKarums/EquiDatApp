@@ -1,21 +1,11 @@
 import { Grid, Stack } from "@mui/material";
-import {
-  AllComponentsCallbacks,
-  AllTestSystemsCallbacks,
-  Component,
-  ManufacturingUnit,
-  SystemProperty,
-  TestSystem
-} from "core";
+import { ManufacturingUnitDetailModel } from "core";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
-import {
-  allComponentsUseCase,
-  allTestSystemsUseCase,
-  editManufacturingUnitUseCase,
-  showManufacturingUnitsUseCase
-} from "../../providers/UseCaseProvider";
+import axiosInstance from "../../httpclient/axiosProvider";
+import { mapToManufacturingUnitDetailModel } from "../../mappers/viewmapper";
+import { SystemPropertyRow } from "../../types/types";
 import SubSystemBreadCrumbs from "../shared/breadcrumbs/SubSystemBreadCrumbs";
 import TableToolbar from "../shared/TableToolbar";
 import InnerSubSystemTable from "./InnerSubsystemTable";
@@ -28,16 +18,14 @@ function ManufacturingUnitDetail() {
     manufacturingUnitId: string;
   };
   const [manufacturingUnit, setManufacturingUnit] =
-    useState<ManufacturingUnit | null>(null);
+    useState<ManufacturingUnitDetailModel | null>(null);
 
   useEffect(() => {
-    showManufacturingUnitsUseCase.getManufacturingUnit(manufacturingUnitId, {
-      setManufacturingUnit: (manufacturingUnit: ManufacturingUnit) => {
-        console.log(manufacturingUnit);
-        setManufacturingUnit(manufacturingUnit);
-      },
-    });
-  }, []);
+    axiosInstance.get(`/manufacturingUnits/${manufacturingUnitId}`)
+      .then(response => response.data)
+      .then((manufacturingUnit: any) => mapToManufacturingUnitDetailModel(manufacturingUnit))
+      .then((manufacturingUnitModel: ManufacturingUnitDetailModel) => setManufacturingUnit(manufacturingUnitModel))
+  }, [manufacturingUnitId]);
 
   const shownTestSystemSystemPropertyIds = [
     "name",
@@ -45,86 +33,25 @@ function ManufacturingUnitDetail() {
     "installation_date",
     "decommissioning_date",
   ];
-  const [shownTestSystemSystemProperties, setShownTestSystemSystemProperties] =
-    useState<SystemProperty[]>([]);
-  const testSystemCallback: AllTestSystemsCallbacks = {
-    setTestSystems: (_: TestSystem[]) => { },
-    setRequestedSystemProperties: (
-      systemPropertiesByIds: {
-        systemProperty: SystemProperty | null;
-        id: string;
-      }[]
-    ) => {
-      setShownTestSystemSystemProperties(
-        systemPropertiesByIds
-          .map((systemPropertiesByIds) => systemPropertiesByIds.systemProperty)
-          .filter(
-            (systemProperty) => systemProperty !== null
-          ) as SystemProperty[]
-      );
-    },
-    setFilterOptions: () => {},
-    setSearchResults: () => {},
-  };
-  useEffect(() => {
-    allTestSystemsUseCase.getSystemPropertiesByIds(
-      shownTestSystemSystemPropertyIds,
-      testSystemCallback
-    );
-  }, []);
 
-  const selectTestSystem = (id: string) => {
-    history.push(`/testSystems/${id}`);
-  };
+  const shownComponentSystemPropertyIds = ["name", "manufacturer", "type_name_manufacturer"];
 
-  const shownComponentSystemPropertyIds = [
-    "name",
-    "manufacturer",
-    "type_name_manufacturer",
-  ];
-  const [shownComponentSystemProperties, setShownComponentSystemProperties] =
-    useState<SystemProperty[]>([]);
-  const componentsCallback: AllComponentsCallbacks = {
-    setComponents: (_: Component[]) => { },
-    setRequestedSystemProperties: (
-      systemPropertiesByIds: {
-        systemProperty: SystemProperty | null;
-        id: string;
-      }[]
-    ) => {
-      setShownComponentSystemProperties(
-        systemPropertiesByIds
-          .map((systemPropertiesByIds) => systemPropertiesByIds.systemProperty)
-          .filter(
-            (systemProperty) => systemProperty !== null
-          ) as SystemProperty[]
-      );
-    },
-  };
-  useEffect(() => {
-    allComponentsUseCase.getSystemPropertiesByIds(
-      shownComponentSystemPropertyIds,
-      componentsCallback
-    );
-  }, []);
+  const selectTestSystem = (id: string) => history.push(`/testSystems/${id}`);
+  const selectComponent = (id: string) => history.push(`/components/${id}`);
 
-  const selectComponent = (id: string) => {
-    history.push(`/components/${id}`);
-  };
+  const saveValues = (values: SystemPropertyRow[]) => {
 
-  const saveValues = (values: [SystemProperty, string | null][]) => {
-    editManufacturingUnitUseCase.edit(manufacturingUnitId,
-      new Map<string, string>(
-        values.filter(([_, value]) => value !== null)
-          .map(
-            ([systemProperty, value]: [SystemProperty, string | null]) =>
-              [systemProperty.id, value] as [string, string])),
-      {
-        onSuccess: () => console.log("saved successfully"),
-        onComponentAdded: () => console.log("Component added"),
-        onTestSystemAdded: () => console.log("TestSystem added"),
-      });
+    const nonNullRows = values.filter(({ value }) => value !== null)
+    const entryArray = nonNullRows.map((systemPropertyRow: SystemPropertyRow) =>
+      [systemPropertyRow.id, systemPropertyRow.value] as [string, string]);
+    const editMap = new Map<string, string>(entryArray);
+
+    axiosInstance.put(`/manufacturingUnits/${manufacturingUnitId}`, Object.fromEntries(editMap))
+      .then(() => console.log("saved successfully."));
   }
+
+  const schema = manufacturingUnit?.schema;
+  const systemPropertyRows: SystemPropertyRow[] = schema?.map(systemPropertyModel => ({ ...systemPropertyModel, value: manufacturingUnit!.systemPropertyValues.get(systemPropertyModel.id) ?? null })) ?? [];
 
   return (
     <div className="Detail">
@@ -133,14 +60,14 @@ function ManufacturingUnitDetail() {
           <Grid container spacing={1}>
             <Grid item xs={10}>
               <SubSystemBreadCrumbs
-                manufacturingUnit={manufacturingUnit}
+                manufacturingUnit={manufacturingUnit && { id: manufacturingUnit.id, name: manufacturingUnit.systemPropertyValues.get("name") }}
               />
             </Grid>
             <Grid item xs={1}></Grid>
           </Grid>
           {manufacturingUnit && (
             <SystemPropertyOverview
-              systemPropertyValues={manufacturingUnit.getRelevantSystemProperties()}
+              systemPropertyValues={systemPropertyRows}
               saveValues={saveValues}
             />
           )}
@@ -151,7 +78,7 @@ function ManufacturingUnitDetail() {
                   <TableToolbar title={t("manufacturingUnitDetail.testSystems")}></TableToolbar>
                   <InnerSubSystemTable
                     subSystems={manufacturingUnit.testSystems}
-                    shownSystemProperties={shownTestSystemSystemProperties}
+                    shownSystemPropertyIds={shownTestSystemSystemPropertyIds}
                     selectSubSystem={selectTestSystem}
                   />
                 </>
@@ -166,7 +93,7 @@ function ManufacturingUnitDetail() {
                   <TableToolbar title={t("manufacturingUnitDetail.components")}></TableToolbar>
                   <InnerSubSystemTable
                     subSystems={manufacturingUnit.components}
-                    shownSystemProperties={shownComponentSystemProperties}
+                    shownSystemPropertyIds={shownComponentSystemPropertyIds}
                     selectSubSystem={selectComponent}
                   />
                 </>

@@ -1,6 +1,5 @@
 import { ComponentType } from "../..";
 import { Component } from "../../entities/Component";
-import { CreateComponentCallbacks } from "./CreateComponentCallbacks";
 import { CreateComponentRepository } from "./CreateComponentRepository";
 
 
@@ -12,25 +11,25 @@ export class CreateComponentUseCase {
 
     }
 
-    public getComponentTypes(callbacks: CreateComponentCallbacks) {
-        callbacks.setComponentTypes(this.repository.getComponentTypes());
+    public async getComponentTypes(): Promise<ComponentType[]> {
+        const componentTypes = await this.repository.getComponentTypes();
+        return componentTypes;
     }
 
-    public createComponent(typeId: string, callbacks: CreateComponentCallbacks): Component {
-       const newComponent = this.repository.createComponent(typeId, new Map());
-        callbacks.onCreateComplete();
-        return newComponent;
+    public async createComponent(typeId: string): Promise<Component> {
+        return this.repository.createComponent(typeId, new Map());
     }
 
-    public createDuplicateComponent(componentId: string, callbacks: CreateComponentCallbacks) {
-        const duplicate = this.repository.getComponent(componentId);
+    public async createDuplicateComponent(componentId: string): Promise<Component> {
+        const duplicate = await this.repository.getComponent(componentId);
 
         const systemPropertyValues = duplicate.systemPropertyValues;
         const name = this.createNewName(systemPropertyValues.get('name') ?? 'New Component');
         systemPropertyValues.set('name', name);
 
-        this.repository.createComponent(duplicate.componentType.id, systemPropertyValues);
-        callbacks.onDuplicateComplete();
+        const newComponent = await this.repository.createComponent(duplicate.componentType.id, systemPropertyValues);
+        return newComponent;
+
     }
 
     private createNewName(oldName: string): string {
@@ -41,6 +40,6 @@ export class CreateComponentUseCase {
             return `${nameWithoutNumber} (${parseInt(number[0]) + 1})`
         } else {
             return `${oldName} (1)`
-        }   
+        }
     }
 }
