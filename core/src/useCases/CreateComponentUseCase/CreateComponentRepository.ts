@@ -1,6 +1,5 @@
 import { ComponentType } from "../../entities";
 import { Component } from "../../entities/Component";
-import { SystemProperty } from "../../entities/SystemProperty";
 
 
 export interface CreateComponentRepository {

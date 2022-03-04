@@ -1,4 +1,3 @@
-import { DeleteManufacturingUnitCallbacks } from "./DeleteManufacturingUnitCallbacks";
 import { DeleteManufacturingUnitRepository } from "./DeleteManufacturingUnitRepository";
 
 
@@ -10,8 +9,7 @@ export class DeleteManufacturingUnitUseCase {
 
     }
 
-    public deleteManufacturingUnit(manufacturingUnitId: String, callbacks?: DeleteManufacturingUnitCallbacks) {
+    public deleteManufacturingUnit(manufacturingUnitId: String) {
         this.repository.deleteManufacturingUnit(manufacturingUnitId);
-        if (callbacks) callbacks.onComplete();
     }
 }

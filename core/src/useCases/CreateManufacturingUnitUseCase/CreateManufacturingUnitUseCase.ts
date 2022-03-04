@@ -1,5 +1,4 @@
 import { ManufacturingUnit } from "../../entities/ManufacturingUnit";
-import { CreateManufacturingUnitCallbacks } from "./CreateManufacturingUnitCallbacks";
 import { CreateManufacturingUnitRepository } from "./CreateManufacturingUnitRepository";
 
 
@@ -11,17 +10,16 @@ export class CreateManufacturingUnitUseCase {
 
     }
 
-    public async createManufacturingUnit(callbacks?: CreateManufacturingUnitCallbacks): Promise<ManufacturingUnit> {
+    public async createManufacturingUnit(): Promise<ManufacturingUnit> {
         var systemPropertyValues = new Map<string, string>();
         systemPropertyValues.set("name", "Neue Montageeinheit");
         const schema = await this.repository.getSchema();
         const manufacturingUnit = new ManufacturingUnit(schema, systemPropertyValues);
         const newUnit = await this.repository.createManufacturingUnit(manufacturingUnit);
-        if (callbacks) callbacks.onCreateComplete();
         return newUnit;
     }
 
-    public async createDuplicateManufacturingUnit(manufacturingUnitId: string, callbacks?: CreateManufacturingUnitCallbacks): Promise<ManufacturingUnit> {
+    public async createDuplicateManufacturingUnit(manufacturingUnitId: string): Promise<ManufacturingUnit> {
         const duplicate = await this.repository.getManufacturingUnit(manufacturingUnitId);
         const manufacturingUnit = new ManufacturingUnit(duplicate.getSchema(), duplicate.systemPropertyValues);
         const name = manufacturingUnit.getSystemPropertyValue('name');
@@ -29,7 +27,6 @@ export class CreateManufacturingUnitUseCase {
             manufacturingUnit.editSystemPropertyValue('name', this.createNewName(name))
         }
         const newUnit = await this.repository.createManufacturingUnit(manufacturingUnit);
-        if (callbacks) callbacks.onDuplicateComplete();
         return newUnit;
     }
 

@@ -1,4 +1,3 @@
-import { DeleteTestSystemCallbacks } from "./DeleteTestSystemCallbacks";
 import { DeleteTestSystemRepository } from "./DeleteTestSystemRepository";
 
 
@@ -10,8 +9,7 @@ export class DeleteTestSystemUseCase {
 
     }
 
-    public deleteTestSystem(testSystemId: String, callbacks?: DeleteTestSystemCallbacks) {
+    public deleteTestSystem(testSystemId: String) {
         this.repository.deleteTestSystem(testSystemId);
-        if (callbacks) callbacks.onComplete();
     }
 }

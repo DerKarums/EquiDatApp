@@ -1,6 +1,5 @@
 import { ComponentType } from "../..";
 import { Component } from "../../entities/Component";
-import { CreateComponentCallbacks } from "./CreateComponentCallbacks";
 import { CreateComponentRepository } from "./CreateComponentRepository";
 
 
@@ -12,19 +11,16 @@ export class CreateComponentUseCase {
 
     }
 
-    public async getComponentTypes(callbacks?: CreateComponentCallbacks): Promise<ComponentType[]> {
+    public async getComponentTypes(): Promise<ComponentType[]> {
         const componentTypes = await this.repository.getComponentTypes();
-        if (callbacks) callbacks.setComponentTypes(componentTypes);
         return componentTypes;
     }
 
-    public async createComponent(typeId: string, callbacks?: CreateComponentCallbacks): Promise<Component> {
-        const newComponent = await this.repository.createComponent(typeId, new Map());
-        if (callbacks) callbacks.onCreateComplete();
-        return Promise.resolve(newComponent);
+    public async createComponent(typeId: string): Promise<Component> {
+        return this.repository.createComponent(typeId, new Map());
     }
 
-    public async createDuplicateComponent(componentId: string, callbacks?: CreateComponentCallbacks): Promise<Component> {
+    public async createDuplicateComponent(componentId: string): Promise<Component> {
         const duplicate = await this.repository.getComponent(componentId);
 
         const systemPropertyValues = duplicate.systemPropertyValues;
@@ -32,8 +28,7 @@ export class CreateComponentUseCase {
         systemPropertyValues.set('name', name);
 
         const newComponent = await this.repository.createComponent(duplicate.componentType.id, systemPropertyValues);
-        if (callbacks) callbacks.onDuplicateComplete();
-        return Promise.resolve(newComponent);
+        return newComponent;
 
     }
 

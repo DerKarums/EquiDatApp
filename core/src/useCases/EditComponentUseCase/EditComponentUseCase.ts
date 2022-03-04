@@ -1,5 +1,4 @@
 import { Component } from "../../entities";
-import { EditComponentCallbacks } from "./EditComponentCallbacks";
 import { EditComponentRepository } from "./EditComponentRepository";
 
 
@@ -10,9 +9,8 @@ export class EditComponentUseCase {
     ) {
     }
     
-    public async edit(id: string, newValues: Map<string, string>, callbacks?: EditComponentCallbacks): Promise<Component> {
+    public async edit(id: string, newValues: Map<string, string>): Promise<Component> {
         const component = await this.repository.editComponent(id, newValues);
-        if (callbacks) callbacks.onSuccess();
         return component;
     }
 }

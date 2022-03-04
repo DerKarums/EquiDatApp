@@ -1,5 +1,4 @@
 import { TestSystem } from "../../entities/TestSystem";
-import { CreateTestSystemCallbacks } from "./CreateTestSystemCallbacks";
 import { CreateTestSystemRepository } from "./CreateTestSystemRepository";
 
 
@@ -11,17 +10,16 @@ export class CreateTestSystemUseCase {
 
     }
 
-    public async createTestSystem(callbacks?: CreateTestSystemCallbacks): Promise<TestSystem> {
+    public async createTestSystem(): Promise<TestSystem> {
         var systemPropertyValues = new Map<string, string>();
         systemPropertyValues.set("name", "Neues Testsystem");
         const schema = await this.repository.getSchema()
         const testSystem = new TestSystem(schema, systemPropertyValues);
         const newTestSystem = await this.repository.createTestSystem(testSystem);
-        if (callbacks) callbacks.onCreateComplete();
         return newTestSystem;
     }
 
-    public async createDuplicateTestSystem(testSystemId: string, callbacks?: CreateTestSystemCallbacks): Promise<TestSystem> {
+    public async createDuplicateTestSystem(testSystemId: string): Promise<TestSystem> {
         const duplicate = await this.repository.getTestSystem(testSystemId);
         const testSystem = new TestSystem(duplicate.getSchema(), duplicate.systemPropertyValues);
         
@@ -30,7 +28,6 @@ export class CreateTestSystemUseCase {
             testSystem.editSystemPropertyValue('name', this.createNewName(name))
         }
         const newTestSystem = await this.repository.createTestSystem(testSystem);
-        if (callbacks)  callbacks.onDuplicateComplete();
         return newTestSystem;
     }
 

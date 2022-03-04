@@ -1,5 +1,4 @@
 import { TestSystem } from "../../entities";
-import { ShowTestSystemCallbacks } from "./ShowTestSystemCallbacks";
 import { ShowTestSystemRepository } from "./ShowTestSystemRepository";
 
 
@@ -11,9 +10,7 @@ export class ShowTestSystemUseCase {
 
     }
 
-    public async getTestSystem(id: string, callbacks?: ShowTestSystemCallbacks): Promise<TestSystem> {
-        const testSystem = await this.repository.getTestSystem(id);
-        if (callbacks) callbacks.setTestSystem(testSystem);
-        return testSystem;
+    public async getTestSystem(id: string): Promise<TestSystem> {
+        return await this.repository.getTestSystem(id);
     }
 }
