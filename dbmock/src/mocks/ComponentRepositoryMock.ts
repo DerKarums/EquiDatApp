@@ -10,8 +10,8 @@ export class ComponentRepositoryMock implements CreateComponentRepository, ShowC
         return Promise.resolve([...componentTypes.values()]);
     }
 
-    getComponents(): Component[] {
-        return [...components.values()];
+    getComponents(): Promise<Component[]> {
+        return Promise.resolve([...components.values()]);
     }
 
     createComponent(componentTypeId: string, systemPropertyValues: Map<string, string>): Promise<Component> {
