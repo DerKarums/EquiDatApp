@@ -5,9 +5,6 @@ import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
 import axiosInstance from "../../httpclient/axiosProvider";
 import { mapToManufacturingUnitDetailModel } from "../../mappers/viewmapper";
-import {
-  editManufacturingUnitUseCase
-} from "../../providers/UseCaseProvider";
 import { SystemPropertyRow } from "../../types/types";
 import SubSystemBreadCrumbs from "../shared/breadcrumbs/SubSystemBreadCrumbs";
 import TableToolbar from "../shared/TableToolbar";
@@ -36,9 +33,9 @@ function ManufacturingUnitDetail() {
     "installation_date",
     "decommissioning_date",
   ];
-  
+
   const shownComponentSystemPropertyIds = ["name", "manufacturer", "type_name_manufacturer"];
-        
+
   const selectTestSystem = (id: string) => history.push(`/testSystems/${id}`);
   const selectComponent = (id: string) => history.push(`/components/${id}`);
 
@@ -49,15 +46,12 @@ function ManufacturingUnitDetail() {
       [systemPropertyRow.id, systemPropertyRow.value] as [string, string]);
     const editMap = new Map<string, string>(entryArray);
 
-    editManufacturingUnitUseCase.edit(manufacturingUnitId, editMap, {
-      onSuccess: () => console.log("saved successfully"),
-      onComponentAdded: () => console.log("Component added"),
-      onTestSystemAdded: () => console.log("TestSystem added"),
-    });
+    axiosInstance.put(`/manufacturingUnits/${manufacturingUnitId}`, Object.fromEntries(editMap))
+      .then(() => console.log("saved successfully."));
   }
 
   const schema = manufacturingUnit?.schema;
-  const systemPropertyRows: SystemPropertyRow[] = schema?.map(systemPropertyModel => ({...systemPropertyModel, value: manufacturingUnit!.systemPropertyValues.get(systemPropertyModel.id) ?? null}) ) ?? [];
+  const systemPropertyRows: SystemPropertyRow[] = schema?.map(systemPropertyModel => ({ ...systemPropertyModel, value: manufacturingUnit!.systemPropertyValues.get(systemPropertyModel.id) ?? null })) ?? [];
 
   return (
     <div className="Detail">

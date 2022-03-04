@@ -1,9 +1,8 @@
-import { DeleteTestSystemCallbacks, TestSystemOverviewModel } from 'core';
+import { TestSystemOverviewModel } from 'core';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axiosInstance from '../../httpclient/axiosProvider';
 import { mapToTestSystemDetailModel, mapToTestSystemOverviewModel } from '../../mappers/viewmapper';
-import { useCases } from '../../providers/UseCaseProvider';
 import SubSystemOverview from './SubSystemOverview';
 
 
@@ -19,13 +18,6 @@ function TestSystemsOverview() {
             .then(response => response.data.map((testSystem: any) => mapToTestSystemOverviewModel(testSystem)))
             .then((testSystemModels: TestSystemOverviewModel[]) => setTestSystems(testSystemModels))
     }
-
-    const deleteCallback: DeleteTestSystemCallbacks = {
-        onComplete: () => {
-            reloadTestSystems();
-        }
-    }
-
 
     const selectSubSystem = (id: string): void => {
         history.push(`testSystems/${id}`)

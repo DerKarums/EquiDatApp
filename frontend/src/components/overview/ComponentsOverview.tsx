@@ -1,9 +1,8 @@
-import { ComponentDetailModel, ComponentOverviewModel, ComponentType, ComponentTypeModel, CreateComponentCallbacks, DeleteComponentCallbacks } from 'core';
+import { ComponentDetailModel, ComponentOverviewModel, ComponentTypeModel } from 'core';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axiosInstance from '../../httpclient/axiosProvider';
 import { mapToComponentOverviewModel } from '../../mappers/viewmapper';
-import { useCases } from '../../providers/UseCaseProvider';
 import ComponentTypeDialog from './ComponentTypeDialog';
 import SubSystemOverview from './SubSystemOverview';
 

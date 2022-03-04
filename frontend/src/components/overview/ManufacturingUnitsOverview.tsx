@@ -1,9 +1,8 @@
-import { DeleteManufacturingUnitCallbacks, ManufacturingUnitOverviewModel } from 'core';
+import { ManufacturingUnitOverviewModel } from 'core';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axiosInstance from '../../httpclient/axiosProvider';
 import { mapToManufacturingUnitDetailModel, mapToManufacturingUnitOverviewModel } from '../../mappers/viewmapper';
-import { useCases } from '../../providers/UseCaseProvider';
 import SubSystemOverview from './SubSystemOverview';
 
 
@@ -18,12 +17,6 @@ function ManufacturingUnitsOverview() {
         axiosInstance.get('/manufacturingUnits')
             .then(response => response.data.map((manufacturingUnit: any) => mapToManufacturingUnitOverviewModel(manufacturingUnit)))
             .then((manufacturingUnitModels: ManufacturingUnitOverviewModel[]) => setManufacturingUnits(manufacturingUnitModels))
-    }
-
-    const deleteCallback: DeleteManufacturingUnitCallbacks = {
-        onComplete: () => {
-            reloadManufacturingUnits()
-        }
     }
 
     const selectSubSystem = (id: string): void => {

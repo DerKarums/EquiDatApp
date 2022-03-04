@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axiosInstance from "../../httpclient/axiosProvider";
 import { mapToComponentDetailModel } from "../../mappers/viewmapper";
-import { editComponentUseCase } from "../../providers/UseCaseProvider";
 import { SystemPropertyRow } from "../../types/types";
 import SubSystemBreadCrumbs from "../shared/breadcrumbs/SubSystemBreadCrumbs";
 import SystemPropertyOverview from "./SystemPropertyOverview";
@@ -27,8 +26,10 @@ function ComponentDetail() {
       [systemPropertyRow.id, systemPropertyRow.value] as [string, string]);
     const editMap = new Map<string, string>(entryArray);
 
-    editComponentUseCase.edit(componentId, editMap, { onSuccess: () => { console.log("saved successfully") } });
-  }
+    axiosInstance.put(`/components/${componentId}`, Object.fromEntries(editMap))
+      .then(() => console.log("saved successfully."));
+
+    }
 
   const schema = component?.type.systemProperties;
   const systemPropertyRows: SystemPropertyRow[] = schema?.map(systemPropertyModel => ({ ...systemPropertyModel, value: component!.systemPropertyValues.get(systemPropertyModel.id) ?? null })) ?? [];
