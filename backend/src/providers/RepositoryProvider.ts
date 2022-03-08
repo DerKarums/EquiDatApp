@@ -1,6 +1,8 @@
 import { ComponentRepositoryMock, ManufacturingUnitRepositoryMock, TestSystemRepositoryMock } from "dbmock";
 import { databaseMocked } from "@/config";
 import { TestSystemRepository } from "@/database/TestSystemRepository";
+import { ComponentRepository } from "@/database/ComponentRepository";
+import { ManufacturingUnitRepository } from "@/database/ManufacturingUnitRepository";
 
 export const repositoryProvider =
     databaseMocked ?
