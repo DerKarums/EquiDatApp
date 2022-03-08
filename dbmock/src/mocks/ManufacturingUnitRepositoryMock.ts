@@ -4,8 +4,8 @@ import { manufacturingUnits, manufacturingUnitSchema, components, testSystems } 
 export class ManufacturingUnitRepositoryMock implements CreateManufacturingUnitRepository, ShowManufacturingUnitRepository, AllManufacturingUnitsRepository, EditManufacturingUnitRepository, DeleteManufacturingUnitRepository {
 
 
-    getManufacturingUnits(): ManufacturingUnit[] {
-        return [...manufacturingUnits.values()];
+    getManufacturingUnits(): Promise<ManufacturingUnit[]> {
+        return Promise.resolve([...manufacturingUnits.values()]);
     }
 
     createManufacturingUnit(manufacturingUnit: ManufacturingUnit): Promise<ManufacturingUnit> {
