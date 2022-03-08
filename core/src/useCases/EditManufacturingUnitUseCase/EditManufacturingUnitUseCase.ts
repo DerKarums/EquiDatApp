@@ -1,4 +1,4 @@
-import { EditManufacturingUnitCallbacks } from "./EditManufacturingUnitCallbacks";
+import { ManufacturingUnit } from "../../entities";
 import { EditManufacturingUnitRepository } from "./EditManufacturingUnitRepository";
 
 
@@ -9,20 +9,18 @@ export class EditManufacturingUnitUseCase {
     ) {
     }
     
-    public edit(id: string, newValues: Map<string, string>, callbacks: EditManufacturingUnitCallbacks): void {
-        this.repository.editManufacturingUnit(id, newValues);
-        callbacks.onSuccess();
+    public async edit(id: string, newValues: Map<string, string>): Promise<ManufacturingUnit> {
+        const manufacturingUnit = this.repository.editManufacturingUnit(id, newValues);
+        return manufacturingUnit;
     }
 
-    public addTestSystemToManufacturingUnit(manufacturingUnitId: string, testSystemId: string, callbacks: EditManufacturingUnitCallbacks): void {
+    public addTestSystemToManufacturingUnit(manufacturingUnitId: string, testSystemId: string): void {
         this.repository.addTestSystemToManufacturingUnit(manufacturingUnitId, testSystemId);
         this.repository.setTestSystemParentManufacturingUnit(testSystemId, manufacturingUnitId);
-        callbacks.onTestSystemAdded();
     }
 
-    public addComponentToManufacturingUnit(manufacturingUnitId: string, componentId: string, callbacks: EditManufacturingUnitCallbacks): void {
+    public addComponentToManufacturingUnit(manufacturingUnitId: string, componentId: string): void {
         this.repository.addComponentToManufacturingUnit(manufacturingUnitId, componentId);
         this.repository.setComponentParentManufacturingUnit(componentId, manufacturingUnitId);
-        callbacks.onComponentAdded();
     }
 }

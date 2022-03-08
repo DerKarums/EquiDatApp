@@ -1,11 +1,14 @@
 import { Breadcrumbs } from "@mui/material";
-import { ManufacturingUnit, TestSystem , Component} from "../../../../../core/dist";
 import BreadCrumbLink from "./BreadCrumbLink";
 
+interface BreadCrumbEntry {
+    id: string;
+    name?: string;
+}
 interface SubSystemBreadCrumbsProps {
-    manufacturingUnit?: ManufacturingUnit | null;
-    testSystem?: TestSystem | null;
-    component?: Component | null;
+    manufacturingUnit?: BreadCrumbEntry | null | undefined;
+    testSystem?: BreadCrumbEntry | null | undefined;
+    component?: BreadCrumbEntry | null | undefined;
 }
 
 const SubSystemBreadCrumbs = ({ manufacturingUnit, testSystem, component }: SubSystemBreadCrumbsProps) => {
@@ -16,21 +19,21 @@ const SubSystemBreadCrumbs = ({ manufacturingUnit, testSystem, component }: SubS
         <Breadcrumbs aria-label="breadcrumb">
             {manufacturingUnit &&
                 <BreadCrumbLink
-                    label={manufacturingUnit.getSystemPropertyValue("name") ?? "#"}
+                    label={manufacturingUnit.name ?? "#"}
                     targetUrl={`/manufacturingUnits/${manufacturingUnit.id}`}
                     active={lastLink !== "manufacturingUnit"}
                 />}
 
             {testSystem &&
                 <BreadCrumbLink
-                    label={testSystem.getSystemPropertyValue("name") ?? "#"}
+                    label={testSystem.name ?? "#"}
                     targetUrl={`/testSystems/${testSystem.id}`}
                     active={lastLink !== "testSystem"}
                 />}
 
             {component &&
                 <BreadCrumbLink
-                    label={component.getSystemPropertyValue("name") ?? "#"}
+                    label={component.name ?? "#"}
                     targetUrl={`/components/${component.id}`}
                     active={lastLink !== "component"}
                 />}

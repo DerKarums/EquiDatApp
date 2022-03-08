@@ -3,6 +3,7 @@ import { TestSystem } from "../../entities/TestSystem";
 
 
 export interface AllTestSystemsRepository {
-  getTestSystems(): TestSystem[];
-  getSystemPropertiesByIds(ids: string[]): { systemProperty: SystemProperty | null, id: string }[];
+  getTestSystems(): Promise<TestSystem[]>;
+  getTestSystemSchema(): Promise<SystemProperty[]>;
+  getFilteredResults(filterOptions: Map<string, string>): Promise<TestSystem[]>;
 }

@@ -1,5 +1,5 @@
 import { Component } from '../../entities/Component';
 
 export interface ShowComponentRepository {
-    getComponent(id: string): Component;
+    getComponent(id: string): Promise<Component>;
 }

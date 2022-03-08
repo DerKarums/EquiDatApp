@@ -6,6 +6,7 @@ export class ComponentType {
     constructor(private _systemProperties: SystemProperty[], private readonly _id = uuid()) {
     }
 
+
     addSystemProperty(systemProperty: SystemProperty) {
         this._systemProperties.push(systemProperty);
     }

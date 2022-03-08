@@ -15,10 +15,11 @@ import { SystemProperty } from "core";
 import { useState } from "react";
 import SystemPropertyDisplayRow from "./SystemPropertyDisplayRow";
 import { useTranslation } from "react-i18next";
+import { SystemPropertyRow } from "../../types/types" 
 
 interface SystemPropertyOverviewProps {
-  systemPropertyValues: Map<SystemProperty, string | null>;
-  saveValues(values: [SystemProperty, string | null][]): void
+  systemPropertyValues: SystemPropertyRow[];
+  saveValues(values: SystemPropertyRow[]): void
 }
 
 function SystemPropertyOverview({
@@ -28,9 +29,9 @@ function SystemPropertyOverview({
   const { t } = useTranslation();
 
   const [mode, setMode] = useState<Mode>("display");
-  const [values, setValues] = useState(Array.from(systemPropertyValues));
+  const [values, setValues] = useState(systemPropertyValues);
 
-  const [valueBackup, setValueBackup] = useState<[SystemProperty, string | null][]>([]);
+  const [valueBackup, setValueBackup] = useState<SystemPropertyRow[]>([]);
 
   const switchMode = () => {
     if (mode === "display") {
@@ -51,7 +52,11 @@ function SystemPropertyOverview({
     <Grid container spacing={1}>
       <Grid item xs={11}>
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Table sx={{ width: "100%" }} aria-label="simple table">
+            <colgroup>
+              <col style={{ width: "30%"}} />
+              <col style={{ width: "70%"}} />
+            </colgroup>
             <TableHead>
               <TableRow>
                 <TableCell>{t("systemPropertyOverview.title")}</TableCell>
@@ -59,13 +64,14 @@ function SystemPropertyOverview({
               </TableRow>
             </TableHead>
             <TableBody>
-              {values.map(([systemProperty, value], index) => (
+              {values.map(({id, value, type}: SystemPropertyRow, index: number) => (
                 <SystemPropertyDisplayRow
-                  key={systemProperty.id}
-                  systemProperty={systemProperty}
+                  key={id}
+                  label={t("subsystems." + id)}
+                  type={type}
                   value={value}
                   mode={mode}
-                  setValue={(newValue) => setValues(modifyAt(values, index, ([key, _]: [SystemProperty, string | null]) => [key, newValue]))}
+                  setValue={(newValue) => setValues(modifyAt(values, index, (systemPropertyRow: SystemPropertyRow) => ({...systemPropertyRow, value: newValue})))}
                 />
               ))}
             </TableBody>

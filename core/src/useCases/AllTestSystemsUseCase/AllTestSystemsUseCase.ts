@@ -1,7 +1,6 @@
-import { ComponentModel } from "../AllComponentsUseCase/ComponentModel";
-import { AllTestSystemsCallbacks } from "./AllTestSystemsCallbacks";
+import { TestSystem } from "../../entities";
 import { AllTestSystemsRepository } from "./AllTestSystemsRepository";
-import { TestSystemModel } from "./TestSystemModel";
+import SystemPropertyFilterModel from "./SystemPropertyFilterModel";
 
 
 export class AllTestSystemsUseCase {
@@ -9,17 +8,21 @@ export class AllTestSystemsUseCase {
     private repository: AllTestSystemsRepository,
   ) { }
 
-  public getAllTestSystems(callbacks: AllTestSystemsCallbacks) {
-    const testSystems = this.repository.getTestSystems();
-    const testSystemModels = testSystems.map(testSystem => {
-      const componentModels = testSystem.components.map(component => new ComponentModel(component.getRelevantSystemProperties()));
-      return new TestSystemModel(testSystem.getRelevantSystemProperties(), componentModels);
-    });
-    callbacks.setTestSystems(testSystems);
+  public async getAllTestSystems(): Promise<TestSystem[]> {
+    return this.repository.getTestSystems();
   }
-  
-  public getSystemPropertiesByIds(ids: string[], callbacks: AllTestSystemsCallbacks) {
-    const systemProperties = this.repository.getSystemPropertiesByIds(ids);
-    callbacks.setRequestedSystemProperties(systemProperties);
+
+  async getFilterOptions(): Promise<SystemPropertyFilterModel[]> {
+    let allSystemProperties = await this.repository.getTestSystemSchema();
+    const filterOptions = allSystemProperties.map(prop => new SystemPropertyFilterModel(prop.id));
+    return filterOptions;
+  }
+
+  /**
+   * Takes filter options and returns TestSystems
+   * @param filterOptions Map of <SystemPropertyID, Value>
+   */
+  async search(filterOptions?: Map<string, string>): Promise<TestSystem[]> {
+    return filterOptions ? this.repository.getFilteredResults(filterOptions) : this.repository.getTestSystems();
   }
 }

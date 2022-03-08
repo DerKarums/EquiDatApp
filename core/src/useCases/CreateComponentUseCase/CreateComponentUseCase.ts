@@ -1,6 +1,5 @@
+import { ComponentType } from "../..";
 import { Component } from "../../entities/Component";
-import { CreateComponentCallbacks } from "./CreateComponentCallbacks";
-import { ComponentModel } from "./ComponentModel";
 import { CreateComponentRepository } from "./CreateComponentRepository";
 
 
@@ -12,22 +11,25 @@ export class CreateComponentUseCase {
 
     }
 
-    public createComponent(componentModel: ComponentModel, callbacks: CreateComponentCallbacks) {
-        const component = new Component(componentModel.componentType);
-        this.repository.createComponent(component);
-        callbacks.onCreateComplete();
+    public async getComponentTypes(): Promise<ComponentType[]> {
+        const componentTypes = await this.repository.getComponentTypes();
+        return componentTypes;
     }
 
-    public createDuplicateComponent(componentId: string, callbacks: CreateComponentCallbacks) {
-        const duplicate = this.repository.getComponent(componentId);
-        const component = new Component(duplicate.componentType, duplicate.systemPropertyValues);
-        
-        const name = component.getSystemPropertyValue('name');
-        if (name != null) {
-            component.editSystemPropertyValue('name', this.createNewName(name))
-        }
-        this.repository.createComponent(component);
-        callbacks.onDuplicateComplete();
+    public async createComponent(typeId: string): Promise<Component> {
+        return this.repository.createComponent(typeId, new Map());
+    }
+
+    public async createDuplicateComponent(componentId: string): Promise<Component> {
+        const duplicate = await this.repository.getComponent(componentId);
+
+        const systemPropertyValues = duplicate.systemPropertyValues;
+        const name = this.createNewName(systemPropertyValues.get('name') ?? 'New Component');
+        systemPropertyValues.set('name', name);
+
+        const newComponent = await this.repository.createComponent(duplicate.componentType.id, systemPropertyValues);
+        return newComponent;
+
     }
 
     private createNewName(oldName: string): string {
@@ -38,6 +40,6 @@ export class CreateComponentUseCase {
             return `${nameWithoutNumber} (${parseInt(number[0]) + 1})`
         } else {
             return `${oldName} (1)`
-        }   
+        }
     }
 }

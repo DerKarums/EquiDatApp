@@ -34,7 +34,7 @@ export class TestSystem extends SubSystem {
 
     public set owningManufacturingUnit(manufacturingUnit: ManufacturingUnit | null) {
         this._owningManufacturingUnit = manufacturingUnit;
-    } 
+    }
 
     public get owningManufacturingUnit(): ManufacturingUnit | null {
         return this._owningManufacturingUnit;

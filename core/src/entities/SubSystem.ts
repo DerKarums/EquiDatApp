@@ -31,7 +31,11 @@ export abstract class SubSystem {
         return new Map(this._systemPropertyValues);
     }
 
-    get id() {
-        return this._id;
+    set systemPropertyValues(newValues: Map<string, string>) {
+        this._systemPropertyValues = newValues;
     }
+
+get id() {
+    return this._id;
+}
 }

@@ -1,7 +1,8 @@
-import { AllManufacturingUnitsCallbacks, ManufacturingUnit, SystemProperty, DeleteManufacturingUnitCallbacks, CreateManufacturingUnitCallbacks } from 'core';
+import { ManufacturingUnitOverviewModel } from 'core';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useCases } from '../../providers/UseCaseProvider';
+import axiosInstance from '../../httpclient/axiosProvider';
+import { mapToManufacturingUnitDetailModel, mapToManufacturingUnitOverviewModel } from '../../mappers/viewmapper';
 import SubSystemOverview from './SubSystemOverview';
 
 
@@ -10,66 +11,47 @@ function ManufacturingUnitsOverview() {
 
     const shownSystemPropertyIds = ["name", "location", "products", "manufacturing_controller", "size"]
 
-    const allManufacturingUnitsUseCase = useCases.allManufacturingUnitsUseCase;
+    const [manufacturingUnits, setManufacturingUnits] = useState<ManufacturingUnitOverviewModel[]>([]);
 
-    const [manufacturingUnits, setManufacturingUnits] = useState<ManufacturingUnit[]>([]);
-    const [shownSystemProperties, setShownSystemProperties] = useState<SystemProperty[]>([]);
-
-    const callback: AllManufacturingUnitsCallbacks = {
-        setManufacturingUnits: setManufacturingUnits,
-        setRequestedSystemProperties: (systemPropertiesByIds: {
-            systemProperty: SystemProperty | null;
-            id: string;
-        }[]) => {
-            setShownSystemProperties(systemPropertiesByIds
-                .map(systemPropertiesByIds => systemPropertiesByIds.systemProperty)
-                .filter(systemProperty => systemProperty !== null) as SystemProperty[]
-            )
-        }
-    }
-
-    const deleteCallback: DeleteManufacturingUnitCallbacks = {
-        onComplete:()=>{
-            allManufacturingUnitsUseCase.getAllManufacturingUnits(callback);
-        }
-    }
-
-    const createCallback: CreateManufacturingUnitCallbacks = {
-        onDuplicateComplete: () => {
-            allManufacturingUnitsUseCase.getAllManufacturingUnits(callback);
-        },
-        onCreateComplete: () => {
-            allManufacturingUnitsUseCase.getAllManufacturingUnits(callback);
-        },
+    const reloadManufacturingUnits = () => {
+        axiosInstance.get('/manufacturingUnits')
+            .then(response => response.data.map((manufacturingUnit: any) => mapToManufacturingUnitOverviewModel(manufacturingUnit)))
+            .then((manufacturingUnitModels: ManufacturingUnitOverviewModel[]) => setManufacturingUnits(manufacturingUnitModels))
     }
 
     const selectSubSystem = (id: string): void => {
         history.push(`manufacturingUnits/${id}`)
     }
 
-    const deleteSubSystem = (id:string): void => {
-        useCases.deleteManufacturingUnitUseCase.deleteManufacturingUnit(id,deleteCallback);
+    const deleteSubSystem = (id: string): void => {
+        axiosInstance.delete(`/manufacturingUnits/${id}`)
+            .then(() => reloadManufacturingUnits())
     }
 
     const duplicateSubSystem = (id: string): void => {
-        useCases.createManufacturingUnitUseCase.createDuplicateManufacturingUnit(id, createCallback);
+        axiosInstance.post('/manufacturingUnits', null, { params: { duplicateManufacturingUnitId: id } })
+            .then(() => reloadManufacturingUnits())
+    }
+
+    const createSubSystem = (): void => {
+        axiosInstance.post('/manufacturingUnits')
+            .then(response => response.data)
+            .then(manufacturingUnit => mapToManufacturingUnitDetailModel(manufacturingUnit))
+            .then((manufacturingUnitDetailModel) => selectSubSystem(manufacturingUnitDetailModel.id))
     }
 
     useEffect(() => {
-        allManufacturingUnitsUseCase.getAllManufacturingUnits(callback);
-    }, [])
-
-    useEffect(() => {
-        allManufacturingUnitsUseCase.getSystemPropertiesByIds(shownSystemPropertyIds, callback);
+        reloadManufacturingUnits()
     }, [])
 
     return (
         <SubSystemOverview
-            shownSystemProperties={ shownSystemProperties }
-            shownSubsystems={ manufacturingUnits }
-            selectSubSystem={ selectSubSystem }
+            shownSystemPropertyIds={shownSystemPropertyIds}
+            shownSubsystems={manufacturingUnits}
+            selectSubSystem={selectSubSystem}
             deleteSubSystem={deleteSubSystem}
             duplicateSubSystem={duplicateSubSystem}
+            createSubSystem={createSubSystem}
         />
     )
 

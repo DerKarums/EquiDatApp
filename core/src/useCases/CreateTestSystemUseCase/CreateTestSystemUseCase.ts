@@ -1,7 +1,5 @@
 import { TestSystem } from "../../entities/TestSystem";
-import { CreateTestSystemCallbacks } from "./CreateTestSystemCallbacks";
 import { CreateTestSystemRepository } from "./CreateTestSystemRepository";
-import { TestSystemModel } from "./TestSystemModel";
 
 
 export class CreateTestSystemUseCase {
@@ -12,23 +10,25 @@ export class CreateTestSystemUseCase {
 
     }
 
-    public createTestSystem(testSystemModel: TestSystemModel, callbacks: CreateTestSystemCallbacks) {
-        const schema = this.repository.getSchema()
-        const testSystem = new TestSystem(schema, testSystemModel.systemPropertyValues);
-        this.repository.createTestSystem(testSystem);
-        callbacks.onCreateComplete();
+    public async createTestSystem(): Promise<TestSystem> {
+        var systemPropertyValues = new Map<string, string>();
+        systemPropertyValues.set("name", "Neues Testsystem");
+        const schema = await this.repository.getSchema()
+        const testSystem = new TestSystem(schema, systemPropertyValues);
+        const newTestSystem = await this.repository.createTestSystem(testSystem);
+        return newTestSystem;
     }
 
-    public createDuplicateTestSystem(testSystemId: string, callbacks: CreateTestSystemCallbacks) {
-        const duplicate = this.repository.getTestSystem(testSystemId);
+    public async createDuplicateTestSystem(testSystemId: string): Promise<TestSystem> {
+        const duplicate = await this.repository.getTestSystem(testSystemId);
         const testSystem = new TestSystem(duplicate.getSchema(), duplicate.systemPropertyValues);
         
         const name = testSystem.getSystemPropertyValue('name');
         if (name != null) {
             testSystem.editSystemPropertyValue('name', this.createNewName(name))
         }
-        this.repository.createTestSystem(testSystem);
-        callbacks.onDuplicateComplete();
+        const newTestSystem = await this.repository.createTestSystem(testSystem);
+        return newTestSystem;
     }
 
     private createNewName(oldName: string): string {

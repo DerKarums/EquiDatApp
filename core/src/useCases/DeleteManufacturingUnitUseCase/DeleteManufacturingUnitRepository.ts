@@ -1,3 +1,3 @@
 export interface DeleteManufacturingUnitRepository {
-    deleteManufacturingUnit(manufacturingUnitId: String): void;
+    deleteManufacturingUnit(manufacturingUnitId: string): void;
 }

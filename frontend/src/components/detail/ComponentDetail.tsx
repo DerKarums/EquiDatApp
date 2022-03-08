@@ -1,30 +1,39 @@
 import { Grid, Stack } from "@mui/material";
-import { Component, SystemProperty } from "core";
+import { ComponentDetailModel } from "core";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { editComponentUseCase, showComponentUseCase } from "../../providers/UseCaseProvider";
+import axiosInstance from "../../httpclient/axiosProvider";
+import { mapToComponentDetailModel } from "../../mappers/viewmapper";
+import { SystemPropertyRow } from "../../types/types";
 import SubSystemBreadCrumbs from "../shared/breadcrumbs/SubSystemBreadCrumbs";
 import SystemPropertyOverview from "./SystemPropertyOverview";
 
 function ComponentDetail() {
   const { componentId } = useParams() as { componentId: string };
-  const [component, setComponent] = useState<Component | null>(null);
+  const [component, setComponent] = useState<ComponentDetailModel | null>(null);
 
   useEffect(() => {
-    showComponentUseCase.getComponent(componentId, {
-      setComponent: (component: Component) => setComponent(component),
-    });
-  }, []);
+    axiosInstance.get(`/components/${componentId}`)
+      .then(response => response.data)
+      .then(entry => mapToComponentDetailModel(entry))
+      .then((componentDetailModel: ComponentDetailModel) => setComponent(componentDetailModel))
+  }, [componentId]);
 
-  const saveValues = (values: [SystemProperty, string | null][]) => {
-    editComponentUseCase.edit(componentId,
-      new Map<string, string>(
-        values.filter(([_, value]) => value !== null)
-          .map(
-            ([systemProperty, value]: [SystemProperty, string | null]) =>
-              [systemProperty.id, value] as [string, string])),
-      {onSuccess: () => {console.log("saved successfully")}});
-  }
+  const saveValues = (values: SystemPropertyRow[]) => {
+
+    const nonNullRows = values.filter(({ value }) => value !== null)
+    const entryArray = nonNullRows.map((systemPropertyRow: SystemPropertyRow) =>
+      [systemPropertyRow.id, systemPropertyRow.value] as [string, string]);
+    const editMap = new Map<string, string>(entryArray);
+
+    axiosInstance.put(`/components/${componentId}`, Object.fromEntries(editMap))
+      .then(() => console.log("saved successfully."));
+
+    }
+
+  const schema = component?.type.systemProperties;
+  const systemPropertyRows: SystemPropertyRow[] = schema?.map(systemPropertyModel => ({ ...systemPropertyModel, value: component!.systemPropertyValues.get(systemPropertyModel.id) ?? null })) ?? [];
+
 
   return (
     <div className="Detail">
@@ -33,16 +42,16 @@ function ComponentDetail() {
           <Grid container spacing={1}>
             <Grid item xs={10}>
               <SubSystemBreadCrumbs
-                manufacturingUnit={component?.owningManufacturingUnit}
-                testSystem={component?.owningTestSystem}
-                component={component}
+                manufacturingUnit={component?.owningManufacturingUnit && { id: component.owningManufacturingUnit.id, name: component.owningManufacturingUnit.systemPropertyValues.get("name") }}
+                testSystem={component?.owningTestSystem && { id: component.owningTestSystem.id, name: component.owningTestSystem.systemPropertyValues.get("name") }}
+                component={component && { id: component.id, name: component.systemPropertyValues.get("name") }}
               />
             </Grid>
             <Grid item xs={1}></Grid>
           </Grid>
           {component && (
             <SystemPropertyOverview
-              systemPropertyValues={component?.getRelevantSystemProperties()}
+              systemPropertyValues={systemPropertyRows}
               saveValues={saveValues}
             />
           )}

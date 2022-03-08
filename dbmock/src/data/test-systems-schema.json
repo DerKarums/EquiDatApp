@@ -26,7 +26,7 @@
     },
     {
         "id": "diagram_url",
-        "type": "StringType",
+        "type": "UrlType",
         "isRequired": true
     },
     {
@@ -36,22 +36,22 @@
     },
     {
         "id": "locker_count",
-        "type": "StringType",
+        "type": "NumberType",
         "isRequired": true
     },
     {
         "id": "terminal_box_count",
-        "type": "StringType",
+        "type": "NumberType",
         "isRequired": true
     },
     {
         "id": "installation_date",
-        "type": "StringType",
+        "type": "DateType",
         "isRequired": true
     },
     {
         "id": "decommissioning_date",
-        "type": "StringType",
+        "type": "DateType",
         "isRequired": true
     },
     {

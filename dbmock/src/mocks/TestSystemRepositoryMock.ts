@@ -1,16 +1,41 @@
-import { CreateTestSystemRepository, ShowTestSystemRepository, SystemPropertyType, SystemProperty, TestSystem, AllTestSystemsUseCase, AllTestSystemsCallbacks, EditTestSystemRepository, AllTestSystemsRepository, DeleteTestSystemRepository, Component } from "core"
-import { testSystems, testSystemSchema, components } from "../DataStore";
+import { AllTestSystemsRepository, Component, CreateTestSystemRepository, DeleteTestSystemRepository, EditTestSystemRepository, ShowTestSystemRepository, SystemProperty, TestSystem } from "core";
+import { components, testSystems, testSystemSchema } from "../DataStore";
 
 export class TestSystemRepositoryMock implements CreateTestSystemRepository, ShowTestSystemRepository, AllTestSystemsRepository, EditTestSystemRepository, DeleteTestSystemRepository {
 
 
-    getTestSystems(): TestSystem[] {
-        return [... testSystems.values()];
+    getTestSystemSchema(): Promise<SystemProperty[]> {
+        return Promise.resolve(testSystemSchema);
     }
 
-    createTestSystem(testSystem: TestSystem): void {
+    getFilteredResults(filterOptions: Map<string, string>): Promise<TestSystem[]> {
+        let results: TestSystem[] = [];
+        testSystems.forEach((testSystem) => {
+            filterOptions.forEach((value, id) => {
+                let systemPropertyValue = testSystem.getSystemPropertyValue(id);
+                if (systemPropertyValue === null) {
+                    results = results.filter(result => result.id !== id);
+                }
+                else if (systemPropertyValue.includes(value)) {
+                    results.push(testSystem);
+                }
+                else {
+                    results = results.filter(result => result.id !== id);
+                }
+            });
+        });
+        return Promise.resolve(results);
+    }
+
+
+    getTestSystems(): Promise<TestSystem[]> {
+        return  Promise.resolve([...testSystems.values()]);
+    }
+
+    createTestSystem(testSystem: TestSystem): Promise<TestSystem> {
         console.log("createTestSystem");
         testSystems.set(testSystem.id, testSystem);
+        return Promise.resolve(testSystem);
     }
 
     deleteTestSystem(id: string): void {
@@ -18,25 +43,35 @@ export class TestSystemRepositoryMock implements CreateTestSystemRepository, Sho
         testSystems.delete(id);
     }
 
-    getTestSystem(id: string): TestSystem {
-        return testSystems.get(id) as TestSystem;
+    getTestSystem(id: string): Promise<TestSystem> {
+        const testSystem = testSystems.get(id);
+        if (!testSystem) {
+            return Promise.reject("TestSystem doesn't exist");
+        } else {
+            return Promise.resolve(testSystem);
+        }
     }
 
 
-    getSchema(): SystemProperty[] {
-        return testSystemSchema;
+    getSchema(): Promise<SystemProperty[]> {
+        return Promise.resolve(testSystemSchema);
     }
 
-    getSystemPropertiesByIds(ids: string[]): { systemProperty: SystemProperty | null; id: string; }[] {
-        return ids.map(id => ({ systemProperty: this.getSystemPropertyById(id), id }))
+    getSystemPropertiesByIds(ids: string[]): Promise<{ systemProperty: SystemProperty | null; id: string; }[]> {
+        return Promise.resolve(ids.map(id => ({ systemProperty: this.getSystemPropertyById(id), id })))
     }
 
     getSystemPropertyById(id: string): SystemProperty | null {
-        return this.getSchema().find(systemProperty => systemProperty.id === id) ?? null;
+        return testSystemSchema.find(systemProperty => systemProperty.id === id) ?? null;
     }
 
-    editTestSystem(id: string, newValues: Map<string, string>): void {
-        Array.from(newValues).forEach(([systemPropertyId, value]) => testSystems.get(id)?.editSystemPropertyValue(systemPropertyId, value))
+    editTestSystem(id: string, newValues: Map<string, string>): Promise<TestSystem> {
+        const testSystem = testSystems.get(id);
+        if (!testSystem) {
+            return Promise.reject("TestSystem doesn't exist");
+        }
+        testSystem.systemPropertyValues = newValues;
+        return Promise.resolve(testSystem);
     }
 
     setComponentParentTestSystem(componentId: string, testSystemId: string): void {

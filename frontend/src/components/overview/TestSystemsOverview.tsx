@@ -1,7 +1,8 @@
-import { AllTestSystemsCallbacks, SystemProperty, TestSystem, DeleteTestSystemCallbacks, CreateTestSystemCallbacks } from 'core';
+import { TestSystemOverviewModel } from 'core';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useCases } from '../../providers/UseCaseProvider';
+import axiosInstance from '../../httpclient/axiosProvider';
+import { mapToTestSystemDetailModel, mapToTestSystemOverviewModel } from '../../mappers/viewmapper';
 import SubSystemOverview from './SubSystemOverview';
 
 
@@ -10,70 +11,49 @@ function TestSystemsOverview() {
 
     const shownSystemPropertyIds = ["name", "diagram_id", "installation_date", "test_type"]
 
-    const allTestSystemsUseCase = useCases.allTestSystemsUseCase;
+    const [testSystems, setTestSystems] = useState<TestSystemOverviewModel[]>([]);
 
-    const [testSystems, setTestSystems] = useState<TestSystem[]>([]);
-    const [shownSystemProperties, setShownSystemProperties] = useState<SystemProperty[]>([]);
-
-    const callback: AllTestSystemsCallbacks = {
-        setTestSystems: setTestSystems,
-        setRequestedSystemProperties: (systemPropertiesByIds: {
-            systemProperty: SystemProperty | null;
-            id: string;
-        }[]) => {
-            setShownSystemProperties(systemPropertiesByIds
-                .map(systemPropertiesByIds => systemPropertiesByIds.systemProperty)
-                .filter(systemProperty => systemProperty !== null) as SystemProperty[]
-            )
-        }
+    const reloadTestSystems = () => {
+        axiosInstance.get('/testSystems')
+            .then(response => response.data.map((testSystem: any) => mapToTestSystemOverviewModel(testSystem)))
+            .then((testSystemModels: TestSystemOverviewModel[]) => setTestSystems(testSystemModels))
     }
-
-    const deleteCallback: DeleteTestSystemCallbacks = {
-        onComplete:()=>{
-            allTestSystemsUseCase.getAllTestSystems(callback);
-        }
-    }
-
-    const createCallback: CreateTestSystemCallbacks = {
-        onDuplicateComplete: () => {
-            allTestSystemsUseCase.getAllTestSystems(callback);
-        },
-        onCreateComplete: () => {
-            allTestSystemsUseCase.getAllTestSystems(callback);
-        },
-    }
-
 
     const selectSubSystem = (id: string): void => {
         history.push(`testSystems/${id}`)
     }
-    
+
     const deleteSubSystem = (id: string): void => {
-        useCases.deleteTestSystemUseCase.deleteTestSystem(id,deleteCallback);
+        axiosInstance.post('/testSystems', null, { params: { duplicateManufacturingUnitId: id } })
+            .then(() => reloadTestSystems())
+    }
+
+    const createSubSystem = (): void => {
+        axiosInstance.post('/testSystems')
+            .then(response => response.data)
+            .then(testSystem => mapToTestSystemDetailModel(testSystem))
+            .then((TestSystemDetailModel) => selectSubSystem(TestSystemDetailModel.id))
     }
 
     const duplicateSubSystem = (id: string): void => {
-        useCases.createTestSystemUseCase.createDuplicateTestSystem(id, createCallback);
+        axiosInstance.post('/testSystems', null, {params: {duplicateTestSystemId: id}})
+            .then(() => reloadTestSystems())
     }
 
     useEffect(() => {
-        allTestSystemsUseCase.getAllTestSystems(callback);
-    }, [])
-
-    useEffect(() => {
-        allTestSystemsUseCase.getSystemPropertiesByIds(shownSystemPropertyIds, callback);
+        reloadTestSystems();
     }, [])
 
     return (
         <SubSystemOverview
-            shownSystemProperties={ shownSystemProperties }
-            shownSubsystems={ testSystems }
-            selectSubSystem={ selectSubSystem }
-            deleteSubSystem={ deleteSubSystem }
+            shownSystemPropertyIds={shownSystemPropertyIds}
+            shownSubsystems={testSystems}
+            selectSubSystem={selectSubSystem}
+            deleteSubSystem={deleteSubSystem}
             duplicateSubSystem={duplicateSubSystem}
+            createSubSystem={createSubSystem}
         />
     )
-
 }
 
 export default TestSystemsOverview;

@@ -1,5 +1,5 @@
 import { ManufacturingUnit } from '../../entities/ManufacturingUnit';
 
 export interface ShowManufacturingUnitRepository {
-    getManufacturingUnit(id: string): ManufacturingUnit;
+    getManufacturingUnit(id: string): Promise<ManufacturingUnit>;
 }

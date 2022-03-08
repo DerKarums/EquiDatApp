@@ -3,17 +3,22 @@ import SubSystemTable from './SubSystemTable'
 import { Grid } from '@material-ui/core';
 import IconButton from '@mui/material/IconButton';
 import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
-import { SubSystem, SystemProperty } from 'core';
+import { SystemProperty } from 'core';
+import { SubSystemOverviewModel } from '../../types/types';
 
-interface SubSystemOverviewProps<SubSystemType extends SubSystem> {
-    shownSystemProperties: SystemProperty[];
-    shownSubsystems: SubSystemType[];
+
+interface SubSystemOverviewProps<SubSystemOverviewModelType extends SubSystemOverviewModel> {
+    shownSystemPropertyIds: string[];
+    shownSubsystems: SubSystemOverviewModelType[];
     selectSubSystem(id: string): void;
     deleteSubSystem(id: string): void;
     duplicateSubSystem(id: string): void;
+    createSubSystem(): void;
 }
 
-function SubSystemOverview<SubSystemType extends SubSystem>({ shownSubsystems, shownSystemProperties, selectSubSystem, deleteSubSystem, duplicateSubSystem }: SubSystemOverviewProps<SubSystemType>) {
+
+function SubSystemOverview<SubSystemOverviewModelType extends SubSystemOverviewModel>(
+    { shownSubsystems, shownSystemPropertyIds, selectSubSystem, deleteSubSystem, duplicateSubSystem, createSubSystem }: SubSystemOverviewProps<SubSystemOverviewModelType>) {
 
     return (
         <Grid container spacing={2}>
@@ -23,15 +28,15 @@ function SubSystemOverview<SubSystemType extends SubSystem>({ shownSubsystems, s
             <Grid item xs={11}>
                 <SubSystemTable
                     subSystems={shownSubsystems}
-                    shownSystemProperties={shownSystemProperties}
+                    shownSystemPropertyIds={shownSystemPropertyIds}
                     selectSubSystem={selectSubSystem}
                     deleteSubSystem={deleteSubSystem}
                     duplicateSubSystem={duplicateSubSystem}
                 />
             </Grid>
             <Grid item xs={1}>
-                <IconButton aria-label="add">
-                    <AddToPhotosIcon fontSize="large"/>
+                <IconButton aria-label="add" onClick={() => createSubSystem()}>
+                    <AddToPhotosIcon fontSize="large" />
                 </IconButton>
             </Grid>
         </Grid>

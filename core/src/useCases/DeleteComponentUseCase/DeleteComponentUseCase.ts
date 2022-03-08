@@ -1,4 +1,3 @@
-import { DeleteManufacturingUnitCallbacks } from "../DeleteManufacturingUnitUseCase/DeleteManufacturingUnitCallbacks";
 import { DeleteComponentRepository } from "./DeleteComponentRepository";
 
 
@@ -10,8 +9,8 @@ export class DeleteComponentUseCase {
 
     }
 
-    public deleteComponent(componentId: String, callbacks: DeleteManufacturingUnitCallbacks) {
+    public async deleteComponent(componentId: string): Promise<void> {
         this.repository.deleteComponent(componentId);
-        callbacks.onComplete();
+        return Promise.resolve();
     }
 }
