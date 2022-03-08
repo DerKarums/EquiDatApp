@@ -8,7 +8,7 @@ import morgan from 'morgan';
 import { useExpressServer, getMetadataArgsStorage } from 'routing-controllers';
 import { routingControllersToSpec } from 'routing-controllers-openapi';
 import swaggerUi from 'swagger-ui-express';
-import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN } from '@config';
+import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, databaseMocked } from '@config';
 import errorMiddleware from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
 
@@ -33,6 +33,7 @@ class App {
       logger.info(`=================================`);
       logger.info(`======= ENV: ${this.env} =======`);
       logger.info(` App listening on port ${this.port}`);
+      logger.info(` Database is${databaseMocked ? '' : ' not'} mocked`);
       logger.info(`=================================`);
     });
   }
