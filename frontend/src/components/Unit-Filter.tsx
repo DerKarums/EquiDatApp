@@ -21,6 +21,10 @@ interface FilterProps {
     shownSystemProperties: SystemProperty[];
 }
 
+interface TextFieldValues {
+    value: String;
+}
+
 function Filter({ shownSystemProperties }: FilterProps) {
     const { t } = useTranslation();
 
@@ -45,6 +49,11 @@ function Filter({ shownSystemProperties }: FilterProps) {
 
     const handleClick = (index: number) => {
         setSelectedFilteroptions([...selectedFilteroptions, shownSystemProperties[index]]);
+        const value = "";
+        const newData = textFieldValues.concat({value: value})
+        // newData.push(value);
+        // setTextFieldValues([...textFieldValues, {value: "s"}]);
+        setTextFieldValues(newData);
     };
 
     const [selectedFilteroptions, setSelectedFilteroptions] = useState<SystemProperty[]>([]);
@@ -52,6 +61,16 @@ function Filter({ shownSystemProperties }: FilterProps) {
     const handleDelete = (chipToDelete: SystemProperty) => () => {
         setSelectedFilteroptions((chips) => chips.filter((chip) => chip.id !== chipToDelete.id));
     };
+
+    const [textFieldValues, setTextFieldValues] = useState<TextFieldValues[]>([]);
+
+    const handleValueChange = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value;
+        const newData = {...textFieldValues};
+        newData[index] = {value: value};
+        console.log("Value: " + event.target.value + " Index: " + index)
+        setTextFieldValues(newData);
+    }
 
     return (
         <div>
@@ -102,7 +121,7 @@ function Filter({ shownSystemProperties }: FilterProps) {
                                     </Grid>
                                     {selectedFilteroptions.map((data, index) => {
                                         return (
-                                            <TextField fullWidth variant="outlined" label={t("subsystems." + data.id)} key={index} />
+                                            <TextField fullWidth variant="outlined" label={t("subsystems." + data.id)} value={textFieldValues[index].value} onChange={handleValueChange(index)} key={index} />
                                         );
                                     })}
                                 </Stack>
