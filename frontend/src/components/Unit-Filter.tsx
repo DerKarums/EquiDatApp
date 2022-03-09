@@ -18,11 +18,12 @@ const ListItem = styled('li')(({ theme }) => ({
 }));
 
 interface FilterProps {
-    shownSystemProperties: SystemProperty[];
+    shownSystemProperties: String[];
 }
 
-interface TextFieldValues {
-    value: String;
+interface TextFieldValue {
+    text: String,
+    id: number
 }
 
 function Filter({ shownSystemProperties }: FilterProps) {
@@ -50,24 +51,25 @@ function Filter({ shownSystemProperties }: FilterProps) {
     const handleClick = (index: number) => {
         setSelectedFilteroptions([...selectedFilteroptions, shownSystemProperties[index]]);
         const value = "";
-        const newData = textFieldValues.concat({value: value})
+        const newData = {...textFieldValues, value};
+        // newData.push({value: value, id: index});
         // newData.push(value);
         // setTextFieldValues([...textFieldValues, {value: "s"}]);
         setTextFieldValues(newData);
     };
 
-    const [selectedFilteroptions, setSelectedFilteroptions] = useState<SystemProperty[]>([]);
+    const [selectedFilteroptions, setSelectedFilteroptions] = useState<String[]>([]);
 
-    const handleDelete = (chipToDelete: SystemProperty) => () => {
-        setSelectedFilteroptions((chips) => chips.filter((chip) => chip.id !== chipToDelete.id));
+    const handleDelete = (chipToDelete: String) => () => {
+        setSelectedFilteroptions((chips) => chips.filter((chip) => chip !== chipToDelete));
     };
 
-    const [textFieldValues, setTextFieldValues] = useState<TextFieldValues[]>([]);
+    const [textFieldValues, setTextFieldValues] = useState<TextFieldValue[]>([]);
 
     const handleValueChange = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
         const newData = {...textFieldValues};
-        newData[index] = {value: value};
+        newData[index] = {text: value, id: index};
         console.log("Value: " + event.target.value + " Index: " + index)
         setTextFieldValues(newData);
     }
@@ -104,16 +106,12 @@ function Filter({ shownSystemProperties }: FilterProps) {
                                         component="ul">
                                         {selectedFilteroptions.map((data, index) => {
                                             let icon;
-
-                                            if (data.id === 'React') {
-                                                icon = <TagFacesIcon />;
-                                            }
                                             return (
                                                 <ListItem key={index}>
                                                     <Chip
                                                         icon={icon}
-                                                        label={t("subsystems." + data.id)}
-                                                        onDelete={data.id === 'React' ? undefined : handleDelete(data)}
+                                                        label={t("subsystems." + data)}
+                                                        onDelete={data === 'React' ? undefined : handleDelete(data)}
                                                     />
                                                 </ListItem>
                                             );
@@ -121,7 +119,7 @@ function Filter({ shownSystemProperties }: FilterProps) {
                                     </Grid>
                                     {selectedFilteroptions.map((data, index) => {
                                         return (
-                                            <TextField fullWidth variant="outlined" label={t("subsystems." + data.id)} value={textFieldValues[index].value} onChange={handleValueChange(index)} key={index} />
+                                            <TextField fullWidth variant="outlined" label={t("subsystems." + data)} value={textFieldValues[index].text} onChange={handleValueChange(index)} key={index} />
                                         );
                                     })}
                                 </Stack>
@@ -144,7 +142,7 @@ function Filter({ shownSystemProperties }: FilterProps) {
                                             <ListItem key={index}>
                                                 <Chip
                                                     icon={icon}
-                                                    label={t("subsystems." + data.id)}
+                                                    label={t("subsystems." + data)}
                                                     onClick={(e) => handleClick(index)}
                                                 />
                                             </ListItem>

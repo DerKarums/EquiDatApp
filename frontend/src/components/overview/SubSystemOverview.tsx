@@ -23,7 +23,7 @@ function SubSystemOverview<SubSystemOverviewModelType extends SubSystemOverviewM
     return (
         <Grid container spacing={2}>
             <Grid item xs={11}>
-                <Filter shownSystemProperties={shownSystemProperties}/>
+                <Filter shownSystemProperties={shownSystemPropertyIds}/>
             </Grid>
             <Grid item xs={11}>
                 <SubSystemTable
